@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Kingfisher",
+        "repositoryURL": "https://github.com/onevcat/Kingfisher",
+        "state": {
+          "branch": null,
+          "revision": "017f94ccfdacabb1ae7f45b75b4217b24c06e6ac",
+          "version": "7.4.0"
+        }
+      },
+      {
+        "package": "TinyConstraints",
+        "repositoryURL": "https://github.com/roberthein/TinyConstraints",
+        "state": {
+          "branch": "master",
+          "revision": "a89996a77d364eb85abdd09d42d2274e35ba56dc",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
