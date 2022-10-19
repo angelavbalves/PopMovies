@@ -13,16 +13,16 @@ extension MovieItem {
         id: Int = 0,
         title: String = "",
         overview: String = "",
-        poster_path: String? = nil,
-        release_date: String? = nil
+        posterPath: String? = nil,
+        releaseDate: String? = nil
     ) -> MovieItem {
         .init(
             from: .init(
                 id: id,
                 title: title,
                 overview: overview,
-                poster_path: poster_path,
-                release_date: release_date
+                posterPath: posterPath,
+                releaseDate: releaseDate
             )
         )
     }
