@@ -25,6 +25,14 @@
 		8E6D152C28F83891005E8220 /* MoviesCoreDataTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E6D152A28F83888005E8220 /* MoviesCoreDataTests.swift */; };
 		8EF1BDA828FA087900372CA6 /* FavoriteMovies.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDA628FA087900372CA6 /* FavoriteMovies.xcdatamodeld */; };
 		8EF1BDAB28FE0ADE00372CA6 /* MovieItem+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDAA28FE0ADE00372CA6 /* MovieItem+Stub.swift */; };
+		8EF1BDB328FEF61E00372CA6 /* PopMoviesClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDAE28FEF61E00372CA6 /* PopMoviesClient.swift */; };
+		8EF1BDB428FEF61E00372CA6 /* ApiEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDB028FEF61E00372CA6 /* ApiEndpoints.swift */; };
+		8EF1BDB528FEF61E00372CA6 /* PMService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDB128FEF61E00372CA6 /* PMService.swift */; };
+		8EF1BDB628FEF61E00372CA6 /* Endpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDB228FEF61E00372CA6 /* Endpoint.swift */; };
+		8EF1BDB928FEFD0000372CA6 /* PMServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDB828FEFD0000372CA6 /* PMServiceTests.swift */; };
+		8EF1BDBD28FF066B00372CA6 /* MovieResponse+Fixture.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EF1BDBC28FF066B00372CA6 /* MovieResponse+Fixture.json */; };
+		8EF1BDBF28FF180600372CA6 /* PopMoviesClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDBE28FF180600372CA6 /* PopMoviesClientMock.swift */; };
+		8EF1BDC22900323300372CA6 /* PopMoviesClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDC12900323300372CA6 /* PopMoviesClientProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +65,14 @@
 		8E6D152A28F83888005E8220 /* MoviesCoreDataTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesCoreDataTests.swift; sourceTree = "<group>"; };
 		8EF1BDA728FA087900372CA6 /* FavoriteMovies.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoriteMovies.xcdatamodel; sourceTree = "<group>"; };
 		8EF1BDAA28FE0ADE00372CA6 /* MovieItem+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieItem+Stub.swift"; sourceTree = "<group>"; };
+		8EF1BDAE28FEF61E00372CA6 /* PopMoviesClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopMoviesClient.swift; sourceTree = "<group>"; };
+		8EF1BDB028FEF61E00372CA6 /* ApiEndpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiEndpoints.swift; sourceTree = "<group>"; };
+		8EF1BDB128FEF61E00372CA6 /* PMService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PMService.swift; sourceTree = "<group>"; };
+		8EF1BDB228FEF61E00372CA6 /* Endpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Endpoint.swift; sourceTree = "<group>"; };
+		8EF1BDB828FEFD0000372CA6 /* PMServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMServiceTests.swift; sourceTree = "<group>"; };
+		8EF1BDBC28FF066B00372CA6 /* MovieResponse+Fixture.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "MovieResponse+Fixture.json"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
+		8EF1BDBE28FF180600372CA6 /* PopMoviesClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopMoviesClientMock.swift; sourceTree = "<group>"; };
+		8EF1BDC12900323300372CA6 /* PopMoviesClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopMoviesClientProtocol.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -152,6 +168,7 @@
 		8E6D150B28F49BE1005E8220 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				8EF1BDAD28FEF61E00372CA6 /* Service */,
 				8E6D150A28F49BD5005E8220 /* Models */,
 			);
 			path = Common;
@@ -160,6 +177,8 @@
 		8E6D152128F836A2005E8220 /* PopMoviesTests */ = {
 			isa = PBXGroup;
 			children = (
+				8EF1BDBA28FF064200372CA6 /* Fixtures */,
+				8EF1BDB728FEFCD500372CA6 /* Service */,
 				8EF1BDAC28FE0E5A00372CA6 /* Mocks */,
 				8EF1BDA928FE0AC300372CA6 /* Stubs */,
 				8E6D152928F8385F005E8220 /* CoreData */,
@@ -188,8 +207,54 @@
 			isa = PBXGroup;
 			children = (
 				8E1E118628F88FE900CA4179 /* CoreDataStackMock.swift */,
+				8EF1BDBE28FF180600372CA6 /* PopMoviesClientMock.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		8EF1BDAD28FEF61E00372CA6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				8EF1BDC02900321500372CA6 /* Protocol */,
+				8EF1BDAE28FEF61E00372CA6 /* PopMoviesClient.swift */,
+				8EF1BDAF28FEF61E00372CA6 /* Enums */,
+				8EF1BDB128FEF61E00372CA6 /* PMService.swift */,
+				8EF1BDB228FEF61E00372CA6 /* Endpoint.swift */,
+			);
+			name = Service;
+			path = PopMovies/Service;
+			sourceTree = SOURCE_ROOT;
+		};
+		8EF1BDAF28FEF61E00372CA6 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				8EF1BDB028FEF61E00372CA6 /* ApiEndpoints.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		8EF1BDB728FEFCD500372CA6 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				8EF1BDB828FEFD0000372CA6 /* PMServiceTests.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		8EF1BDBA28FF064200372CA6 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				8EF1BDBC28FF066B00372CA6 /* MovieResponse+Fixture.json */,
+			);
+			path = Fixtures;
+			sourceTree = "<group>";
+		};
+		8EF1BDC02900321500372CA6 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				8EF1BDC12900323300372CA6 /* PopMoviesClientProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -290,6 +355,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EF1BDBD28FF066B00372CA6 /* MovieResponse+Fixture.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,14 +366,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8EF1BDB628FEF61E00372CA6 /* Endpoint.swift in Sources */,
 				8E1E118B28F8B02D00CA4179 /* PopMoviesCoreDataProtocol.swift in Sources */,
 				8E6D150F28F4A4CC005E8220 /* FavoriteMoviesDataSourceProtocol.swift in Sources */,
 				8E1E118928F8AC8B00CA4179 /* PopMoviesCoreDataStack.swift in Sources */,
 				8E6D14E628F46257005E8220 /* ViewController.swift in Sources */,
+				8EF1BDC22900323300372CA6 /* PopMoviesClientProtocol.swift in Sources */,
 				8E6D150D28F49C35005E8220 /* Movie.swift in Sources */,
 				8E6D151728F4AF69005E8220 /* MovieErrorState.swift in Sources */,
 				8E6D14E228F46257005E8220 /* AppDelegate.swift in Sources */,
+				8EF1BDB428FEF61E00372CA6 /* ApiEndpoints.swift in Sources */,
 				8E6D14E428F46257005E8220 /* SceneDelegate.swift in Sources */,
+				8EF1BDB528FEF61E00372CA6 /* PMService.swift in Sources */,
+				8EF1BDB328FEF61E00372CA6 /* PopMoviesClient.swift in Sources */,
 				8EF1BDA828FA087900372CA6 /* FavoriteMovies.xcdatamodeld in Sources */,
 				8E6D150928F4699A005E8220 /* FavoriteMoviesDataSource.swift in Sources */,
 			);
@@ -318,8 +389,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E6D152328F836A2005E8220 /* PopMoviesTests.swift in Sources */,
+				8EF1BDBF28FF180600372CA6 /* PopMoviesClientMock.swift in Sources */,
 				8E1E118728F88FE900CA4179 /* CoreDataStackMock.swift in Sources */,
 				8E6D152C28F83891005E8220 /* MoviesCoreDataTests.swift in Sources */,
+				8EF1BDB928FEFD0000372CA6 /* PMServiceTests.swift in Sources */,
 				8EF1BDAB28FE0ADE00372CA6 /* MovieItem+Stub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
