@@ -12,5 +12,5 @@ enum MovieErrorState: Swift.Error {
     case serverError
     case redirectError
     case noConnection
-    case generic
+    case generic(_ description: String)
 }
