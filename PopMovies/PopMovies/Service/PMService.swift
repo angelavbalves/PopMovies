@@ -12,10 +12,13 @@ struct PMService {
 }
 
 extension PMService {
-    static func live(_ apiClient: Service = .init()) -> Self {
+    static func live(_ apiClient: PopMoviesClientProtocol = PopMoviesClient()) -> Self {
         .init(
             getMovies: { page, result in
-                
+                apiClient.makeRequest(
+                    endpoint: .movies(page: page),
+                    result
+                )
         })
     }
 }
