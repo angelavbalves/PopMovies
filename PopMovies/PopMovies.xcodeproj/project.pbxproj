@@ -35,7 +35,7 @@
 		8EF1BDC22900323300372CA6 /* PopMoviesClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDC12900323300372CA6 /* PopMoviesClientProtocol.swift */; };
 		8EF1BDC729006B3200372CA6 /* DataExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDC629006B3200372CA6 /* DataExt.swift */; };
 		8EF1BDCA2900712600372CA6 /* valid.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EF1BDC92900712600372CA6 /* valid.json */; };
-		8EF1BDCF290071C200372CA6 /* ValidadeDecoderJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDCE290071C200372CA6 /* ValidadeDecoderJSON.swift */; };
+		8EF1BDCF290071C200372CA6 /* ValidadeDecodeJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDCE290071C200372CA6 /* ValidadeDecodeJSON.swift */; };
 		8EF1BDD42901966A00372CA6 /* ColorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDD32901966A00372CA6 /* ColorsApp.swift */; };
 		8EF1BDD629019ABE00372CA6 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDD529019ABE00372CA6 /* Theme.swift */; };
 		8EF1BDD829019AFF00372CA6 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDD729019AFF00372CA6 /* Color.swift */; };
@@ -85,7 +85,7 @@
 		8EF1BDC12900323300372CA6 /* PopMoviesClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopMoviesClientProtocol.swift; sourceTree = "<group>"; };
 		8EF1BDC629006B3200372CA6 /* DataExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExt.swift; sourceTree = "<group>"; };
 		8EF1BDC92900712600372CA6 /* valid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = valid.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
-		8EF1BDCE290071C200372CA6 /* ValidadeDecoderJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidadeDecoderJSON.swift; sourceTree = "<group>"; };
+		8EF1BDCE290071C200372CA6 /* ValidadeDecodeJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidadeDecodeJSON.swift; sourceTree = "<group>"; };
 		8EF1BDD32901966A00372CA6 /* ColorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsApp.swift; sourceTree = "<group>"; };
 		8EF1BDD529019ABE00372CA6 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		8EF1BDD729019AFF00372CA6 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -293,7 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				8EF1BDCB2900715B00372CA6 /* Fixtures */,
-				8EF1BDCE290071C200372CA6 /* ValidadeDecoderJSON.swift */,
+				8EF1BDCE290071C200372CA6 /* ValidadeDecodeJSON.swift */,
 			);
 			path = ValidateDecoderJSON;
 			sourceTree = "<group>";
@@ -552,7 +552,7 @@
 				8E1E118728F88FE900CA4179 /* CoreDataStackMock.swift in Sources */,
 				8E6D152C28F83891005E8220 /* MoviesCoreDataTests.swift in Sources */,
 				8EF1BDB928FEFD0000372CA6 /* PMServiceTests.swift in Sources */,
-				8EF1BDCF290071C200372CA6 /* ValidadeDecoderJSON.swift in Sources */,
+				8EF1BDCF290071C200372CA6 /* ValidadeDecodeJSON.swift in Sources */,
 				8EF1BDAB28FE0ADE00372CA6 /* MovieItem+Stub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
