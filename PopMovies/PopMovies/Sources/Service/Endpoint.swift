@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol Endpoint {
+protocol Endpoint: Equatable {
     var host: String { get }
     var method: String { get }
     var path: String { get }

@@ -47,14 +47,14 @@ class PopMoviesClient: PopMoviesClientProtocol {
         }
     }
 
-    private func makeUrlRequest(endpoint: Endpoint) -> URLRequest? {
+    private func makeUrlRequest(endpoint: ApiEndpoints) -> URLRequest? {
         guard let url = buildUrlWith(endpoint: endpoint) else { return nil }
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = endpoint.method
         return urlRequest
     }
 
-    private func buildUrlWith(endpoint: Endpoint) -> URL? {
+    private func buildUrlWith(endpoint: ApiEndpoints) -> URL? {
         var component = URLComponents()
         component.scheme = "https"
         component.host = endpoint.host
@@ -64,11 +64,4 @@ class PopMoviesClient: PopMoviesClientProtocol {
     }
 }
 
-extension Data {
-    func decodeFromApi<T: Decodable>() throws -> T {
-        let decoder = JSONDecoder()
-        decoder.keyDecodingStrategy = .convertFromSnakeCase
-        let resultsApi = try decoder.decode(T.self, from: self)
-        return resultsApi
-    }
-}
+

@@ -11,8 +11,10 @@ import Foundation
 class PopMoviesClientMock: PopMoviesClientProtocol {
 
     var mockFile: URL?
+    var endpoint: ApiEndpoints?
 
     func makeRequest<T: Decodable>(endpoint: ApiEndpoints, _ completion: @escaping (Result<T, MovieErrorState>) -> Void) {
+        self.endpoint = endpoint
         guard let jsonUrl = mockFile else {
             completion(.failure(.generic("Failed to build JSON URL")))
             return

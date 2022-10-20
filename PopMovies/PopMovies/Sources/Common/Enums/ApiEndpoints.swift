@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum ApiEndpoints {
+enum ApiEndpoints: Equatable {
     case movies(page: Int)
     case similarMovies(id: Int, page: Int)
     case searchMovies(page: Int, query: String)
