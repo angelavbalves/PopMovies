@@ -14,8 +14,10 @@ class PopMoviesView: PMView {
     // MARK: Properties
     var movies: [MovieItem] = []
     var isLoadingMoreMovies = false
+    let didTapOnMovie: (_ movie: MovieItem) -> Void
 
-    override init() {
+    init(didTapOnMovie: @escaping (_ movie: MovieItem) -> Void) {
+        self.didTapOnMovie = didTapOnMovie
         super.init()
         configureSubviews()
         configureConstraints()
@@ -43,10 +45,15 @@ class PopMoviesView: PMView {
     }
 }
 
-extension PopMoviesView: UICollectionViewDelegate {}
+extension PopMoviesView: UICollectionViewDelegate {
+    func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let movie = movies[indexPath.row]
+        didTapOnMovie(movie)
+    }
+}
 
 extension PopMoviesView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         movies.count
     }
 
