@@ -13,7 +13,6 @@ class PMViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-        configureNavController()
     }
 
 
@@ -28,15 +27,5 @@ class PMViewController: UIViewController {
 
     func configureViews() {
         view.backgroundColor = Theme.currentTheme.color.backgroundColor.rawValue
-    }
-
-    func configureNavController() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
-        appearance.backgroundColor = Theme.currentTheme.color.tabBarColor.rawValue
-
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.tintColor = Theme.currentTheme.color.itemsNav.rawValue
     }
 }
