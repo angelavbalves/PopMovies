@@ -39,9 +39,9 @@ class AppCordinator: CoordinatorProtocol {
         tabBarController.configureTabBar()
     }
 
-    func goToDetailsPage() {
+    func routeToDetails(of movie: MovieItem) {
         let detailsViewModel = MovieDetailsViewModel(coordinator: self)
-        let movieDetailsViewController = MovieDetailsViewController(viewModel: detailsViewModel)
+        let movieDetailsViewController = MovieDetailsViewController(movie: movie, viewModel: detailsViewModel)
 
         rootViewController?.present(movieDetailsViewController, animated: true)
     }
