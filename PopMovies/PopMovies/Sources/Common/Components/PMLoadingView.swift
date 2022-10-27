@@ -27,7 +27,6 @@ class PMLoadingView: PMView {
 
     // MARK: - Aux
     override func configureSubviews() {
-        backgroundColor = Theme.currentTheme.color.cellColor.rawValue
         addSubview(activeIndicator)
         activeIndicator.centerInSuperview()
     }
