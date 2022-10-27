@@ -14,9 +14,13 @@ class PopMoviesView: PMView {
     // MARK: Properties
     var movies: [MovieItem] = []
     var isLoadingMoreMovies = false
+    let fetchMoreMovies: () -> Void
     let didTapOnMovie: (_ movie: MovieItem) -> Void
 
-    init(didTapOnMovie: @escaping (_ movie: MovieItem) -> Void) {
+    init(fetchMoreMovies: @escaping () -> Void,
+        didTapOnMovie: @escaping (_ movie: MovieItem) -> Void
+    ) {
+        self.fetchMoreMovies = fetchMoreMovies
         self.didTapOnMovie = didTapOnMovie
         super.init()
         configureSubviews()
@@ -42,6 +46,23 @@ class PopMoviesView: PMView {
     func receive(_ popMovies: [MovieItem]) {
         movies += popMovies
         collectionView.reloadData()
+        isLoadingMoreMovies = false
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        let height = scrollView.frame.size.height
+        let distanceFromBottom = contentHeight - offsetY
+
+        if
+            !isLoadingMoreMovies,
+            contentHeight > height,
+            distanceFromBottom < height
+        {
+            isLoadingMoreMovies = true
+            fetchMoreMovies()
+        }
     }
 }
 
