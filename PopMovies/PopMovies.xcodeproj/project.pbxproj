@@ -58,6 +58,7 @@
 		8EF1BE0F290967B900372CA6 /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BE0E290967B800372CA6 /* Separator.swift */; };
 		8EF1BE112909754900372CA6 /* SimilarMoviesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BE102909754900372CA6 /* SimilarMoviesCell.swift */; };
 		8EF1BE132909D83200372CA6 /* CollectionReusableViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BE122909D83100372CA6 /* CollectionReusableViews.swift */; };
+		8EF1BE16290AC39B00372CA6 /* PMLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BE15290AC39B00372CA6 /* PMLoadingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -123,6 +124,7 @@
 		8EF1BE0E290967B800372CA6 /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		8EF1BE102909754900372CA6 /* SimilarMoviesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimilarMoviesCell.swift; sourceTree = "<group>"; };
 		8EF1BE122909D83100372CA6 /* CollectionReusableViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionReusableViews.swift; sourceTree = "<group>"; };
+		8EF1BE15290AC39B00372CA6 /* PMLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMLoadingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -387,6 +389,7 @@
 				8EF1BDDD2901A15400372CA6 /* PMViewController.swift */,
 				8EF1BDED2901D85500372CA6 /* PMView.swift */,
 				8EF1BE092908512600372CA6 /* PMNavigationController.swift */,
+				8EF1BE15290AC39B00372CA6 /* PMLoadingView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -603,6 +606,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8EF1BE112909754900372CA6 /* SimilarMoviesCell.swift in Sources */,
+				8EF1BE16290AC39B00372CA6 /* PMLoadingView.swift in Sources */,
 				8EF1BE042906D29400372CA6 /* MovieDetailsViewController.swift in Sources */,
 				8EF1BDFF2906CF6F00372CA6 /* AppCordinator.swift in Sources */,
 				8EF1BDF12901DA1D00372CA6 /* CascadeOperator.swift in Sources */,
