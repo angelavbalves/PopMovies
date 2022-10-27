@@ -194,7 +194,7 @@ extension MovieDetailsView: UICollectionViewDataSource {
 extension MovieDetailsView: UICollectionViewDelegateFlowLayout {
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
 
-        let width = UIScreen.main.bounds.width * 0.3
+        let width = UIScreen.main.bounds.width * 0.45
         return CGSize(width: width, height: width * 1.5)
     }
 
