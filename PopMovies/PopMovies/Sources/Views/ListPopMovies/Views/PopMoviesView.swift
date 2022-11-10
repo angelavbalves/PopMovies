@@ -15,13 +15,23 @@ class PopMoviesView: PMView {
     var movies: [MovieItem] = []
     var isLoadingMoreMovies = false
     let fetchMoreMovies: () -> Void
-    let didTapOnMovie: (_ movie: MovieItem) -> Void
+    var favoriteButtonSelectedAction: (_ movie: MovieItem) -> Void
+    var favoriteButtonUnselectedAction: (_ id: Int) -> Void
+    var verifyIfMovieIsInCoreData: (_ id: Int) -> Bool
+    let didTapOnMovie: (_ movie: MovieItem, _ isFavorite: Bool) -> Void
 
-    init(fetchMoreMovies: @escaping () -> Void,
-        didTapOnMovie: @escaping (_ movie: MovieItem) -> Void
+    init(
+        fetchMoreMovies: @escaping () -> Void,
+        didTapOnMovie: @escaping (_ movie: MovieItem, _ isFavorite: Bool) -> Void,
+        favoriteButtonSelectedAction: @escaping (_ movie: MovieItem) -> Void,
+        favoriteButtonUnselectedAction: @escaping (_ id: Int) -> Void,
+        verifyIfMovieIsInCoreData: @escaping (_ id: Int) -> Bool
     ) {
         self.fetchMoreMovies = fetchMoreMovies
         self.didTapOnMovie = didTapOnMovie
+        self.favoriteButtonSelectedAction = favoriteButtonSelectedAction
+        self.favoriteButtonUnselectedAction = favoriteButtonUnselectedAction
+        self.verifyIfMovieIsInCoreData = verifyIfMovieIsInCoreData
         super.init()
         configureSubviews()
         configureConstraints()
@@ -49,6 +59,10 @@ class PopMoviesView: PMView {
         isLoadingMoreMovies = false
     }
 
+    func reloadCollectionView() {
+        collectionView.reloadData()
+    }
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
@@ -68,8 +82,9 @@ class PopMoviesView: PMView {
 
 extension PopMoviesView: UICollectionViewDelegate {
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let movie = movies[indexPath.row]
-        didTapOnMovie(movie)
+        var movie = movies[indexPath.row]
+        movie.isFavorite = verifyIfMovieIsInCoreData(movie.id)
+        didTapOnMovie(movie, movie.isFavorite ?? false)
     }
 }
 
@@ -84,9 +99,10 @@ extension PopMoviesView: UICollectionViewDataSource {
         cell.layer.shadowOpacity = 0.5
         cell.layer.cornerRadius = 8.0
 
-        let movie = movies[indexPath.row]
+        var movie = movies[indexPath.row]
+        let favorite = verifyIfMovieIsInCoreData(movie.id)
+        movie.isFavorite = favorite
         cell.setup(for: movie)
-
         return cell
     }
 }

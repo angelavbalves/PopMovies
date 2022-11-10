@@ -10,9 +10,13 @@ import UIKit
 class PopMoviesViewController: PMViewController {
 
     let viewModel: PopMoviesViewModel
+
     private lazy var collectionView = PopMoviesView(
         fetchMoreMovies: getPopMovies,
-        didTapOnMovie: didTapOnMovieAction(_:)
+        didTapOnMovie: didTapOnMovieAction(_:_:),
+        favoriteButtonSelectedAction: buttonSelected(_:),
+        favoriteButtonUnselectedAction: buttonUnselected(_:),
+        verifyIfMovieIsInCoreData: verifyMovie(_:)
     )
 
     init(viewModel: PopMoviesViewModel) {
@@ -27,8 +31,12 @@ class PopMoviesViewController: PMViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Pop Movies"
-        navigationItem.largeTitleDisplayMode = .always
         getPopMovies()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        collectionView.reloadCollectionView()
     }
 
     func getPopMovies() {
@@ -44,7 +52,19 @@ class PopMoviesViewController: PMViewController {
         }
     }
 
-    func didTapOnMovieAction(_ movie: MovieItem) {
-        viewModel.coordinator?.routeToDetails(of: movie)
+    func didTapOnMovieAction(_ movie: MovieItem, _ favorite: Bool) {
+        viewModel.coordinator?.routeToDetails(of: movie, is: favorite)
+    }
+
+    func buttonSelected(_ movie: MovieItem) {
+        viewModel.saveMovieInCoreData(movie)
+    }
+
+    func buttonUnselected(_ id: Int) {
+        viewModel.removeMovieOfCoreData(for: id)
+    }
+
+    func verifyMovie(_ id: Int) -> Bool {
+        viewModel.verifyMovieInCoreData(for: id)
     }
 }
