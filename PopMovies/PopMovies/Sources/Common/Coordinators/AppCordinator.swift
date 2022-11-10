@@ -11,7 +11,7 @@ import UIKit
 class AppCordinator: CoordinatorProtocol {
 
     private let tabBarController = TabBarController()
-    var rootViewController: UIViewController? { window.rootViewController }
+    var rootViewController: UINavigationController? { window.rootViewController as? UINavigationController }
 
     var childCoordinator: [CoordinatorProtocol] = []
 
@@ -23,26 +23,24 @@ class AppCordinator: CoordinatorProtocol {
     }
 
     func start() {
-        window.rootViewController = tabBarController
+        let navController = UINavigationController(rootViewController: tabBarController)
+        navController.navigationBar.isHidden = true
+        window.rootViewController = navController
         setTabBarController()
     }
 
     func setTabBarController() {
-        let popMoviesViewModel = PopMoviesViewModel(coordinator: self)
-        let popMoviesViewController = PopMoviesViewController(viewModel: popMoviesViewModel)
-        let popularMovies = PMNavigationController(rootViewController: popMoviesViewController)
+        let popularMovies = PMNavigationController(rootViewController: PMViewController())
 
-        let favoritesMovies = PMNavigationController(rootViewController: FavoritesMoviesViewController())
+        let coordinator = PopMoviesCoordinator(rootViewController: popularMovies)
+        childCoordinator.append(coordinator)
+        coordinator.start()
+
+        let favoriteMoviesViewModel = FavoriteMoviesViewModel(coordinator: coordinator)
+        let favoritesMovies = PMNavigationController(rootViewController: FavoritesMoviesViewController(viewModel: favoriteMoviesViewModel))
         let listGenres = PMNavigationController(rootViewController: ListGenresViewController())
 
-        tabBarController.setViewControllers([popularMovies, favoritesMovies, listGenres], animated: false)
+        tabBarController.setViewControllers([coordinator.rootViewController!, favoritesMovies, listGenres], animated: false)
         tabBarController.configureTabBar()
-    }
-
-    func routeToDetails(of movie: MovieItem) {
-        let detailsViewModel = MovieDetailsViewModel(coordinator: self)
-        let movieDetailsViewController = MovieDetailsViewController(movie: movie, viewModel: detailsViewModel)
-
-        rootViewController?.present(movieDetailsViewController, animated: true)
     }
 }
