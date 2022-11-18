@@ -11,14 +11,12 @@ import UIKit
 
 class FavoriteMoviesView: PMView {
 
-    var movies: [MovieItem] = []
-    let removeFavoriteMovie: (_ id: Int) -> Void
+    // MARK: - Properties
+    private var movies: [MovieItem] = []
+    private let removeFavoriteMovie: (_ id: Int) -> Void
+    private let didTapOnMovie: (_ movie: MovieItem) -> Void
 
-    init(removeFavoriteMovie: @escaping (_ id: Int) -> Void) {
-        self.removeFavoriteMovie = removeFavoriteMovie
-        super.init()
-    }
-
+    // MARK: - View
     private lazy var tableView = UITableView() .. {
         $0.delegate = self
         $0.dataSource = self
@@ -26,6 +24,17 @@ class FavoriteMoviesView: PMView {
         $0.backgroundColor = Theme.currentTheme.color.backgroundColor.rawValue
     }
 
+    // MARK: - Init
+    init(
+        removeFavoriteMovie: @escaping (_ id: Int) -> Void,
+        didTapOnMovie: @escaping (_ movie: MovieItem) -> Void
+    ) {
+        self.removeFavoriteMovie = removeFavoriteMovie
+        self.didTapOnMovie = didTapOnMovie
+        super.init()
+    }
+
+    // MARK: - Setup
     override func configureSubviews() {
         addSubview(tableView)
     }
@@ -34,16 +43,22 @@ class FavoriteMoviesView: PMView {
         tableView.edgesToSuperview()
     }
 
+    // MARK: - Aux
     func popularFavoriteMoviesList(with favoriteMovies: [MovieItem]) {
         movies = favoriteMovies
         tableView.reloadData()
     }
 }
 
+// MARK: - Table View Delegate
 extension FavoriteMoviesView: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movie = movies[indexPath.row]
+        didTapOnMovie(movie)
+    }
 }
 
+// MARK: - Table View DatSource
 extension FavoriteMoviesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         movies.count
