@@ -10,11 +10,13 @@ import UIKit
 
 class PopMoviesViewModel {
 
-    var service: PMService
-    var favoriteService: FavoriteMoviesService
-    var currentPage = 1
-    weak var coordinator: PopMoviesCoordinator?
+    // MARK: - Properties
+    private let service: PMService
+    private let favoriteService: FavoriteMoviesService
+    private var currentPage = 1
+    private weak var coordinator: PopMoviesCoordinator?
 
+    // MARK: - Init
     init(
         service: PMService = .live(),
         favoriteService: FavoriteMoviesService = .live(),
@@ -25,6 +27,7 @@ class PopMoviesViewModel {
         self.favoriteService = favoriteService
     }
 
+    // MARK: - Aux
     func getMovies(_ completion: @escaping (State) -> Void) {
         service.getMovies(currentPage) { result in
             DispatchQueue.main.async { [weak self] in
@@ -52,5 +55,9 @@ class PopMoviesViewModel {
 
     func verifyMovieInCoreData(for id: Int) -> Bool {
         favoriteService.verifyIfMovieIsInCoreData(id)
+    }
+
+    func routeToDetails(of movie: MovieItem) {
+        coordinator?.routeToDetails(of: movie)
     }
 }
