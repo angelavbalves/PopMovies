@@ -10,23 +10,29 @@ import UIKit
 
 class MovieDetailsViewModel {
 
-    let service: PMService
-    weak var coordinator: PopMoviesCoordinator?
-    var currentPage = 1
-    var favoriteService: FavoriteMoviesService
+    // MARK: - Properties
+    private let service: PMService
+    private weak var coordinator: MovieDetailsCoordinator?
+    private var movie: MovieItem
+    private var currentPage = 1
+    private var favoriteService: FavoriteMoviesService
 
+    // MARK: - Init
     init(
+        movie: MovieItem,
         service: PMService = .live(),
         favoriteService: FavoriteMoviesService = .live(),
-        coordinator: PopMoviesCoordinator)
-    {
+        coordinator: MovieDetailsCoordinator
+    ) {
+        self.movie = movie
         self.service = service
         self.favoriteService = favoriteService
         self.coordinator = coordinator
     }
 
-    func getSimilarMovies(_ id: Int, _ completion: @escaping (State) -> Void) {
-        service.similarMovies(id, currentPage) { result in
+    // MARK: Aux
+    func getSimilarMovies(_ completion: @escaping (State) -> Void) {
+        service.similarMovies(movie.id, currentPage) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                     case .success(let movieSimilarResponse):
@@ -42,11 +48,24 @@ class MovieDetailsViewModel {
         }
     }
 
+    func checkIfMovieIsInCoreData() -> MovieItem {
+        movie.isFavorite = favoriteService.verifyIfMovieIsInCoreData(movie.id)
+        return movie
+    }
+
     func saveMovieInCoreData(_ movie: MovieItem) {
         favoriteService.saveMovie(movie)
     }
 
     func removeMovieOfCoreData(for id: Int) {
         favoriteService.removeMovie(id)
+    }
+
+    func routeToDetails(of movie: MovieItem) {
+        coordinator?.routeToDetails(of: movie)
+    }
+
+    func showDetailsOfSimilarMovie(of movie: MovieItem) {
+        coordinator?.showDetailsOfSimilarMovie(of: movie)
     }
 }
