@@ -10,28 +10,25 @@ import UIKit
 
 class MovieDetailsViewController: PMViewController {
 
-    var movie: MovieItem
-    var isFavorite: Bool
-    let viewModel: MovieDetailsViewModel
+    // MARK: - ViewModel
+    private let viewModel: MovieDetailsViewModel
+
+    // MARK: - View
     private lazy var detailsView = MovieDetailsView(
-        movie: movie,
-        isFavorite: isFavorite,
+        movie: viewModel.checkIfMovieIsInCoreData(),
         fetchSimilarMovies: getSimilarMovies,
         favoriteButtonSelectedAction: buttonSelected(_:),
-        favoriteButtonUnselectedAction: buttonUnselected(_:)
+        favoriteButtonUnselectedAction: buttonUnselected(_:),
+        didTapOnMovie: didTapOnMovieAction(_:)
     )
 
-    init(movie: MovieItem,
-         isFavorite: Bool,
-         viewModel: MovieDetailsViewModel)
-    {
-        self.movie = movie
-        self.isFavorite = isFavorite
+    // MARK: - Init
+    init(viewModel: MovieDetailsViewModel) {
         self.viewModel = viewModel
         super.init()
-        self.movie.isFavorite = self.isFavorite
     }
 
+    // MARK: - Life cycle
     override func loadView() {
         view = detailsView
     }
@@ -39,12 +36,23 @@ class MovieDetailsViewController: PMViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getSimilarMovies()
-        title = "\(movie.title)"
         navigationController?.navigationBar.prefersLargeTitles = false
+        closeDetailsButton()
+    }
+
+    // MARK: - Setup
+    func closeDetailsButton() {
+        let image = UIImage(systemName: "xmark.circle")
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(closeButtonDidTap))
+    }
+
+    // MARK: - Aux
+    @objc func closeButtonDidTap() {
+        navigationController?.dismiss(animated: true)
     }
 
     func getSimilarMovies() {
-        viewModel.getSimilarMovies(movie.id) { [weak self] state in
+        viewModel.getSimilarMovies { [weak self] state in
             switch state {
                 case .success(let similarMovies):
                     self?.detailsView.receive(similarMovies)
@@ -54,8 +62,8 @@ class MovieDetailsViewController: PMViewController {
         }
     }
 
-    func didTapOnMovieAction(_ movie: MovieItem, _ isFavorite: Bool) {
-        viewModel.coordinator?.routeToDetails(of: movie, is: isFavorite)
+    func didTapOnMovieAction(_ movie: MovieItem) {
+        viewModel.showDetailsOfSimilarMovie(of: movie)
     }
 
     func buttonSelected(_ movie: MovieItem) {
