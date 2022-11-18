@@ -10,18 +10,19 @@ import UIKit
 
 class AppCordinator: CoordinatorProtocol {
 
+    // MARK: - Properties
     private let tabBarController = TabBarController()
     var rootViewController: UINavigationController? { window.rootViewController as? UINavigationController }
+    private var childCoordinator: [CoordinatorProtocol] = []
+    private var window: UIWindow
 
-    var childCoordinator: [CoordinatorProtocol] = []
-
-    var window: UIWindow
-
+    // MARK: - Init
     init(window: UIWindow) {
         self.window = window
         window.makeKeyAndVisible()
     }
 
+    // MARK: - Start method
     func start() {
         let navController = UINavigationController(rootViewController: tabBarController)
         navController.navigationBar.isHidden = true
@@ -29,18 +30,26 @@ class AppCordinator: CoordinatorProtocol {
         setTabBarController()
     }
 
+    // MARK: - Setup
     func setTabBarController() {
-        let popularMovies = PMNavigationController(rootViewController: PMViewController())
+        let popMoviesCoordinator = PopMoviesCoordinator()
+        childCoordinator.append(popMoviesCoordinator)
 
-        let coordinator = PopMoviesCoordinator(rootViewController: popularMovies)
-        childCoordinator.append(coordinator)
-        coordinator.start()
+        let favoriteMoviesCoordinator = FavoriteMoviesCoordinator()
+        childCoordinator.append(favoriteMoviesCoordinator)
 
-        let favoriteMoviesViewModel = FavoriteMoviesViewModel(coordinator: coordinator)
-        let favoritesMovies = PMNavigationController(rootViewController: FavoritesMoviesViewController(viewModel: favoriteMoviesViewModel))
         let listGenres = PMNavigationController(rootViewController: ListGenresViewController())
 
-        tabBarController.setViewControllers([coordinator.rootViewController!, favoritesMovies, listGenres], animated: false)
+        tabBarController.setViewControllers(
+            [
+                popMoviesCoordinator.rootViewController!,
+                favoriteMoviesCoordinator.rootViewController!,
+                listGenres
+            ],
+            animated: false
+        )
         tabBarController.configureTabBar()
+        favoriteMoviesCoordinator.start()
+        popMoviesCoordinator.start()
     }
 }
