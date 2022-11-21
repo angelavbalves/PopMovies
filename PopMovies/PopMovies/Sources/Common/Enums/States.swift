@@ -7,7 +7,12 @@
 
 import Foundation
 
-enum State {
+enum PopMoviesState {
     case success([MovieItem])
+    case error
+}
+
+enum GenresState {
+    case success([Genre])
     case error
 }
