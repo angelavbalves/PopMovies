@@ -39,7 +39,7 @@ class PMServiceTests: XCTestCase {
         }
     }
 
-    func test_withMoviesEnpoint() {
+    func test_getPopularMovies_shouldBuildExpectedEndpoint() {
         _ = sut.getMovies(1) { _ in }
         let endpoint = apiClientMock.endpoint
 
@@ -61,7 +61,7 @@ class PMServiceTests: XCTestCase {
         )
     }
 
-    func test_withSimilarMoviesEnpoint() {
+    func test_similarMovies_shouldBuildExpectedEndpoint() {
         _ = sut.similarMovies(0, 1) { _ in }
         let endpoint = apiClientMock.endpoint
 
@@ -70,19 +70,23 @@ class PMServiceTests: XCTestCase {
         XCTAssertEqual(endpoint?.method, "get")
         XCTAssertEqual(
             endpoint?.query,
-            [URLQueryItem(
-                name: "api_key",
-                value: "f66bae459e0caf58012f1645bfb5e772"),
-            URLQueryItem(
-                name: "language", value: "en-US"),
-            URLQueryItem(
-                name: "page",
-                value: "1")
+            [
+                URLQueryItem(
+                    name: "api_key",
+                    value: "f66bae459e0caf58012f1645bfb5e772"
+                ),
+                URLQueryItem(
+                    name: "language", value: "en-US"
+                ),
+                URLQueryItem(
+                    name: "page",
+                    value: "1"
+                )
             ]
         )
     }
 
-    func test_withSearchMoviesEnpoint() {
+    func test_searchMovies_shouldBuildExpectedEndpoint() {
         _ = sut.searchMovies(1, "Title") { _ in }
         let endpoint = apiClientMock.endpoint
 
@@ -91,19 +95,25 @@ class PMServiceTests: XCTestCase {
         XCTAssertEqual(endpoint?.method, "get")
         XCTAssertEqual(
             endpoint?.query,
-            [URLQueryItem(
-                name: "api_key",
-                value: "f66bae459e0caf58012f1645bfb5e772"),
-            URLQueryItem(
-                name: "language", value: "en-US"),
-            URLQueryItem(
-                name: "query", value: "Title"),
-            URLQueryItem(
-                name: "page",
-                value: "1"),
-            URLQueryItem(
-                name: "include_adult",
-                value: "false")
+            [
+                URLQueryItem(
+                    name: "api_key",
+                    value: "f66bae459e0caf58012f1645bfb5e772"
+                ),
+                URLQueryItem(
+                    name: "language", value: "en-US"
+                ),
+                URLQueryItem(
+                    name: "query", value: "Title"
+                ),
+                URLQueryItem(
+                    name: "page",
+                    value: "1"
+                ),
+                URLQueryItem(
+                    name: "include_adult",
+                    value: "false"
+                )
             ]
         )
     }
