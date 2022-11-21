@@ -23,7 +23,7 @@ class FavoriteMoviesCoordinator: CoordinatorProtocol {
     // MARK: - Start method
     func start() {
         let favoriteMoviesViewModel = FavoriteMoviesViewModel(coordinator: self)
-        let favoriteMoviesViewController = FavoritesMoviesViewController(viewModel: favoriteMoviesViewModel)
+        let favoriteMoviesViewController = FavoriteMoviesViewController(viewModel: favoriteMoviesViewModel)
 
         rootViewController?.setViewControllers([favoriteMoviesViewController], animated: false)
     }
