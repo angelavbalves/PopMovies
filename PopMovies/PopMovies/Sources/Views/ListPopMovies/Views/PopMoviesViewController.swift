@@ -13,7 +13,7 @@ class PopMoviesViewController: PMViewController {
     private let viewModel: PopMoviesViewModel
 
     // MARK: - View
-    private lazy var collectionView = PopMoviesView(
+    private lazy var rootView = PopMoviesView(
         fetchMoreMovies: getPopMovies,
         didTapOnMovie: didTapOnMovieAction(_:),
         favoriteButtonSelectedAction: buttonSelected(_:),
@@ -29,7 +29,7 @@ class PopMoviesViewController: PMViewController {
 
     // MARK: - Life Cycle
     override func loadView() {
-        view = collectionView
+        view = rootView
     }
 
     override func viewDidLoad() {
@@ -40,7 +40,7 @@ class PopMoviesViewController: PMViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        collectionView.reloadCollectionView()
+        rootView.reloadCollectionView()
     }
 
     // MARK: - Aux
@@ -49,7 +49,7 @@ class PopMoviesViewController: PMViewController {
         viewModel.getMovies { [weak self] state in
             switch state {
                 case .success(let movies):
-                    self?.collectionView.receive(movies)
+                    self?.rootView.receive(movies)
                     self?.loadingView.hide()
                 case .error:
                     print("Error to get movies")
