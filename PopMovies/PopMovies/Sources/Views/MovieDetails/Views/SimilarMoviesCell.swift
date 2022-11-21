@@ -42,6 +42,7 @@ class SimilarMoviesCell: UICollectionViewCell {
     func setup(for movie: MovieItem) {
         let url = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath ?? "")")
         imageView.kf.indicatorType = .activity
-        imageView.kf.setImage(with: url, placeholder: UIImage(named: "posterNotFound")!)
+        imageView.kf.setImage(with: url,
+                              placeholder: UIImage(named: "posterNotFound"))
     }
 }

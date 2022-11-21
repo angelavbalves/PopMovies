@@ -34,7 +34,7 @@ class PMButton: UIButton {
         self.tintColor = .black
         self.setTitle("Add to favorites", for: .normal)
         self.setTitleColor(.black, for: .normal)
-        let image = UIImage(systemName: "heart")!
+        let image = UIImage(systemName: "heart")
         self.setImage(image, for: .normal)
         self.backgroundColor = Constants.ColorsApp.lightBlue
         self.height(48)

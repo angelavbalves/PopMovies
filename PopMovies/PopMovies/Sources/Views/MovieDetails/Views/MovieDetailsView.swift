@@ -162,7 +162,7 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
     func setupView() {
         let url = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath ?? "")")
         poster.kf.indicatorType = .activity
-        poster.kf.setImage(with: url, placeholder: UIImage(named: "posterNotFound")!)
+        poster.kf.setImage(with: url, placeholder: UIImage(named: "posterNotFound"))
         titleLabel.text = movie.title
         overviewLabel.text = movie.overview
         releaseDate.text = "Release date: \(movie.releaseDate ?? "")"
@@ -170,8 +170,8 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
     }
 
     func setImageButton(_ isSelected: Bool) {
-        let image = UIImage(systemName: "heart")!
-        let imageFill = UIImage(systemName: "heart.fill")!
+        let image = UIImage(systemName: "heart")
+        let imageFill = UIImage(systemName: "heart.fill")
         isSelected ? favoriteButton.setImage(imageFill, for: .normal) : favoriteButton.setImage(image, for: .normal)
     }
 

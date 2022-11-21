@@ -19,12 +19,12 @@ class TabBarController: UITabBarController {
         guard let items = tabBar.items else { return }
 
         items[0].title = "Home"
-        items[0].image = UIImage(systemName: "house.fill")!
+        items[0].image = UIImage(systemName: "house.fill")
 
         items[1].title = "Favorites"
-        items[1].image = UIImage(systemName: "heart.square")!
+        items[1].image = UIImage(systemName: "heart.square")
 
         items[2].title = "Genres"
-        items[2].image = UIImage(systemName: "list.and.film")!
+        items[2].image = UIImage(systemName: "list.and.film")
     }
 }
