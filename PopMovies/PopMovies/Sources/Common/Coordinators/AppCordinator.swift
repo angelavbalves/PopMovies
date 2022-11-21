@@ -38,17 +38,19 @@ class AppCordinator: CoordinatorProtocol {
         let favoriteMoviesCoordinator = FavoriteMoviesCoordinator()
         childCoordinator.append(favoriteMoviesCoordinator)
 
-        let listGenres = PMNavigationController(rootViewController: GenresListViewController())
+        let genresListCoordinator = GenresListCoordinator()
+        childCoordinator.append(genresListCoordinator)
 
         tabBarController.setViewControllers(
             [
                 popMoviesCoordinator.rootViewController!,
                 favoriteMoviesCoordinator.rootViewController!,
-                listGenres
+                genresListCoordinator.rootViewController!
             ],
             animated: false
         )
         tabBarController.configureTabBar()
+        genresListCoordinator.start()
         favoriteMoviesCoordinator.start()
         popMoviesCoordinator.start()
     }
