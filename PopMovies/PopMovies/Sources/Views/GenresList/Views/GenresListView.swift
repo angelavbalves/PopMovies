@@ -22,7 +22,7 @@ class GenresListView: PMView {
     }
 
     // MARK: - View
-    private lazy var tableView = UITableView() .. {
+    private lazy var tableView = UITableView(frame: .zero, style:   .grouped) .. {
         $0.delegate = self
         $0.dataSource = self
         $0.register(GenreCell.self, forCellReuseIdentifier: GenreCell.identifier)
@@ -56,8 +56,16 @@ extension GenresListView: UITableViewDelegate {
 
 // MARK: - TableView DataSource
 extension GenresListView: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Genres"
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         genres.count
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 44
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -66,9 +74,5 @@ extension GenresListView: UITableViewDataSource {
         cell.setup(genre)
         cell.selectionStyle = .none
         return cell
-    }
-
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Genres"
     }
 }
