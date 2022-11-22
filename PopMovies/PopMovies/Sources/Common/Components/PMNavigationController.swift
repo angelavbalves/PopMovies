@@ -20,15 +20,21 @@ class PMNavigationController: UINavigationController {
         super.init(nibName: nil, bundle: nil)
     }
 
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureAppearance()
     }
 
     // MARK: - Aux
     func configureAppearance() {
         let appearance = UINavigationBarAppearance()
-        appearance.configureWithDefaultBackground()
-        appearance.backgroundColor = Theme.currentTheme.color.tabBarColor.rawValue
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = Theme.currentTheme.color.backgroundColor.rawValue
 
         navigationBar.tintColor = Theme.currentTheme.color.itemsNav.rawValue
 
@@ -36,5 +42,4 @@ class PMNavigationController: UINavigationController {
         navigationBar.compactAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
     }
-
 }
