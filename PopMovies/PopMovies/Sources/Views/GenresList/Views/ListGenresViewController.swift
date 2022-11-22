@@ -14,7 +14,9 @@ class GenresListViewController: PMViewController {
     private let viewModel: GenresListViewModel
 
     // MARK: - View
-    private lazy var listView = GenresListView()
+    private lazy var listView = GenresListView(
+        didTapOnGenre: didTapOnGenreAction(_:_:)
+    )
 
     // MARK: - Init
     init(viewModel: GenresListViewModel) {
@@ -42,5 +44,9 @@ class GenresListViewController: PMViewController {
                     print("Error to get genres")
             }
         }
+    }
+
+    func didTapOnGenreAction(_ id: Int, _ name: String) {
+        viewModel.routeToList(for: id, name)
     }
 }
