@@ -12,6 +12,7 @@ enum ApiEndpoints: Equatable {
     case similarMovies(id: Int, page: Int)
     case searchMovies(page: Int, query: String)
     case listGenres
+    case discoverMoviesByGenres(page: Int, genre: Int)
 }
 
 extension ApiEndpoints: Endpoint {
@@ -27,6 +28,8 @@ extension ApiEndpoints: Endpoint {
                 return "/3/search/movie"
             case .listGenres:
                 return "/3/genre/movie/list"
+            case .discoverMoviesByGenres(_, _):
+                return "/3/discover/movie"
             default:
                 return "/3/movie/popular"
         }
@@ -61,6 +64,16 @@ extension ApiEndpoints: Endpoint {
                 return [
                     .init(name: "api_key", value: "f66bae459e0caf58012f1645bfb5e772"),
                     .init(name: "language", value: "en-US")
+                ]
+            case .discoverMoviesByGenres(let page, let genre):
+                return [
+                    .init(name: "api_key", value: "f66bae459e0caf58012f1645bfb5e772"),
+                    .init(name: "language", value: "en-US"),
+                    .init(name: "sort_by", value: "popularity.desc"),
+                    .init(name: "include_adult", value: "false"),
+                    .init(name: "page", value: "\(page)"),
+                    .init(name: "with_genres", value: "\(genre)"),
+                    .init(name: "with_watch_monetization_types", value: "flatrate")
                 ]
         }
     }
