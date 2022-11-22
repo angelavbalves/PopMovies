@@ -12,10 +12,15 @@ class GenresListViewModel {
 
     // MARK: - Properties
     private let service: PMService
+    private let coordinator: GenresListCoordinator
 
     // MARK: - Init
-    init(service: PMService = .live()) {
+    init(
+        service: PMService = .live(),
+        coordinator: GenresListCoordinator
+    ){
         self.service = service
+        self.coordinator = coordinator
     }
 
     // MARK: - Aux
@@ -30,5 +35,9 @@ class GenresListViewModel {
                 }
             }
         }
+    }
+
+    func routeToList(for id: Int, _ name: String) {
+        coordinator.routeToList(for: id, name)
     }
 }
