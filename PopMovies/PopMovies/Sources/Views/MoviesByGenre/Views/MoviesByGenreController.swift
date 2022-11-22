@@ -20,7 +20,8 @@ class MoviesByGenreController: PMViewController {
         didTapOnMovie: didTapOnMovieAction(_:),
         favoriteButtonSelectedAction: buttonSelected(_:),
         favoriteButtonUnselectedAction: buttonUnselected(_:),
-        verifyIfMovieIsInCoreData: verifyMovie(_:))
+        verifyIfMovieIsInCoreData: verifyMovie(_:)
+    )
 
     // MARK: - Init
     init(viewModel: MoviesByGenreViewModel) {
