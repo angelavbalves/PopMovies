@@ -23,15 +23,19 @@ class GenresListCoordinator: CoordinatorProtocol {
 
     // MARK: - Start method
     func start() {
-        let viewModel = GenresListViewModel()
+        let viewModel = GenresListViewModel(coordinator: self)
         let controller = GenresListViewController(viewModel: viewModel)
 
         rootViewController?.setViewControllers([controller], animated: false)
     }
 
     // MARK: - Route
-    func routeToDetails(of movie: MovieItem) {
-        let coordinator = MovieDetailsCoordinator(movie: movie, parentNavigation: rootViewController)
+    func routeToList(for id: Int, _ name: String) {
+        let coordinator = MoviesByGenreCoordinator(
+            id: id,
+            name: name,
+            parentNavigation: rootViewController
+        )
 
         childCoordinator.append(coordinator)
         coordinator.start()
