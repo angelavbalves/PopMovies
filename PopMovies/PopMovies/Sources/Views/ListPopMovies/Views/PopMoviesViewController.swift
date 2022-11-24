@@ -26,6 +26,12 @@ class PopMoviesViewController: PMViewController {
         verifyIfMovieIsInCoreData: verifyMovie(_:)
     )
 
+    private lazy var searchBar = UISearchController() .. {
+        $0.searchBar.placeholder = "Search Movies By Title"
+        $0.searchResultsUpdater = self
+        $0.searchBar.delegate = self
+    }
+
     // MARK: - Init
     init(viewModel: PopMoviesViewModel) {
         self.viewModel = viewModel
@@ -112,5 +118,28 @@ class PopMoviesViewController: PMViewController {
 
     func verifyMovie(_ id: Int) -> Bool {
         viewModel.verifyMovieInCoreData(for: id)
+    }
+}
+
+extension PopMoviesViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text, !text.isEmpty else { return }
+        loadingView.show()
+        viewModel.filterMovies(text) { [weak self] state in
+            switch state {
+                case .success(let movies):
+                    self?.rootView.showSearchResults(movies)
+                    self?.loadingView.hide()
+                case .error:
+                    print("Error to filter movies by title")
+            }
+        }
+    }
+}
+
+extension PopMoviesViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        resignFirstResponder()
+        rootView.resetFilteredMovies()
     }
 }

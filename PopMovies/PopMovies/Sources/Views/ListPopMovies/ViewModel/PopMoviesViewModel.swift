@@ -45,6 +45,20 @@ class PopMoviesViewModel {
         }
     }
 
+    func filterMovies(_ query: String, _ completion: @escaping (PopMoviesState) -> Void) {
+        service.searchMovies(currentPage, query) { result in
+            DispatchQueue.main.async {
+                switch result {
+                    case .success(let response):
+                        let movies = response.results.map(MovieItem.init)
+                        completion(.success(movies))
+                    case .failure:
+                        completion(.error)
+                }
+            }
+        }
+    }
+
     func saveMovieInCoreData(_ movie: MovieItem) {
         favoriteService.saveMovie(movie)
     }
