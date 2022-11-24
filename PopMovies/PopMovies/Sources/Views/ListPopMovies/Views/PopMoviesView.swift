@@ -12,7 +12,12 @@ import UIKit
 class PopMoviesView: PMView {
 
     // MARK: - Properties
-    private var movies: [MovieItem] = []
+    private var movies: [MovieItem] = [] {
+        didSet { filteredMovies = movies }
+    }
+    private var filteredMovies: [MovieItem] = [] {
+        didSet { collectionView.reloadData() }
+    }
     private var isLoadingMoreMovies = false
     private let fetchMoreMovies: () -> Void
     private var favoriteButtonSelectedAction: (_ movie: MovieItem) -> Void
@@ -73,19 +78,26 @@ class PopMoviesView: PMView {
     // MARK: - Aux
     func receive(_ popMovies: [MovieItem]) {
         movies += popMovies
-        collectionView.reloadData()
         isLoadingMoreMovies = false
     }
 
     func reloadCollectionView() {
         collectionView.reloadData()
     }
+
+    func showSearchResults(_ results: [MovieItem]) {
+        filteredMovies = results
+    }
+
+    func resetFilteredMovies() {
+        filteredMovies = movies
+    }
 }
 
 // MARK: - Collection View Delegate
 extension PopMoviesView: UICollectionViewDelegate {
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var movie = movies[indexPath.row]
+        var movie = filteredMovies[indexPath.row]
         movie.isFavorite = verifyIfMovieIsInCoreData(movie.id)
         didTapOnMovie(movie)
     }
@@ -94,7 +106,7 @@ extension PopMoviesView: UICollectionViewDelegate {
 // MARK: - Collection View DataSource
 extension PopMoviesView: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        movies.count
+        filteredMovies.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -103,7 +115,7 @@ extension PopMoviesView: UICollectionViewDataSource {
         cell.layer.shadowOpacity = 0.5
         cell.layer.cornerRadius = 8.0
 
-        var movie = movies[indexPath.row]
+        var movie = filteredMovies[indexPath.row]
         let favorite = verifyIfMovieIsInCoreData(movie.id)
         movie.isFavorite = favorite
         cell.setup(for: movie)
