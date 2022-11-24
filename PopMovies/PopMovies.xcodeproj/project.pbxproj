@@ -39,6 +39,8 @@
 		8EEEEE87292D0A71008FEB7B /* MoviesByGenreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEEEE86292D0A71008FEB7B /* MoviesByGenreController.swift */; };
 		8EEEEE89292D0B06008FEB7B /* MoviesByGenreCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEEEE88292D0B06008FEB7B /* MoviesByGenreCoordinator.swift */; };
 		8EEEEE8D292E6B7D008FEB7B /* GenreResponse+Fixture.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EEEEE8C292E6B7D008FEB7B /* GenreResponse+Fixture.json */; };
+		8EEEEE8F292E90B8008FEB7B /* AppTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEEEE8E292E90B7008FEB7B /* AppTheme.swift */; };
+		8EEEEE91292E91FD008FEB7B /* UserDefaultsExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EEEEE90292E91FD008FEB7B /* UserDefaultsExt.swift */; };
 		8EF1BDA828FA087900372CA6 /* FavoriteMovies.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDA628FA087900372CA6 /* FavoriteMovies.xcdatamodeld */; };
 		8EF1BDAB28FE0ADE00372CA6 /* MovieItem+Stub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDAA28FE0ADE00372CA6 /* MovieItem+Stub.swift */; };
 		8EF1BDB328FEF61E00372CA6 /* PopMoviesClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDAE28FEF61E00372CA6 /* PopMoviesClient.swift */; };
@@ -122,6 +124,8 @@
 		8EEEEE86292D0A71008FEB7B /* MoviesByGenreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesByGenreController.swift; sourceTree = "<group>"; };
 		8EEEEE88292D0B06008FEB7B /* MoviesByGenreCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoviesByGenreCoordinator.swift; sourceTree = "<group>"; };
 		8EEEEE8C292E6B7D008FEB7B /* GenreResponse+Fixture.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "GenreResponse+Fixture.json"; sourceTree = "<group>"; };
+		8EEEEE8E292E90B7008FEB7B /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
+		8EEEEE90292E91FD008FEB7B /* UserDefaultsExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsExt.swift; sourceTree = "<group>"; };
 		8EF1BDA728FA087900372CA6 /* FavoriteMovies.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoriteMovies.xcdatamodel; sourceTree = "<group>"; };
 		8EF1BDAA28FE0ADE00372CA6 /* MovieItem+Stub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MovieItem+Stub.swift"; sourceTree = "<group>"; };
 		8EF1BDAE28FEF61E00372CA6 /* PopMoviesClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopMoviesClient.swift; sourceTree = "<group>"; };
@@ -393,6 +397,7 @@
 			isa = PBXGroup;
 			children = (
 				8EF1BDC629006B3200372CA6 /* DataExt.swift */,
+				8EEEEE90292E91FD008FEB7B /* UserDefaultsExt.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -439,6 +444,7 @@
 				8EF1BDD32901966A00372CA6 /* ColorsApp.swift */,
 				8EF1BDD529019ABE00372CA6 /* Theme.swift */,
 				8EF1BDD729019AFF00372CA6 /* Color.swift */,
+				8EEEEE8E292E90B7008FEB7B /* AppTheme.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -718,6 +724,7 @@
 				8EEEEE74292BE967008FEB7B /* GenresListViewModel.swift in Sources */,
 				8E75FAC0291EE40B003DB305 /* FavoriteMoviesCoordinator.swift in Sources */,
 				8EF1BDF82902E10100372CA6 /* States.swift in Sources */,
+				8EEEEE8F292E90B8008FEB7B /* AppTheme.swift in Sources */,
 				8EF1BDC729006B3200372CA6 /* DataExt.swift in Sources */,
 				8EF1BDE12901B6FF00372CA6 /* TabBarController.swift in Sources */,
 				8EF1BDD42901966A00372CA6 /* ColorsApp.swift in Sources */,
@@ -750,6 +757,7 @@
 				8EF1BDB528FEF61E00372CA6 /* PMService.swift in Sources */,
 				8EF1BDB328FEF61E00372CA6 /* PopMoviesClient.swift in Sources */,
 				8EF1BDA828FA087900372CA6 /* FavoriteMovies.xcdatamodeld in Sources */,
+				8EEEEE91292E91FD008FEB7B /* UserDefaultsExt.swift in Sources */,
 				8E6D150928F4699A005E8220 /* FavoriteMoviesDataSource.swift in Sources */,
 				8EF1BE0F290967B900372CA6 /* Separator.swift in Sources */,
 			);
