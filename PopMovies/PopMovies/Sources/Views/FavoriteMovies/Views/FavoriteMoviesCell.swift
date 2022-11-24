@@ -50,7 +50,7 @@ class FavoriteMoviesCell: UITableViewCell {
     }
 
     private let overview = UILabel() .. {
-        $0.textColor = .black
+        $0.textColor = Theme.currentTheme.color.textColor.rawValue
         $0.numberOfLines = 4
         $0.font = UIFont.systemFont(ofSize: 16)
         $0.textAlignment = .justified
