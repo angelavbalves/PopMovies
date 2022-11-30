@@ -54,12 +54,14 @@ class PopMoviesViewController: PMViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         rootView.reloadCollectionView()
+        ThemeManager.addDarkModeObserver(to: self, selector: #selector(chooseTheme))
     }
 
     // MARK: - Setup dark mode button
     func setImageButton(_ isSelected: Bool) {
         let light = UIImage(systemName: "sun.max")
         let dark = UIImage(systemName: "moon")
+
         if isSelected {
             navigationItem.leftBarButtonItem = UIBarButtonItem(
                 image: dark,
@@ -80,7 +82,6 @@ class PopMoviesViewController: PMViewController {
     }
 
     @objc func chooseTheme() {
-        configureMode(for: appTheme)
         if isDark {
             setImageButton(false)
             view.window?.overrideUserInterfaceStyle = .dark
@@ -89,6 +90,7 @@ class PopMoviesViewController: PMViewController {
             view.window?.overrideUserInterfaceStyle = .light
         }
     }
+
 
     // MARK: - Aux
     func getPopMovies() {
