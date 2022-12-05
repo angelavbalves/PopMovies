@@ -10,7 +10,10 @@ import UIKit
 class PopMoviesViewController: PMViewController {
 
     let viewModel: PopMoviesViewModel
-    private lazy var collectionView = PopMoviesView(didTapOnMovie: didTapOnMovieAction(_:))
+    private lazy var collectionView = PopMoviesView(
+        fetchMoreMovies: getPopMovies,
+        didTapOnMovie: didTapOnMovieAction(_:)
+    )
 
     init(viewModel: PopMoviesViewModel) {
         self.viewModel = viewModel
@@ -29,12 +32,13 @@ class PopMoviesViewController: PMViewController {
     }
 
     func getPopMovies() {
+        loadingView.show()
         viewModel.getMovies { [weak self] state in
             switch state {
                 case .success(let movies):
                     self?.collectionView.receive(movies)
+                    self?.loadingView.hide()
                 case .error:
-                    // mostrar errorview
                     print("Error to get movies")
             }
         }
