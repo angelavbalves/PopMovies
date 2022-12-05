@@ -12,7 +12,7 @@ class MovieDetailsViewController: PMViewController {
 
     var movie: MovieItem
     let viewModel: MovieDetailsViewModel
-    private lazy var detailsView = MovieDetailsView(movie: movie)
+    private lazy var detailsView = MovieDetailsView(movie: movie, fetchSimilarMovies: getSimilarMovies)
 
     init(movie: MovieItem,
         viewModel: MovieDetailsViewModel
@@ -24,6 +24,22 @@ class MovieDetailsViewController: PMViewController {
 
     override func loadView() {
         view = detailsView
+    }
+
+    override func viewDidLoad() {
+        getSimilarMovies()
+    }
+
+    func getSimilarMovies() {
+        viewModel.getSimilarMovies(movie.id) { [weak self] state in
+            switch state {
+                case .success(let similarMovies):
+                    self?.detailsView.receive(similarMovies)
+                case .error:
+                    print("Error to get similar movies")
+            }
+
+        }
     }
 
 }
