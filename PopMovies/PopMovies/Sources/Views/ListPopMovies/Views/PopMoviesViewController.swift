@@ -9,8 +9,13 @@ import UIKit
 
 class PopMoviesViewController: PMViewController {
 
-    let viewModel = PopMoviesViewModel()
-    private lazy var collectionView = PopMoviesView()
+    let viewModel: PopMoviesViewModel
+    private lazy var collectionView = PopMoviesView(didTapOnMovie: didTapOnMovieAction(_:))
+
+    init(viewModel: PopMoviesViewModel) {
+        self.viewModel = viewModel
+        super.init()
+    }
 
     override func loadView() {
         view = collectionView
@@ -18,11 +23,13 @@ class PopMoviesViewController: PMViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Pop Movies"
+        navigationItem.largeTitleDisplayMode = .always
         getPopMovies()
-   }
+    }
 
     func getPopMovies() {
-        viewModel.getMovies { [ weak self] state in
+        viewModel.getMovies { [weak self] state in
             switch state {
                 case .success(let movies):
                     self?.collectionView.receive(movies)
@@ -32,6 +39,8 @@ class PopMoviesViewController: PMViewController {
             }
         }
     }
-    
-}
 
+    func didTapOnMovieAction(_ movie: MovieItem) {
+        viewModel.coordinator?.goToDetailsPage()
+    }
+}

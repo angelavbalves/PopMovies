@@ -10,21 +10,11 @@ import UIKit
 
 class TabBarController: UITabBarController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.setupTabBarController()
-    }
-
-    private func setupTabBarController() {
-        let popularMovies = UINavigationController(rootViewController: PopMoviesViewController())
-        let favoritesMovies = UINavigationController(rootViewController: FavoritesMoviesViewController())
-        let listGenres = UINavigationController(rootViewController: ListGenresViewController())
-
-        self.setViewControllers([popularMovies, favoritesMovies, listGenres], animated: false)
-        self.tabBar.backgroundColor = Theme.currentTheme.color.tabBarColor.rawValue
-        self.tabBar.tintColor = .white
-        self.tabBar.isTranslucent = false
-        self.tabBar.barTintColor = Theme.currentTheme.color.tabBarColor.rawValue
+    func configureTabBar() {
+        tabBar.backgroundColor = Theme.currentTheme.color.tabBarColor.rawValue
+        tabBar.tintColor = .white
+        tabBar.isTranslucent = false
+        tabBar.barTintColor = Theme.currentTheme.color.tabBarColor.rawValue
 
         guard let items = tabBar.items else { return }
 

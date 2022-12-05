@@ -12,8 +12,13 @@ class PopMoviesViewModel {
 
     var service: PMService
     var currentPage = 1
+    weak var coordinator: AppCordinator?
 
-    init(service: PMService = .live()) {
+    init(
+        service: PMService = .live(),
+         coordinator: AppCordinator
+    ) {
+         self.coordinator = coordinator
         self.service = service
     }
 
