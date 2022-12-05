@@ -33,8 +33,8 @@ final class MoviesCoreDataTests: XCTestCase {
             id: 0,
             title: "title",
             overview: "description",
-            poster_path: "poster_path",
-            release_date: "release_date"
+            posterPath: "poster_path",
+            releaseDate: "release_date"
         )
         // when
         sut.save(movie: input)
@@ -45,8 +45,8 @@ final class MoviesCoreDataTests: XCTestCase {
         XCTAssertEqual(result?.id, input.id)
         XCTAssertEqual(result?.title, input.title)
         XCTAssertEqual(result?.overview, input.overview)
-        XCTAssertEqual(result?.poster_path, input.poster_path)
-        XCTAssertEqual(result?.release_date, input.release_date)
+        XCTAssertEqual(result?.posterPath, input.posterPath)
+        XCTAssertEqual(result?.releaseDate, input.releaseDate)
     }
 
     func test_givenMovies_whenFetchMovies_shouldReturnAllMovies() {

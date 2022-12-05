@@ -32,8 +32,8 @@ final class FavoriteMoviesDataSource: FavoriteMoviesDataSourceProtocol {
         newMovie.setValue(movie.id, forKey: "id")
         newMovie.setValue(movie.title, forKey: "title")
         newMovie.setValue(movie.overview, forKey: "overview")
-        newMovie.setValue(movie.poster_path, forKey: "poster_path")
-        newMovie.setValue(movie.release_date, forKey: "release_date")
+        newMovie.setValue(movie.posterPath, forKey: "poster_path")
+        newMovie.setValue(movie.releaseDate, forKey: "release_date")
 
         coreDataStack.saveContext(managedObjectContext)
     }
