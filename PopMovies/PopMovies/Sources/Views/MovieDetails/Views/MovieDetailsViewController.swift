@@ -10,10 +10,14 @@ import UIKit
 
 class MovieDetailsViewController: PMViewController {
 
+    var movie: MovieItem
     let viewModel: MovieDetailsViewModel
-    let detailsView = MovieDetailsView()
+    private lazy var detailsView = MovieDetailsView(movie: movie)
 
-    init(viewModel: MovieDetailsViewModel) {
+    init(movie: MovieItem,
+        viewModel: MovieDetailsViewModel
+    ) {
+        self.movie = movie
         self.viewModel = viewModel
         super.init()
     }

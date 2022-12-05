@@ -15,4 +15,5 @@ class MovieDetailsViewModel {
     init(coordinator: AppCordinator) {
         self.coordinator = coordinator
     }
+
 }

@@ -41,6 +41,6 @@ class PopMoviesViewController: PMViewController {
     }
 
     func didTapOnMovieAction(_ movie: MovieItem) {
-        viewModel.coordinator?.goToDetailsPage()
+        viewModel.coordinator?.routeToDetails(of: movie)
     }
 }

@@ -55,6 +55,7 @@
 		8EF1BE062906D49E00372CA6 /* MovieDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BE052906D49E00372CA6 /* MovieDetailsViewModel.swift */; };
 		8EF1BE082906D58500372CA6 /* MovieDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BE072906D58500372CA6 /* MovieDetailsView.swift */; };
 		8EF1BE0A2908512600372CA6 /* PMNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BE092908512600372CA6 /* PMNavigationController.swift */; };
+		8EF1BE0F290967B900372CA6 /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BE0E290967B800372CA6 /* Separator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		8EF1BE052906D49E00372CA6 /* MovieDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewModel.swift; sourceTree = "<group>"; };
 		8EF1BE072906D58500372CA6 /* MovieDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsView.swift; sourceTree = "<group>"; };
 		8EF1BE092908512600372CA6 /* PMNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMNavigationController.swift; sourceTree = "<group>"; };
+		8EF1BE0E290967B800372CA6 /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -463,6 +465,7 @@
 			children = (
 				8EF1BE032906D29400372CA6 /* MovieDetailsViewController.swift */,
 				8EF1BE072906D58500372CA6 /* MovieDetailsView.swift */,
+				8EF1BE0E290967B800372CA6 /* Separator.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -620,6 +623,7 @@
 				8EF1BDB328FEF61E00372CA6 /* PopMoviesClient.swift in Sources */,
 				8EF1BDA828FA087900372CA6 /* FavoriteMovies.xcdatamodeld in Sources */,
 				8E6D150928F4699A005E8220 /* FavoriteMoviesDataSource.swift in Sources */,
+				8EF1BE0F290967B900372CA6 /* Separator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
