@@ -10,11 +10,12 @@ import UIKit
 
 class PMViewController: UIViewController {
 
+    let loadingView = PMLoadingView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
     }
-
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -26,6 +27,8 @@ class PMViewController: UIViewController {
     }
 
     func configureViews() {
+        view.addSubview(loadingView)
+        loadingView.edgesToSuperview()
         view.backgroundColor = Theme.currentTheme.color.backgroundColor.rawValue
     }
 }
