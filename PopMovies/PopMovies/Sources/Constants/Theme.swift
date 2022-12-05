@@ -18,6 +18,7 @@ struct Theme {
         let viewColor: Color
         let tabBarColor: Color
         let itemsNav: Color
+        let navColor: Color
     }
 }
 
@@ -29,7 +30,8 @@ extension Theme {
             cellColor: .init(light: Constants.ColorsApp.lightBlue, dark: Constants.ColorsApp.gray),
             viewColor: .init(light: Constants.ColorsApp.lightGray, dark: Constants.ColorsApp.mediumGray),
             tabBarColor: .init(light: Constants.ColorsApp.brown, dark: .systemBackground),
-            itemsNav: .init(light: .black, dark: .white)
+            itemsNav: .init(light: .black, dark: .white),
+            navColor: .init(light: Constants.ColorsApp.brown, dark: .systemBackground)
         )
     )
 }
