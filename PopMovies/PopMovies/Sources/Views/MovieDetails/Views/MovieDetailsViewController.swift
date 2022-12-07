@@ -71,11 +71,7 @@ class MovieDetailsViewController: PMViewController {
         viewModel.showDetailsOfSimilarMovie(of: movie)
     }
 
-    func buttonSelected(_ movie: MovieItem) {
-        viewModel.saveMovieInCoreData(movie)
-    }
-
-    func buttonUnselected(_ id: Int) {
-        viewModel.removeMovieOfCoreData(for: id)
+    func didTapFavoriteButton(for movie: MovieItem) {
+        viewModel.didTapFavoriteButton(for: movie)
     }
 }

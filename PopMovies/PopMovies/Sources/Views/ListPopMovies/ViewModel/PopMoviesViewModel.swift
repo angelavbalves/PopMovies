@@ -59,18 +59,6 @@ class PopMoviesViewModel {
         }
     }
 
-    func saveMovieInCoreData(_ movie: MovieItem) {
-        favoriteService.saveMovie(movie)
-    }
-
-    func removeMovieOfCoreData(for id: Int) {
-        favoriteService.removeMovie(id)
-    }
-
-    func verifyMovieInCoreData(for id: Int) -> Bool {
-        favoriteService.verifyIfMovieIsInCoreData(id)
-    }
-
     func routeToDetails(of movie: MovieItem) {
         coordinator?.routeToDetails(of: movie)
     }

@@ -109,18 +109,6 @@ class PopMoviesViewController: PMViewController {
     func didTapOnMovieAction(_ movie: MovieItem) {
         viewModel.routeToDetails(of: movie)
     }
-
-    func buttonSelected(_ movie: MovieItem) {
-        viewModel.saveMovieInCoreData(movie)
-    }
-
-    func buttonUnselected(_ id: Int) {
-        viewModel.removeMovieOfCoreData(for: id)
-    }
-
-    func verifyMovie(_ id: Int) -> Bool {
-        viewModel.verifyMovieInCoreData(for: id)
-    }
 }
 
 extension PopMoviesViewController: UISearchResultsUpdating {

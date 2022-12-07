@@ -22,8 +22,7 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
         }
     }
 
-    private let favoriteButtonSelectedAction: (_ movie: MovieItem) -> Void
-    private let favoriteButtonUnselectedAction: (_ id: Int) -> Void
+    private let didTapFavoriteButton: (_ movie: MovieItem) -> Void
     private let didTapOnMovie: (_ movie: MovieItem) -> Void
     private var similarMovies: [MovieItem] = [] {
         didSet { collectionViewHeight.constant = collectionContentSize }
@@ -40,12 +39,10 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
     init(
         movie: MovieItem,
         fetchSimilarMovies: @escaping () -> Void,
-        favoriteButtonSelectedAction: @escaping (_ movie: MovieItem) -> Void,
-        favoriteButtonUnselectedAction: @escaping (_ id: Int) -> Void,
+        didTapFavoriteButton: @escaping (_ movie: MovieItem) -> Void,
         didTapOnMovie: @escaping (_ movie: MovieItem) -> Void
     ) {
-        self.favoriteButtonUnselectedAction = favoriteButtonUnselectedAction
-        self.favoriteButtonSelectedAction = favoriteButtonSelectedAction
+        self.didTapFavoriteButton = didTapFavoriteButton
         self.fetchSimilarMovies = fetchSimilarMovies
         self.didTapOnMovie = didTapOnMovie
         self.movie = movie
