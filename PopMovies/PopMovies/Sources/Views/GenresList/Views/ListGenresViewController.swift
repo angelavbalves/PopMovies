@@ -15,7 +15,9 @@ class GenresListViewController: PMViewController {
 
     // MARK: - View
     private lazy var listView = GenresListView(
-        didTapOnGenre: didTapOnGenreAction(_:_:)
+        didTapOnGenre: { [weak self] in
+            self?.didTapOnGenreAction($0, $1)
+        }
     )
 
     // MARK: - Init

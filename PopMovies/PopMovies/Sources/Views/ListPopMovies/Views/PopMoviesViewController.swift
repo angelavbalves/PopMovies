@@ -19,11 +19,12 @@ class PopMoviesViewController: PMViewController {
 
     // MARK: - View
     private lazy var rootView = PopMoviesView(
-        fetchMoreMovies: getPopMovies,
-        didTapOnMovie: didTapOnMovieAction(_:),
-        favoriteButtonSelectedAction: buttonSelected(_:),
-        favoriteButtonUnselectedAction: buttonUnselected(_:),
-        verifyIfMovieIsInCoreData: verifyMovie(_:)
+        fetchMoreMovies: { [weak self] in
+            self?.getPopMovies()
+        },
+        didTapOnMovie: { [weak self] in
+            self?.didTapOnMovieAction($0)
+        }
     )
 
     private lazy var searchBar = UISearchController() .. {
