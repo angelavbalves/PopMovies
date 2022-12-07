@@ -31,7 +31,7 @@ class FavoriteMoviesViewController: PMViewController {
 
     // MARK: - Life Cycle
     override func loadView() {
-        view = tableView
+        view = rootView
     }
 
     override func viewDidLoad() {
@@ -41,16 +41,16 @@ class FavoriteMoviesViewController: PMViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let favoriteMovies = getFavoriteMovies()
-        tableView.popularFavoriteMoviesList(with: favoriteMovies)
+        fetchFavoriteMoviesAndUpdateView()
     }
 
     // MARK: - Aux
-    func getFavoriteMovies() -> [MovieItem] {
-        viewModel.fetchFavoritesMovies()
+    func fetchFavoriteMoviesAndUpdateView() {
+        let favoriteMovies = viewModel.fetchFavoritesMovies()
+        rootView.receive(favoriteMovies)
     }
 
-    func removeFavoriteMovie(for id: Int) {
+    func removeFavoriteMovie(with id: Int) {
         viewModel.removeFavoriteMovie(for: id)
     }
 
