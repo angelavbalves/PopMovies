@@ -13,23 +13,23 @@ class MoviesByGenreCoordinator: CoordinatorProtocol {
     // MARK: - Properties
     var rootViewController: UINavigationController?
     private let id: Int
-    private let name: String
+    private let genreName: String
     private var childCoordinator: [CoordinatorProtocol] = []
 
     // MARK: - Init
     init(
         id: Int,
-        name: String,
+        genreName: String,
         parentNavigation: UINavigationController?
     ) {
         self.id = id
-        self.name = name
+        self.genreName = genreName
         rootViewController = parentNavigation
     }
 
     // MARK: - Start method
     func start() {
-        let viewModel = MoviesByGenreViewModel(id: id, name: name, coordinator: self)
+        let viewModel = MoviesByGenreViewModel(id: id, genreName: genreName, coordinator: self)
         let controller = MoviesByGenreController(viewModel: viewModel)
 
         rootViewController?.pushViewController(controller, animated: true)
@@ -37,7 +37,10 @@ class MoviesByGenreCoordinator: CoordinatorProtocol {
 
     // MARK: - Routes
     func routeToDetails(of movie: MovieItem) {
-        let coordinator = MovieDetailsCoordinator(movie: movie, parentNavigation: rootViewController)
+        let coordinator = MovieDetailsCoordinator(
+            movie: movie,
+            parentNavigation: rootViewController
+        )
 
         childCoordinator.append(coordinator)
         coordinator.start()

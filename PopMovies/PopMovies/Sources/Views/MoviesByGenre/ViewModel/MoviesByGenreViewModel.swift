@@ -14,19 +14,19 @@ class MoviesByGenreViewModel {
     private let favoriteService: FavoriteMoviesService
     private var currentPage = 1
     private weak var coordinator: MoviesByGenreCoordinator?
-    let name: String
+    let genreName: String
     private let id: Int
 
     // MARK: - Init
     init(
         id: Int,
-        name: String,
+        genreName: String,
         service: PMService = .live(),
         favoriteService: FavoriteMoviesService = .live(),
         coordinator: MoviesByGenreCoordinator
-    ){
+    ) {
         self.id = id
-        self.name = name
+        self.genreName = genreName
         self.coordinator = coordinator
         self.service = service
         self.favoriteService = favoriteService
@@ -45,18 +45,6 @@ class MoviesByGenreViewModel {
                 }
             }
         }
-    }
-
-    func saveMovieInCoreData(_ movie: MovieItem) {
-        favoriteService.saveMovie(movie)
-    }
-
-    func removeMovieOfCoreData(for id: Int) {
-        favoriteService.removeMovie(id)
-    }
-
-    func verifyMovieInCoreData(for id: Int) -> Bool {
-        favoriteService.verifyIfMovieIsInCoreData(id)
     }
 
     func routeToDetails(of movie: MovieItem) {

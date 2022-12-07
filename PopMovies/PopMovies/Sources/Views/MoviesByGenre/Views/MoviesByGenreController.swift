@@ -16,11 +16,12 @@ class MoviesByGenreController: PMViewController {
 
     // MARK: View
     private lazy var rootView = PopMoviesView(
-        fetchMoreMovies: getMoviesByGenre,
-        didTapOnMovie: didTapOnMovieAction(_:),
-        favoriteButtonSelectedAction: buttonSelected(_:),
-        favoriteButtonUnselectedAction: buttonUnselected(_:),
-        verifyIfMovieIsInCoreData: verifyMovie(_:)
+        fetchMoreMovies: { [weak self] in
+            self?.getMoviesByGenre()
+        },
+        didTapOnMovie: { [weak self] in
+            self?.didTapOnMovieAction($0)
+        }
     )
 
     // MARK: - Init
@@ -37,7 +38,7 @@ class MoviesByGenreController: PMViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.tintColor = Theme.currentTheme.color.textColor.rawValue
-        title = "\(viewModel.name)"
+        title = viewModel.genreName
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -59,17 +60,5 @@ class MoviesByGenreController: PMViewController {
 
     func didTapOnMovieAction(_ movie: MovieItem) {
         viewModel.routeToDetails(of: movie)
-    }
-
-    func buttonSelected(_ movie: MovieItem) {
-        viewModel.saveMovieInCoreData(movie)
-    }
-
-    func buttonUnselected(_ id: Int) {
-        viewModel.removeMovieOfCoreData(for: id)
-    }
-
-    func verifyMovie(_ id: Int) -> Bool {
-        viewModel.verifyMovieInCoreData(for: id)
     }
 }
