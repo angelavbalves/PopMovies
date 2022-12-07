@@ -20,18 +20,15 @@ class PopMoviesCell: UICollectionViewCell {
         super.init(frame: frame)
         configureSubViews()
         configureConstraints()
-        backgroundColor = Theme.currentTheme.color.cellColor.rawValue
+        backgroundColor = Theme.currentTheme.color.cellBackgroundColor.rawValue
     }
 
-    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     private let imageView = UIImageView() .. {
         $0.contentMode = .scaleAspectFit
-        $0.layer.shadowColor = UIColor.black.cgColor
-        $0.layer.shadowOpacity = 0.4
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 8.0
     }
@@ -46,6 +43,10 @@ class PopMoviesCell: UICollectionViewCell {
 
     func configureSubViews() {
         addSubview(imageView)
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.5
+        layer.cornerRadius = 8.0
+        
     }
 
     func configureConstraints() {

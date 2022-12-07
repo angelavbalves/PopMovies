@@ -101,13 +101,8 @@ extension PopMoviesView: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopMoviesCell.identifer, for: indexPath) as! PopMoviesCell
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowOpacity = 0.5
-        cell.layer.cornerRadius = 8.0
 
-        var movie = filteredMovies[indexPath.row]
-        let favorite = verifyIfMovieIsInCoreData(movie.id)
-        movie.isFavorite = favorite
+        let movie = filteredMovies[indexPath.row]
         cell.setup(for: movie)
         return cell
     }

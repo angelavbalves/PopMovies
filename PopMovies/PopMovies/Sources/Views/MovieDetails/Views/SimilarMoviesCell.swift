@@ -16,7 +16,7 @@ class SimilarMoviesCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        configureViews()
+        configureSubViews()
         configureConstraints()
     }
 
@@ -27,12 +27,15 @@ class SimilarMoviesCell: UICollectionViewCell {
 
     private let imageView = UIImageView() .. {
         $0.contentMode = .scaleAspectFit
-        $0.layer.shadowColor = UIColor.black.cgColor
-        $0.layer.shadowOpacity = 0.4
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 8.0
     }
 
-    func configureViews() {
+    func configureSubViews() {
         addSubview(imageView)
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOpacity = 0.5
+        layer.cornerRadius = 8.0
     }
 
     func configureConstraints() {
