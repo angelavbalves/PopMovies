@@ -44,7 +44,7 @@ class FavoriteMoviesView: PMView {
     }
 
     // MARK: - Aux
-    func popularFavoriteMoviesList(with favoriteMovies: [MovieItem]) {
+    func receive(_ favoriteMovies: [MovieItem]) {
         movies = favoriteMovies
         tableView.reloadData()
     }
