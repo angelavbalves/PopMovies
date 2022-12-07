@@ -14,9 +14,13 @@ class FavoriteMoviesViewController: PMViewController {
     let viewModel: FavoriteMoviesViewModel
 
     // MARK: - View
-    private lazy var tableView = FavoriteMoviesView(
-        removeFavoriteMovie: removeFavoriteMovie(for:),
-        didTapOnMovie: didTapOnFavoriteMovieAction(_:)
+    private lazy var rootView = FavoriteMoviesView(
+        removeFavoriteMovie: { [weak self] in
+            self?.removeFavoriteMovie(with: $0)
+        },
+        didTapOnMovie: { [weak self] in
+            self?.didTapOnFavoriteMovieAction($0)
+        }
     )
 
     // MARK: - Init
