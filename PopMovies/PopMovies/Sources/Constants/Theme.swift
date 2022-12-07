@@ -14,11 +14,12 @@ struct Theme {
     struct Colors {
         let backgroundColor: Color
         let textColor: Color
-        let cellColor: Color
-        let viewColor: Color
+        let cellBackgroundColor: Color
+        let viewBackgroundColor: Color
         let tabBarColor: Color
         let itemsNav: Color
         let navColor: Color
+        let shadowColor: Color
     }
 }
 
@@ -27,11 +28,12 @@ extension Theme {
         color: Colors(
             backgroundColor: .init(light: Constants.ColorsApp.beige, dark: Constants.ColorsApp.metalGris),
             textColor: .init(light: .black, dark: .white),
-            cellColor: .init(light: Constants.ColorsApp.lightBlue, dark: Constants.ColorsApp.gray),
-            viewColor: .init(light: Constants.ColorsApp.lightGray, dark: Constants.ColorsApp.mediumGray),
+            cellBackgroundColor: .init(light: Constants.ColorsApp.lightBlue, dark: Constants.ColorsApp.gray),
+            viewBackgroundColor: .init(light: Constants.ColorsApp.lightGray, dark: Constants.ColorsApp.mediumGray),
             tabBarColor: .init(light: Constants.ColorsApp.brown, dark: .systemBackground),
             itemsNav: .init(light: .black, dark: .white),
-            navColor: .init(light: Constants.ColorsApp.brown, dark: .systemBackground)
+            navColor: .init(light: Constants.ColorsApp.brown, dark: .systemBackground),
+            shadowColor: .init(light: .black, dark: .black)
         )
     )
 }
