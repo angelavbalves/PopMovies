@@ -476,9 +476,9 @@
 		8EF1BDDC2901A14100372CA6 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				8EF1BDED2901D85500372CA6 /* PMView.swift */,
 				8EF1BE0E290967B800372CA6 /* Separator.swift */,
 				8EF1BDDD2901A15400372CA6 /* PMViewController.swift */,
-				8EF1BDED2901D85500372CA6 /* PMView.swift */,
 				8EF1BE092908512600372CA6 /* PMNavigationController.swift */,
 				8EF1BE15290AC39B00372CA6 /* PMLoadingView.swift */,
 				8E5FEF1B291C30EB00A29A58 /* FavoriteButton.swift */,
