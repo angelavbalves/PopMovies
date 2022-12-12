@@ -11,7 +11,7 @@ import UIKit
 class MoviesByGenreCoordinator: CoordinatorProtocol {
 
     // MARK: - Properties
-    var rootViewController: UINavigationController?
+    var rootViewController: PMNavigationController?
     private let id: Int
     private let genreName: String
     private var childCoordinator: [CoordinatorProtocol] = []
@@ -20,7 +20,7 @@ class MoviesByGenreCoordinator: CoordinatorProtocol {
     init(
         id: Int,
         genreName: String,
-        parentNavigation: UINavigationController?
+        parentNavigation: PMNavigationController?
     ) {
         self.id = id
         self.genreName = genreName

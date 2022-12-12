@@ -11,7 +11,7 @@ import UIKit
 class GenresListCoordinator: CoordinatorProtocol {
 
     // MARK: - Properties
-    var rootViewController: UINavigationController?
+    var rootViewController: PMNavigationController?
     private var childCoordinator: [CoordinatorProtocol] = []
 
     // MARK: - Init

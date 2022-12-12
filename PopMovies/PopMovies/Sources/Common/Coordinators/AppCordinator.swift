@@ -12,7 +12,7 @@ class AppCordinator: CoordinatorProtocol {
 
     // MARK: - Properties
     private let tabBarController = TabBarController()
-    var rootViewController: UINavigationController? { window.rootViewController as? UINavigationController }
+    var rootViewController: PMNavigationController? { window.rootViewController as? PMNavigationController }
     private var childCoordinator: [CoordinatorProtocol] = []
     private var window: UIWindow
 

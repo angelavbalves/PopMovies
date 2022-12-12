@@ -12,7 +12,7 @@ class PopMoviesCoordinator: CoordinatorProtocol {
 
     // MARK: - Properties
     private var childCoordinator: [CoordinatorProtocol] = []
-    var rootViewController: UINavigationController?
+    var rootViewController: PMNavigationController?
 
     // MARK: - Init
     init(
