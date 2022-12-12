@@ -132,7 +132,7 @@ extension MovieDetailsView: UICollectionViewDelegateFlowLayout {
             headerView.setupView(
                 with: movie,
                 didTapFavoriteButton: { [weak self] in
-                    self?.didTapOnMovie($0)
+                    self?.didTapFavoriteButton($0)
                 }
             )
             return headerView

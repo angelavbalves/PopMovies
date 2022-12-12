@@ -140,7 +140,9 @@ class HeaderCollectionReusableView: UICollectionReusableView {
     }
 
     @objc func buttonSelected(_ button: FavoriteButton) {
+        guard let favoriteMovie = movie else { return }
         setImageButton(button.isSelected)
+        didTapFavoriteButton?(favoriteMovie)
         if isFavorite {
             isFavorite = false
         } else {
