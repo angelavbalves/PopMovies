@@ -35,10 +35,13 @@ class MoviesByGenreViewModel {
     // MARK: - Aux
     func getMovies(_ completion: @escaping (PopMoviesState) -> Void) {
         service.listMoviesByGenre(currentPage, id) { result in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [weak self] in
                 switch result {
                     case .success(let response):
                         let movies = response.results.map(MovieItem.init)
+                        if !movies.isEmpty {
+                            self?.currentPage += 1
+                        }
                         completion(.success(movies))
                     case .failure(let error):
                         completion(.error(error))
