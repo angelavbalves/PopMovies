@@ -11,9 +11,12 @@ import UIKit
 class MovieDetailsCoordinator: CoordinatorProtocol {
 
     // MARK: - Properties
-    var rootViewController: UINavigationController?
-    private var parentNavigation: UINavigationController?
+    var rootViewController: PMNavigationController?
+    private let parentNavigation: UINavigationController?
     private let movie: MovieItem
+
+    // MARK: - Action
+    var didFinish: (() -> Void)?
 
     // MARK: - Init
     init(
@@ -29,6 +32,7 @@ class MovieDetailsCoordinator: CoordinatorProtocol {
         let viewModel = MovieDetailsViewModel(movie: movie, coordinator: self)
         let controller = MovieDetailsViewController(viewModel: viewModel)
         rootViewController = PMNavigationController(rootViewController: controller)
+        rootViewController?.didFinish = didFinish
         controller.setCloseButton()
         parentNavigation?.present(rootViewController!, animated: true)
     }
@@ -49,6 +53,5 @@ class MovieDetailsCoordinator: CoordinatorProtocol {
 
     func returnPage() {
         rootViewController?.popViewController(animated: true)
-
     }
 }

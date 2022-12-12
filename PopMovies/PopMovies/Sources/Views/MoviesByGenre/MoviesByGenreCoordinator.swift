@@ -41,7 +41,9 @@ class MoviesByGenreCoordinator: CoordinatorProtocol {
             movie: movie,
             parentNavigation: rootViewController
         )
-
+        coordinator.didFinish = { [weak self] in
+            self?.childCoordinator.removeAll()
+        }
         childCoordinator.append(coordinator)
         coordinator.start()
     }

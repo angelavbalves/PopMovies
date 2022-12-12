@@ -33,6 +33,10 @@ class PopMoviesCoordinator: CoordinatorProtocol {
     func routeToDetails(of movie: MovieItem) {
         let coordinator = MovieDetailsCoordinator(movie: movie, parentNavigation: rootViewController)
 
+        coordinator.didFinish = { [weak self] in
+            self?.childCoordinator.removeAll()
+        }
+
         childCoordinator.append(coordinator)
         coordinator.start()
     }
