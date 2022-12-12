@@ -20,6 +20,9 @@ class FavoriteMoviesViewController: PMViewController {
         },
         didTapOnMovie: { [weak self] in
             self?.didTapOnFavoriteMovieAction($0)
+        },
+        showEmptyView: { [weak self] in
+            self?.showEmptyView()
         }
     )
 
@@ -47,6 +50,11 @@ class FavoriteMoviesViewController: PMViewController {
     // MARK: - Aux
     func fetchFavoriteMoviesAndUpdateView() {
         let favoriteMovies = viewModel.fetchFavoritesMovies()
+        if favoriteMovies.isEmpty {
+            showEmptyView()
+        } else {
+            emptyView.hide()
+        }
         rootView.receive(favoriteMovies)
     }
 
@@ -56,5 +64,13 @@ class FavoriteMoviesViewController: PMViewController {
 
     func didTapOnFavoriteMovieAction(_ movie: MovieItem) {
         viewModel.routeToDetails(of: movie)
+    }
+
+    func showEmptyView() {
+        guard let icon = UIImage(named: "notFavorite") else { return }
+        emptyView.show(
+            icon: icon,
+            message: "You haven't\nfavorite movies yet"
+        )
     }
 }
