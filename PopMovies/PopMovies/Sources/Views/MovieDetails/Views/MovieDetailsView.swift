@@ -13,7 +13,7 @@ import UIKit
 class MovieDetailsView: PMView, UIScrollViewDelegate {
 
     // MARK: -  Properties
-    private var movie: MovieItem
+    private let movie: MovieItem
     private var isLoadingMoreMovies = false
     private let fetchSimilarMovies: () -> Void
     private let didTapFavoriteButton: (_ movie: MovieItem) -> Void
