@@ -49,16 +49,17 @@ class MovieDetailsViewModel {
         }
     }
 
-    private func fetchFavoriteStatus() {
+    func didTapFavoriteButton(for movie: MovieItem) {
+        let isFavorite = favoriteService.verifyIfMovieIsInCoreData(movie.id)
+        isFavorite
+            ? favoriteService.removeMovie(movie.id)
+            : favoriteService.saveMovie(movie)
+    }
+
+    func getMovie() -> MovieItem {
+        var movie = movieReference
         movie.isFavorite = favoriteService.verifyIfMovieIsInCoreData(movie.id)
-    }
-
-    func saveMovieInCoreData(_ movie: MovieItem) {
-        favoriteService.saveMovie(movie)
-    }
-
-    func removeMovieOfCoreData(for id: Int) {
-        favoriteService.removeMovie(id)
+        return movie
     }
 
     func routeToDetails(of movie: MovieItem) {
@@ -71,12 +72,5 @@ class MovieDetailsViewModel {
 
     func returnPage() {
         coordinator?.returnPage()
-    }
-
-    func didTapFavoriteButton(for movie: MovieItem) {
-        let isFavorite = favoriteService.verifyIfMovieIsInCoreData(movie.id)
-        isFavorite
-            ? favoriteService.removeMovie(movie.id)
-            : favoriteService.saveMovie(movie)
     }
 }

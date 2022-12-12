@@ -15,12 +15,12 @@ class MovieDetailsViewController: PMViewController {
 
     // MARK: - View
     private lazy var detailsView = MovieDetailsView(
-        movie: viewModel.movie,
+        movie: viewModel.getMovie(),
         fetchSimilarMovies: { [weak self] in
             self?.getSimilarMovies()
         },
         didTapFavoriteButton: { [weak self] in
-            self?.didTapFavoriteButton(for: $0)
+            self?.viewModel.didTapFavoriteButton(for: $0)
         },
         didTapOnMovie: { [weak self] in
             self?.didTapOnMovieAction($0)
