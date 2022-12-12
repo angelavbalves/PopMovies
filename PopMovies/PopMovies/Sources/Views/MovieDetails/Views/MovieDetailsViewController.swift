@@ -61,8 +61,8 @@ class MovieDetailsViewController: PMViewController {
             switch state {
                 case .success(let similarMovies):
                     self?.detailsView.receive(similarMovies)
-                case .error:
-                    print("Error to get similar movies")
+                case .error(let error):
+                    self?.errorView.show(errorState: error)
             }
         }
     }

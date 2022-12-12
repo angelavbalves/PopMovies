@@ -42,8 +42,8 @@ class GenresListViewController: PMViewController {
             switch state {
                 case .success(let genres):
                     self?.listView.receive(genres)
-                case .error:
-                    print("Error to get genres")
+                case .error(let error):
+                    self?.errorView.show(errorState: error)
             }
         }
     }

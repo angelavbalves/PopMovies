@@ -40,8 +40,8 @@ class MoviesByGenreViewModel {
                     case .success(let response):
                         let movies = response.results.map(MovieItem.init)
                         completion(.success(movies))
-                    case .failure:
-                        completion(.error)
+                    case .failure(let error):
+                        completion(.error(error))
                 }
             }
         }
