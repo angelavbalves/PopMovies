@@ -51,9 +51,16 @@ class MoviesByGenreController: PMViewController {
         viewModel.getMovies { [weak self] state in
             switch state {
                 case .success(let movies):
+                    if movies.isEmpty {
+                        guard let icon = UIImage(named: "search") else { return }
+                        self?.emptyView.show(
+                            icon: icon,
+                            message: "There aren't movies\n this genre here!"
+                        )
+                    }
                     self?.rootView.receive(movies)
-                case .error:
-                    print("Error to get movies by genre")
+                case .error(let error):
+                    self?.errorView.show(errorState: error)
             }
         }
     }
