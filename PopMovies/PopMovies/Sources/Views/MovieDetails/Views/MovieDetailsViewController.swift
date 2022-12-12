@@ -46,16 +46,15 @@ class MovieDetailsViewController: PMViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
     }
 
     // MARK: - Setup
     func setBackButton() {
         navigationItem.leftBarButtonItem = UIBarButtonItem(
-                                            image:  UIImage(systemName: "chevron.backward"),
-                                            style: .plain, target: self,
-                                            action: #selector(returnPage)
-                                            )
+            image: UIImage(systemName: "chevron.backward"),
+            style: .plain, target: self,
+            action: #selector(returnPage)
+        )
     }
 
     // MARK: - Aux
