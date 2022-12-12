@@ -47,7 +47,7 @@ class PopMoviesView: PMView {
     }
 
     override func configureConstraints() {
-        collectionView.edgesToSuperview()
+        collectionView.edgesToSuperview(usingSafeArea: true)
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -111,11 +111,10 @@ extension PopMoviesView: UICollectionViewDataSource {
 // MARK: - Collection View Delegate Flow Layout
 extension PopMoviesView: UICollectionViewDelegateFlowLayout {
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
-        let width = UIScreen.main.bounds.width * 0.45
-        return CGSize(width: width, height: width * 1.5)
+        return CGSize(width: 160, height: 240)
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, insetForSectionAt _: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: 25, left: 15, bottom: 15, right: 15)
+        UIEdgeInsets(top: 25, left: 35, bottom: 15, right: 35)
     }
 }
