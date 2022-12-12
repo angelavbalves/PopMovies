@@ -8,5 +8,5 @@
 import Foundation
 
 protocol PopMoviesClientProtocol {
-    func makeRequest<T: Decodable>(endpoint: ApiEndpoints, _ completion: @escaping (Result<T, MovieErrorState>) -> Void)
+    func makeRequest<T: Decodable>(endpoint: ApiEndpoints, _ completion: @escaping (Result<T, ErrorState>) -> Void)
 }
