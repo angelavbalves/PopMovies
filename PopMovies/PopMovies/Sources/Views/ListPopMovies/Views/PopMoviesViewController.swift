@@ -11,11 +11,6 @@ class PopMoviesViewController: PMViewController {
 
     // MARK: -  ViewModel
     private let viewModel: PopMoviesViewModel
-    private var isDarkMode: Bool = false {
-        didSet {
-            setImageButton(isDarkMode)
-        }
-    }
 
     // MARK: - View
     private lazy var rootView = PopMoviesView(
@@ -49,21 +44,20 @@ class PopMoviesViewController: PMViewController {
         super.viewDidLoad()
         title = "Pop Movies"
         getPopMovies()
-        setImageButton(true)
         navigationItem.searchController = searchBar
+        ThemeManager.addDarkModeObserver(to: self, selector: #selector(chooseTheme))
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setImageButton(defaults.bool(forKey: "isDarkMode"))
         rootView.reloadCollectionView()
-        ThemeManager.addDarkModeObserver(to: self, selector: #selector(chooseTheme))
     }
 
     // MARK: - Setup dark mode button
     func setImageButton(_ isSelected: Bool) {
         let light = UIImage(systemName: "sun.max")
         let dark = UIImage(systemName: "moon")
-
         if isSelected {
             navigationItem.leftBarButtonItem = UIBarButtonItem(
                 image: dark,
@@ -85,9 +79,11 @@ class PopMoviesViewController: PMViewController {
 
     @objc func chooseTheme() {
         if isDark {
+            defaults.set(true, forKey: "isDarkMode")
             setImageButton(false)
             view.window?.overrideUserInterfaceStyle = .dark
         } else {
+            defaults.set(false, forKey: "isDarkMode")
             setImageButton(true)
             view.window?.overrideUserInterfaceStyle = .light
         }
