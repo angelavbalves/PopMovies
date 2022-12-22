@@ -11,18 +11,26 @@ class PopMoviesViewController: PMViewController {
 
     // MARK: -  ViewModel
     private let viewModel: PopMoviesViewModel
+    private var searchBarText = ""
+    private var isFiltering: Bool {
+        !(searchController.searchBar.text?.isEmpty ?? false)
+    }
+
+    private lazy var isDarkModeSelected = defaults.bool(forKey: "isDarkMode") {
+        didSet { configureDarkMode() }
+    }
 
     // MARK: - View
-    private lazy var rootView = PopMoviesView(
+    private lazy var rootView = MovieListView(
         fetchMoreMovies: { [weak self] in
-            self?.getPopMovies()
+            self?.fetchMoreMovies()
         },
         didTapOnMovie: { [weak self] in
             self?.didTapOnMovieAction($0)
         }
     )
 
-    private lazy var searchBar = UISearchController() .. {
+    private lazy var searchController = UISearchController() .. {
         $0.searchBar.placeholder = "Search Movies By Title"
         $0.searchResultsUpdater = self
         $0.searchBar.delegate = self
@@ -82,20 +90,18 @@ class PopMoviesViewController: PMViewController {
             defaults.set(true, forKey: "isDarkMode")
             setImageButton(false)
             view.window?.overrideUserInterfaceStyle = .dark
+    func fetchMoreMovies() {
+        if isFiltering {
+            filterMoviesByTitle(true, with: searchBarText)
         } else {
-            defaults.set(false, forKey: "isDarkMode")
-            setImageButton(true)
-            view.window?.overrideUserInterfaceStyle = .light
+            getMovies()
         }
     }
 
-    // MARK: - Aux
-    func getPopMovies() {
-        loadingView.show()
+    func getMovies() {
         viewModel.getMovies { [weak self] state in
             switch state {
                 case .success(let movies):
-                    self?.loadingView.hide()
                     if movies.isEmpty {
                         guard let icon = UIImage(named: "list") else { return }
                         self?.emptyView.show(
@@ -113,6 +119,27 @@ class PopMoviesViewController: PMViewController {
     func didTapOnMovieAction(_ movie: MovieItem) {
         viewModel.routeToDetails(of: movie)
     }
+
+    func filterMoviesByTitle(_ isPaging: Bool, with searchBarText: String) {
+        viewModel.filterMovies(isPaging, searchBarText) { [weak self] state in
+            switch state {
+                case .success(let movies):
+                    if movies.isEmpty {
+                        guard let icon = UIImage(named: "search") else { return }
+                        self?.emptyView.show(
+                            icon: icon,
+                            message: "There aren't movies\nwith this title!"
+                        )
+                    }
+                    !isPaging
+                        ? self?.rootView.getFilteredMovies(movies)
+                        : self?.rootView.showSearchResults(movies)
+                    return
+                case .error(let error):
+                    self?.errorView.show(errorState: error)
+            }
+        }
+    }
 }
 
 extension PopMoviesViewController: UISearchResultsUpdating {
@@ -121,23 +148,9 @@ extension PopMoviesViewController: UISearchResultsUpdating {
             emptyView.hide()
             return
         }
-        loadingView.show()
-        viewModel.filterMovies(text) { [weak self] state in
-            switch state {
-                case .success(let movies):
-                    self?.rootView.showSearchResults(movies)
-                    self?.loadingView.hide()
-                    if movies.isEmpty {
-                        guard let icon = UIImage(named: "search") else { return }
-                        self?.emptyView.show(
-                            icon: icon,
-                            message: "There aren't movies\nwith this title!"
-                        )
-                    }
-                case .error(let error):
-                    self?.errorView.show(errorState: error)
-            }
-        }
+        searchBarText = text.lowercased()
+        filterMoviesByTitle(false, with: searchBarText)
+        emptyView.hide()
     }
 }
 

@@ -1,5 +1,5 @@
 //
-//  PopMoviesView.swift
+//  MovieListView.swift
 //  PopMovies
 //
 //  Created by Angela Alves on 20/10/22.
@@ -9,15 +9,21 @@ import Foundation
 import TinyConstraints
 import UIKit
 
-class PopMoviesView: PMView {
+class MovieListView: PMView {
 
     // MARK: - Properties
     private var movies: [MovieItem] = [] {
         didSet { filteredMovies = movies }
     }
+
+    private var moviesResearched: [MovieItem] = [] {
+        didSet { filteredMovies = moviesResearched }
+    }
+
     private var filteredMovies: [MovieItem] = [] {
         didSet { collectionView.reloadData() }
     }
+
     private var isLoadingMoreMovies = false
     private let fetchMoreMovies: () -> Void
     private let didTapOnMovie: (_ movie: MovieItem) -> Void
@@ -76,17 +82,24 @@ class PopMoviesView: PMView {
         collectionView.reloadData()
     }
 
-    func showSearchResults(_ results: [MovieItem]) {
+    func getFilteredMovies(_ results: [MovieItem]) {
         filteredMovies = results
+        isLoadingMoreMovies = false
+    }
+
+    func showSearchResults(_ results: [MovieItem]) {
+        moviesResearched += results
+        isLoadingMoreMovies = false
     }
 
     func resetFilteredMovies() {
         filteredMovies = movies
+        moviesResearched = movies
     }
 }
 
 // MARK: - Collection View Delegate
-extension PopMoviesView: UICollectionViewDelegate {
+extension MovieListView: UICollectionViewDelegate {
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let movie = filteredMovies[indexPath.row]
         didTapOnMovie(movie)
@@ -94,7 +107,7 @@ extension PopMoviesView: UICollectionViewDelegate {
 }
 
 // MARK: - Collection View DataSource
-extension PopMoviesView: UICollectionViewDataSource {
+extension MovieListView: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         filteredMovies.count
     }
@@ -109,7 +122,7 @@ extension PopMoviesView: UICollectionViewDataSource {
 }
 
 // MARK: - Collection View Delegate Flow Layout
-extension PopMoviesView: UICollectionViewDelegateFlowLayout {
+extension MovieListView: UICollectionViewDelegateFlowLayout {
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         return CGSize(width: 160, height: 240)
     }
