@@ -13,7 +13,8 @@ class PopMoviesViewModel {
     // MARK: - Properties
     private let service: PMService
     private let favoriteService: FavoriteMoviesService
-    private var currentPage = 1
+    private var popMoviesCurrentPage = 1
+    private var filteredMoviesCurrentPage = 1
     private weak var coordinator: PopMoviesCoordinator?
 
     // MARK: - Init
@@ -29,13 +30,13 @@ class PopMoviesViewModel {
 
     // MARK: - Aux
     func getMovies(_ completion: @escaping (PopMoviesState) -> Void) {
-        service.getMovies(currentPage) { result in
+        service.getMovies(popMoviesCurrentPage) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                     case .success(let movieResponse):
                         let movies = movieResponse.results.map(MovieItem.init)
                         if !movieResponse.results.isEmpty {
-                            self?.currentPage += 1
+                            self?.popMoviesCurrentPage += 1
                         }
                         completion(.success(movies))
                     case .failure(let error):
@@ -45,18 +46,31 @@ class PopMoviesViewModel {
         }
     }
 
-    func filterMovies(_ query: String, _ completion: @escaping (PopMoviesState) -> Void) {
-        service.searchMovies(currentPage, query) { result in
+    func filterMovies(_ isPaging: Bool, _ query: String, _ completion: @escaping (PopMoviesState) -> Void) {
+        if !isPaging {
+            filteredMoviesCurrentPage = 1
+        }
+        let sanitizedQuery = sanitizeString(query)
+        guard !sanitizedQuery.isEmpty else { return }
+        service.searchMovies(filteredMoviesCurrentPage, sanitizedQuery) { result in
             DispatchQueue.main.async {
                 switch result {
                     case .success(let response):
                         let movies = response.results.map(MovieItem.init)
                         completion(.success(movies))
+                        return
                     case .failure(let error):
                         completion(.error(error))
                 }
             }
         }
+        filteredMoviesCurrentPage += 1
+    }
+
+    func sanitizeString(_ string: String) -> String {
+        string
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .lowercased()
     }
 
     func routeToDetails(of movie: MovieItem) {

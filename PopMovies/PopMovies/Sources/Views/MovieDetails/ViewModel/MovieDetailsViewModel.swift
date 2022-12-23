@@ -42,6 +42,7 @@ class MovieDetailsViewModel {
                             self?.currentPage += 1
                         }
                         completion(.success(movies))
+                        return
                     case .failure(let error):
                         completion(.error(error))
                 }
