@@ -11,18 +11,28 @@ import UIKit
 
 class PopMoviesView: PMView {
 
-    // MARK: Properties
-    var movies: [MovieItem] = []
-    var isLoadingMoreMovies = false
-    let fetchMoreMovies: () -> Void
-    var favoriteButtonSelectedAction: (_ movie: MovieItem) -> Void
-    var favoriteButtonUnselectedAction: (_ id: Int) -> Void
-    var verifyIfMovieIsInCoreData: (_ id: Int) -> Bool
-    let didTapOnMovie: (_ movie: MovieItem, _ isFavorite: Bool) -> Void
+    // MARK: - Properties
+    private var movies: [MovieItem] = []
+    private var isLoadingMoreMovies = false
+    private let fetchMoreMovies: () -> Void
+    private var favoriteButtonSelectedAction: (_ movie: MovieItem) -> Void
+    private var favoriteButtonUnselectedAction: (_ id: Int) -> Void
+    private var verifyIfMovieIsInCoreData: (_ id: Int) -> Bool
+    private let didTapOnMovie: (_ movie: MovieItem) -> Void
 
+    // MARK: - View
+    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()) .. {
+        $0.delegate = self
+        $0.dataSource = self
+        $0.register(PopMoviesCell.self, forCellWithReuseIdentifier: PopMoviesCell.identifer)
+        $0.backgroundColor = Theme.currentTheme.color.backgroundColor.rawValue
+        $0.allowsMultipleSelection = true
+    }
+
+    // MARK: - Init
     init(
         fetchMoreMovies: @escaping () -> Void,
-        didTapOnMovie: @escaping (_ movie: MovieItem, _ isFavorite: Bool) -> Void,
+        didTapOnMovie: @escaping (_ movie: MovieItem) -> Void,
         favoriteButtonSelectedAction: @escaping (_ movie: MovieItem) -> Void,
         favoriteButtonUnselectedAction: @escaping (_ id: Int) -> Void,
         verifyIfMovieIsInCoreData: @escaping (_ id: Int) -> Bool
@@ -33,34 +43,15 @@ class PopMoviesView: PMView {
         self.favoriteButtonUnselectedAction = favoriteButtonUnselectedAction
         self.verifyIfMovieIsInCoreData = verifyIfMovieIsInCoreData
         super.init()
-        configureSubviews()
-        configureConstraints()
     }
 
-    private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()) .. {
-        $0.delegate = self
-        $0.dataSource = self
-        $0.register(PopMoviesCell.self, forCellWithReuseIdentifier: PopMoviesCell.identifer)
-        $0.backgroundColor = Theme.currentTheme.color.backgroundColor.rawValue
-        $0.allowsMultipleSelection = true
-    }
-
+    // MARK: - Setup
     override func configureSubviews() {
         addSubview(collectionView)
     }
 
     override func configureConstraints() {
         collectionView.edgesToSuperview()
-    }
-
-    func receive(_ popMovies: [MovieItem]) {
-        movies += popMovies
-        collectionView.reloadData()
-        isLoadingMoreMovies = false
-    }
-
-    func reloadCollectionView() {
-        collectionView.reloadData()
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -78,16 +69,29 @@ class PopMoviesView: PMView {
             fetchMoreMovies()
         }
     }
+
+    // MARK: - Aux
+    func receive(_ popMovies: [MovieItem]) {
+        movies += popMovies
+        collectionView.reloadData()
+        isLoadingMoreMovies = false
+    }
+
+    func reloadCollectionView() {
+        collectionView.reloadData()
+    }
 }
 
+// MARK: - Collection View Delegate
 extension PopMoviesView: UICollectionViewDelegate {
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         var movie = movies[indexPath.row]
         movie.isFavorite = verifyIfMovieIsInCoreData(movie.id)
-        didTapOnMovie(movie, movie.isFavorite ?? false)
+        didTapOnMovie(movie)
     }
 }
 
+// MARK: - Collection View DataSource
 extension PopMoviesView: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         movies.count
@@ -107,6 +111,7 @@ extension PopMoviesView: UICollectionViewDataSource {
     }
 }
 
+// MARK: - Collection View Delegate Flow Layout
 extension PopMoviesView: UICollectionViewDelegateFlowLayout {
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
         let width = UIScreen.main.bounds.width * 0.45

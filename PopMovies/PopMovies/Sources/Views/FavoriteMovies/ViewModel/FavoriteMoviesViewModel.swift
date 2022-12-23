@@ -10,26 +10,33 @@ import UIKit
 
 class FavoriteMoviesViewModel {
 
-    var service: PMService
-    var favoriteService: FavoriteMoviesService
-    var currentPage = 1
-    weak var coordinator: PopMoviesCoordinator?
+    // MARK: - Properties
+    private let service: PMService
+    private let favoriteService: FavoriteMoviesService
+    private var currentPage = 1
+    private weak var coordinator: FavoriteMoviesCoordinator?
 
+    // MARK: - Init
     init(
         service: PMService = .live(),
         favoriteService: FavoriteMoviesService = .live(),
-        coordinator: PopMoviesCoordinator
+        coordinator: FavoriteMoviesCoordinator
     ) {
         self.coordinator = coordinator
         self.service = service
         self.favoriteService = favoriteService
     }
 
+    // MARK: - Aux
     func fetchFavoritesMovies() -> [MovieItem] {
         favoriteService.fetchAllMovies()
     }
 
     func removeFavoriteMovie(for id: Int) {
         favoriteService.removeMovie(id)
+    }
+
+    func routeToDetails(of movie: MovieItem) {
+        coordinator?.routeToDetails(of: movie)
     }
 }

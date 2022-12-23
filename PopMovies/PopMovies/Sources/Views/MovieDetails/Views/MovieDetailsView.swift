@@ -12,16 +12,19 @@ import UIKit
 
 class MovieDetailsView: PMView, UIScrollViewDelegate {
 
-    var movie: MovieItem
-    var isLoadingMoreMovies = false
-    let fetchSimilarMovies: () -> Void
-    var isFavorite: Bool {
+    // MARK: -  Properties
+    private var movie: MovieItem
+    private var isLoadingMoreMovies = false
+    private let fetchSimilarMovies: () -> Void
+    private var isFavorite: Bool = false {
         didSet {
             setImageButton(isFavorite)
         }
     }
-    var favoriteButtonSelectedAction: (_ movie: MovieItem) -> Void
-    var favoriteButtonUnselectedAction: (_ id: Int) -> Void
+
+    private let favoriteButtonSelectedAction: (_ movie: MovieItem) -> Void
+    private let favoriteButtonUnselectedAction: (_ id: Int) -> Void
+    private let didTapOnMovie: (_ movie: MovieItem) -> Void
     private var similarMovies: [MovieItem] = [] {
         didSet { collectionViewHeight.constant = collectionContentSize }
     }
@@ -33,22 +36,24 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
         return Double(moviesCount) * itemHeight
     }
 
+    // MARK: - Init
     init(
         movie: MovieItem,
-        isFavorite: Bool,
         fetchSimilarMovies: @escaping () -> Void,
         favoriteButtonSelectedAction: @escaping (_ movie: MovieItem) -> Void,
-        favoriteButtonUnselectedAction: @escaping (_ id: Int) -> Void
+        favoriteButtonUnselectedAction: @escaping (_ id: Int) -> Void,
+        didTapOnMovie: @escaping (_ movie: MovieItem) -> Void
     ) {
         self.favoriteButtonUnselectedAction = favoriteButtonUnselectedAction
         self.favoriteButtonSelectedAction = favoriteButtonSelectedAction
         self.fetchSimilarMovies = fetchSimilarMovies
+        self.didTapOnMovie = didTapOnMovie
         self.movie = movie
-        self.isFavorite = isFavorite
         super.init()
         setupView()
     }
 
+    // MARK: - Views
     private lazy var scrollView = UIScrollView() .. {
         $0.delegate = self
     }
@@ -117,6 +122,7 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
         )
     }
 
+    // MARK: - Setup
     override func configureSubviews() {
         addSubview(scrollView)
         scrollView.addSubview(stackView)
@@ -169,12 +175,6 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
         isSelected ? favoriteButton.setImage(imageFill, for: .normal) : favoriteButton.setImage(image, for: .normal)
     }
 
-    func receive(_ similarMovies: [MovieItem]) {
-        self.similarMovies += similarMovies
-        collectionView.reloadData()
-        isLoadingMoreMovies = false
-    }
-
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
@@ -191,6 +191,13 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
         }
     }
 
+    // MARK: - Aux
+    func receive(_ similarMovies: [MovieItem]) {
+        self.similarMovies += similarMovies
+        collectionView.reloadData()
+        isLoadingMoreMovies = false
+    }
+
     @objc func buttonSelected(_ button: PMButton) {
         setImageButton(button.isSelected)
         if isFavorite {
@@ -203,8 +210,15 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
     }
 }
 
-extension MovieDetailsView: UICollectionViewDelegate {}
+// MARK: - Collection View Delegate
+extension MovieDetailsView: UICollectionViewDelegate {
+    func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let movie = similarMovies[indexPath.row]
+        didTapOnMovie(movie)
+    }
+}
 
+// MARK: - Collection View DataSource
 extension MovieDetailsView: UICollectionViewDataSource {
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         similarMovies.count
@@ -224,6 +238,7 @@ extension MovieDetailsView: UICollectionViewDataSource {
     }
 }
 
+// MARK: - Collection View Delegate Flow Layout
 extension MovieDetailsView: UICollectionViewDelegateFlowLayout {
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
 

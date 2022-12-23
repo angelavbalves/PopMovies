@@ -10,16 +10,21 @@ import UIKit
 
 class PMNavigationController: UINavigationController {
 
+    // MARK: - Init
     init(rootViewController: PMViewController) {
         super.init(rootViewController: rootViewController)
         configureAppearance()
+    }
+
+    init() {
+        super.init(nibName: nil, bundle: nil)
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-
+    // MARK: - Aux
     func configureAppearance() {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithDefaultBackground()

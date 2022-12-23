@@ -10,13 +10,10 @@ import UIKit
 
 class PMViewController: UIViewController {
 
+    // MARK: - View
     let loadingView = PMLoadingView()
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureViews()
-    }
-
+    // MARK: - Init
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -26,6 +23,20 @@ class PMViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Life Cycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureViews()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        presentingViewController?.beginAppearanceTransition(true, animated: false)
+        presentingViewController?.endAppearanceTransition()
+    }
+
+    // MARK: - Aux
     func configureViews() {
         view.addSubview(loadingView)
         loadingView.edgesToSuperview()

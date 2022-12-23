@@ -9,21 +9,25 @@ import UIKit
 
 class PopMoviesViewController: PMViewController {
 
-    let viewModel: PopMoviesViewModel
+    // MARK: -  ViewModel
+    private let viewModel: PopMoviesViewModel
 
+    // MARK: - View
     private lazy var collectionView = PopMoviesView(
         fetchMoreMovies: getPopMovies,
-        didTapOnMovie: didTapOnMovieAction(_:_:),
+        didTapOnMovie: didTapOnMovieAction(_:),
         favoriteButtonSelectedAction: buttonSelected(_:),
         favoriteButtonUnselectedAction: buttonUnselected(_:),
         verifyIfMovieIsInCoreData: verifyMovie(_:)
     )
 
+    // MARK: - Init
     init(viewModel: PopMoviesViewModel) {
         self.viewModel = viewModel
         super.init()
     }
 
+    // MARK: - Life Cycle
     override func loadView() {
         view = collectionView
     }
@@ -39,6 +43,7 @@ class PopMoviesViewController: PMViewController {
         collectionView.reloadCollectionView()
     }
 
+    // MARK: - Aux
     func getPopMovies() {
         loadingView.show()
         viewModel.getMovies { [weak self] state in
@@ -52,8 +57,8 @@ class PopMoviesViewController: PMViewController {
         }
     }
 
-    func didTapOnMovieAction(_ movie: MovieItem, _ favorite: Bool) {
-        viewModel.coordinator?.routeToDetails(of: movie, is: favorite)
+    func didTapOnMovieAction(_ movie: MovieItem) {
+        viewModel.routeToDetails(of: movie)
     }
 
     func buttonSelected(_ movie: MovieItem) {

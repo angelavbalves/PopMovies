@@ -1,18 +1,17 @@
 //
-//  PopMoviesCoordinator.swift
+//  FavoriteMoviesCoordinator.swift
 //  PopMovies
 //
-//  Created by Angela Alves on 07/11/22.
+//  Created by Angela Alves on 11/11/22.
 //
-
 import Foundation
 import UIKit
 
-class PopMoviesCoordinator: CoordinatorProtocol {
+class FavoriteMoviesCoordinator: CoordinatorProtocol {
 
     // MARK: - Properties
-    private var childCoordinator: [CoordinatorProtocol] = []
     var rootViewController: UINavigationController?
+    private var childCoordinator: [CoordinatorProtocol] = []
 
     // MARK: - Init
     init(
@@ -21,12 +20,12 @@ class PopMoviesCoordinator: CoordinatorProtocol {
         self.rootViewController = rootViewController
     }
 
-    // MARK: - Start Method
+    // MARK: - Start method
     func start() {
-        let popMoviesViewModel = PopMoviesViewModel(coordinator: self)
-        let popMoviesViewController = PopMoviesViewController(viewModel: popMoviesViewModel)
+        let favoriteMoviesViewModel = FavoriteMoviesViewModel(coordinator: self)
+        let favoriteMoviesViewController = FavoritesMoviesViewController(viewModel: favoriteMoviesViewModel)
 
-        rootViewController?.setViewControllers([popMoviesViewController], animated: false)
+        rootViewController?.setViewControllers([favoriteMoviesViewController], animated: false)
     }
 
     // MARK: - Route

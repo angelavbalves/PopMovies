@@ -6,9 +6,9 @@
 //
 
 import Foundation
-import UIKit
-import TinyConstraints
 import Kingfisher
+import TinyConstraints
+import UIKit
 
 class SimilarMoviesCell: UICollectionViewCell {
 
@@ -20,6 +20,7 @@ class SimilarMoviesCell: UICollectionViewCell {
         configureConstraints()
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
