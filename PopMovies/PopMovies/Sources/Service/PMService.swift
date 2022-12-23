@@ -19,20 +19,24 @@ extension PMService {
             getMovies: { page, result in
                 apiClient.makeRequest(
                     endpoint: .movies(page: page),
-                    result)
-                    },
+                    result
+                )
+            },
             similarMovies: { id, page, result in
-                        apiClient.makeRequest(
-                            endpoint: .similarMovies(
-                                id: id,
-                                page: page),
-                            result)
-                            },
+                apiClient.makeRequest(
+                    endpoint: .similarMovies(
+                        id: id,
+                        page: page
+                    ),
+                    result
+                )
+            },
             searchMovies: { page, query, result in
                 apiClient.makeRequest(
                     endpoint: .searchMovies(
                         page: page,
-                        query: query),
+                        query: query
+                    ),
                     result
                 )
             }

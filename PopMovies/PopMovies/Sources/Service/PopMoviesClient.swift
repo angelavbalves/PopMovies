@@ -11,7 +11,10 @@ class PopMoviesClient: PopMoviesClientProtocol {
     func makeRequest<T: Decodable>(endpoint: ApiEndpoints, _ completion: @escaping (Result<T, MovieErrorState>) -> Void) {
         if let url = makeUrlRequest(endpoint: endpoint) {
             let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                guard let data = data else { return }
+                guard let data = data else {
+                    completion(.failure(.generic("Unexpected failure, unable to recover data from the server.")))
+                    return
+                }
                 if let response = response as? HTTPURLResponse {
                     switch response.statusCode {
                         case 200...299:
