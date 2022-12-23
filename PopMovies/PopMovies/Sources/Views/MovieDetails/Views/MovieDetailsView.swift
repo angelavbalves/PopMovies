@@ -85,7 +85,7 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
     private let titleLabel = UILabel() .. {
         $0.font = UIFont.systemFont(ofSize: 22)
         $0.numberOfLines = 0
-        $0.textColor = .black
+        $0.textColor = Theme.currentTheme.color.textColor.rawValue
         $0.contentMode = .scaleAspectFit
     }
 
@@ -94,7 +94,7 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
     }
 
     private let overviewLabel = UILabel() .. {
-        $0.textColor = .black
+        $0.textColor = Theme.currentTheme.color.textColor.rawValue
         $0.font = UIFont.systemFont(ofSize: 20)
         $0.numberOfLines = 0
         $0.textAlignment = NSTextAlignment.justified
@@ -102,7 +102,7 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
 
     private let releaseDate = UILabel() .. {
         $0.font = UIFont.systemFont(ofSize: 16)
-        $0.textColor = .black
+        $0.textColor = Theme.currentTheme.color.textColor.rawValue
         $0.textAlignment = .right
     }
 

@@ -36,7 +36,7 @@ class MoviesByGenreController: PMViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.navigationBar.tintColor = .black
+        navigationController?.navigationBar.tintColor = Theme.currentTheme.color.textColor.rawValue
         title = "\(viewModel.name)"
     }
 
