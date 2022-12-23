@@ -22,7 +22,7 @@ class TabBarController: UITabBarController {
         items[0].image = UIImage(systemName: "house.fill")!
 
         items[1].title = "Favorites"
-        items[1].image = UIImage(systemName: "star.square")!
+        items[1].image = UIImage(systemName: "heart.square")!
 
         items[2].title = "Genres"
         items[2].image = UIImage(systemName: "list.and.film")!

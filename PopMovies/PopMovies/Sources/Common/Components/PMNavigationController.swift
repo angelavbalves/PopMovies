@@ -25,7 +25,6 @@ class PMNavigationController: UINavigationController {
         appearance.configureWithDefaultBackground()
         appearance.backgroundColor = Theme.currentTheme.color.tabBarColor.rawValue
 
-        navigationBar.prefersLargeTitles = true
         navigationBar.tintColor = Theme.currentTheme.color.itemsNav.rawValue
 
         navigationBar.standardAppearance = appearance

@@ -15,6 +15,13 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
     var movie: MovieItem
     var isLoadingMoreMovies = false
     let fetchSimilarMovies: () -> Void
+    var isFavorite: Bool {
+        didSet {
+            setImageButton(isFavorite)
+        }
+    }
+    var favoriteButtonSelectedAction: (_ movie: MovieItem) -> Void
+    var favoriteButtonUnselectedAction: (_ id: Int) -> Void
     private var similarMovies: [MovieItem] = [] {
         didSet { collectionViewHeight.constant = collectionContentSize }
     }
@@ -28,10 +35,16 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
 
     init(
         movie: MovieItem,
-        fetchSimilarMovies: @escaping () -> Void
+        isFavorite: Bool,
+        fetchSimilarMovies: @escaping () -> Void,
+        favoriteButtonSelectedAction: @escaping (_ movie: MovieItem) -> Void,
+        favoriteButtonUnselectedAction: @escaping (_ id: Int) -> Void
     ) {
+        self.favoriteButtonUnselectedAction = favoriteButtonUnselectedAction
+        self.favoriteButtonSelectedAction = favoriteButtonSelectedAction
         self.fetchSimilarMovies = fetchSimilarMovies
         self.movie = movie
+        self.isFavorite = isFavorite
         super.init()
         setupView()
     }
@@ -46,7 +59,9 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
     }
 
     private let titleStackView = UIStackView() .. {
-        $0.axis = .horizontal
+        $0.axis = .vertical
+        $0.alignment = .center
+        $0.spacing = 16
     }
 
     private let infoStackView = UIStackView() .. {
@@ -55,10 +70,10 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
     }
 
     private let poster = UIImageView() .. {
-        $0.layer.cornerRadius = 8.0
-        $0.clipsToBounds = true
         $0.contentMode = .scaleAspectFit
-        $0.layer.masksToBounds = true
+        $0.layer.shadowColor = UIColor.black.cgColor
+        $0.layer.shadowOpacity = 0.4
+        $0.clipsToBounds = true
         $0.layer.cornerRadius = 8.0
     }
 
@@ -66,13 +81,11 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
         $0.font = UIFont.systemFont(ofSize: 22)
         $0.numberOfLines = 0
         $0.textColor = .black
+        $0.contentMode = .scaleAspectFit
     }
 
-    private let favoriteButton = UIButton() .. {
-        $0.setContentHuggingPriority(.required, for: .horizontal)
-        let image = UIImage(systemName: "heart")!
-        $0.setImage(image, for: .normal)
-        $0.tintColor = .black
+    private lazy var favoriteButton = PMButton() .. {
+        $0.addTarget(self, action: #selector(buttonSelected(_:)), for: .touchUpInside)
     }
 
     private let overviewLabel = UILabel() .. {
@@ -85,6 +98,7 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
     private let releaseDate = UILabel() .. {
         $0.font = UIFont.systemFont(ofSize: 16)
         $0.textColor = .black
+        $0.textAlignment = .right
     }
 
     private lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()) .. {
@@ -114,7 +128,6 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
 
         infoStackView.addArrangedSubview(titleStackView)
 
-        infoStackView.addArrangedSubview(Separator())
         infoStackView.addArrangedSubview(overviewLabel)
         infoStackView.addArrangedSubview(Separator())
         infoStackView.addArrangedSubview(releaseDate)
@@ -136,6 +149,8 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
         collectionView.widthToSuperview()
         collectionView.topToBottom(of: infoStackView)
         collectionView.bottom(to: scrollView)
+
+        favoriteButton.width(to: stackView)
     }
 
     func setupView() {
@@ -144,7 +159,14 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
         poster.kf.setImage(with: url, placeholder: UIImage(named: "posterNotFound")!)
         titleLabel.text = movie.title
         overviewLabel.text = movie.overview
-        releaseDate.text = movie.releaseDate
+        releaseDate.text = "Release date: \(movie.releaseDate ?? "")"
+        isFavorite = movie.isFavorite ?? false
+    }
+
+    func setImageButton(_ isSelected: Bool) {
+        let image = UIImage(systemName: "heart")!
+        let imageFill = UIImage(systemName: "heart.fill")!
+        isSelected ? favoriteButton.setImage(imageFill, for: .normal) : favoriteButton.setImage(image, for: .normal)
     }
 
     func receive(_ similarMovies: [MovieItem]) {
@@ -166,6 +188,17 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
         {
             isLoadingMoreMovies = true
             fetchSimilarMovies()
+        }
+    }
+
+    @objc func buttonSelected(_ button: PMButton) {
+        setImageButton(button.isSelected)
+        if isFavorite {
+            isFavorite = false
+            favoriteButtonUnselectedAction(movie.id)
+        } else {
+            isFavorite = true
+            favoriteButtonSelectedAction(movie)
         }
     }
 }
