@@ -16,11 +16,12 @@ class MoviesByGenreController: PMViewController {
 
     // MARK: View
     private lazy var rootView = PopMoviesView(
-        fetchMoreMovies: getMoviesByGenre,
-        didTapOnMovie: didTapOnMovieAction(_:),
-        favoriteButtonSelectedAction: buttonSelected(_:),
-        favoriteButtonUnselectedAction: buttonUnselected(_:),
-        verifyIfMovieIsInCoreData: verifyMovie(_:)
+        fetchMoreMovies: { [weak self] in
+            self?.getMoviesByGenre()
+        },
+        didTapOnMovie: { [weak self] in
+            self?.didTapOnMovieAction($0)
+        }
     )
 
     // MARK: - Init
@@ -37,7 +38,7 @@ class MoviesByGenreController: PMViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.tintColor = Theme.currentTheme.color.textColor.rawValue
-        title = "\(viewModel.name)"
+        title = viewModel.genreName
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -50,26 +51,21 @@ class MoviesByGenreController: PMViewController {
         viewModel.getMovies { [weak self] state in
             switch state {
                 case .success(let movies):
+                    if movies.isEmpty {
+                        guard let icon = UIImage(named: "search") else { return }
+                        self?.emptyView.show(
+                            icon: icon,
+                            message: "There aren't movies\n this genre here!"
+                        )
+                    }
                     self?.rootView.receive(movies)
-                case .error:
-                    print("Error to get movies by genre")
+                case .error(let error):
+                    self?.errorView.show(errorState: error)
             }
         }
     }
 
     func didTapOnMovieAction(_ movie: MovieItem) {
         viewModel.routeToDetails(of: movie)
-    }
-
-    func buttonSelected(_ movie: MovieItem) {
-        viewModel.saveMovieInCoreData(movie)
-    }
-
-    func buttonUnselected(_ id: Int) {
-        viewModel.removeMovieOfCoreData(for: id)
-    }
-
-    func verifyMovie(_ id: Int) -> Bool {
-        viewModel.verifyMovieInCoreData(for: id)
     }
 }

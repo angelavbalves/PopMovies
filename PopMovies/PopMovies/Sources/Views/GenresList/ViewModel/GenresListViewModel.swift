@@ -30,8 +30,8 @@ class GenresListViewModel {
                 switch result {
                     case .success(let genreResponse):
                         completion(.success(genreResponse.genres))
-                    case .failure:
-                        completion(.error)
+                    case .failure(let error):
+                        completion(.error(error))
                 }
             }
         }

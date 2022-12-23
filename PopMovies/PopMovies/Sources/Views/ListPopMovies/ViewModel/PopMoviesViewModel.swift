@@ -38,8 +38,8 @@ class PopMoviesViewModel {
                             self?.currentPage += 1
                         }
                         completion(.success(movies))
-                    case .failure:
-                        completion(.error)
+                    case .failure(let error):
+                        completion(.error(error))
                 }
             }
         }
@@ -52,23 +52,11 @@ class PopMoviesViewModel {
                     case .success(let response):
                         let movies = response.results.map(MovieItem.init)
                         completion(.success(movies))
-                    case .failure:
-                        completion(.error)
+                    case .failure(let error):
+                        completion(.error(error))
                 }
             }
         }
-    }
-
-    func saveMovieInCoreData(_ movie: MovieItem) {
-        favoriteService.saveMovie(movie)
-    }
-
-    func removeMovieOfCoreData(for id: Int) {
-        favoriteService.removeMovie(id)
-    }
-
-    func verifyMovieInCoreData(for id: Int) -> Bool {
-        favoriteService.verifyIfMovieIsInCoreData(id)
     }
 
     func routeToDetails(of movie: MovieItem) {

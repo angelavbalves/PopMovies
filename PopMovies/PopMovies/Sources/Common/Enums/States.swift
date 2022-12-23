@@ -9,10 +9,10 @@ import Foundation
 
 enum PopMoviesState {
     case success([MovieItem])
-    case error
+    case error(ErrorState)
 }
 
 enum GenresState {
     case success([Genre])
-    case error
+    case error(ErrorState)
 }

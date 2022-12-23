@@ -49,8 +49,8 @@ class GenresListView: PMView {
 extension GenresListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let idGenre = genres[indexPath.row].id else { return }
-        guard let nameGenre = genres[indexPath.row].name else { return }
-        didTapOnGenre(idGenre, nameGenre)
+        guard let genreName = genres[indexPath.row].name else { return }
+        didTapOnGenre(idGenre, genreName)
     }
 }
 

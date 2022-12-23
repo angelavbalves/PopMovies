@@ -8,11 +8,11 @@
 import Foundation
 
 struct PMService {
-    var getMovies: (_ page: Int, _ result: @escaping (Result<MovieResponse, MovieErrorState>) -> Void) -> Void
-    var similarMovies: (_ id: Int, _ page: Int, _ result: @escaping (Result<MovieResponse, MovieErrorState>) -> Void) -> Void
-    var searchMovies: (_ page: Int, _ query: String, _ result: @escaping (Result<MovieResponse, MovieErrorState>) -> Void) -> Void
-    var listGenres: (_ completion: @escaping (Result<GenresResponse, MovieErrorState>) -> Void) -> Void
-    var listMoviesByGenre: (_ page: Int, _ genre: Int, _ completion: @escaping (Result<MovieResponse, MovieErrorState>) -> Void) -> Void
+    var getMovies: (_ page: Int, _ result: @escaping (Result<MovieResponse, ErrorState>) -> Void) -> Void
+    var similarMovies: (_ id: Int, _ page: Int, _ result: @escaping (Result<MovieResponse, ErrorState>) -> Void) -> Void
+    var searchMovies: (_ page: Int, _ query: String, _ result: @escaping (Result<MovieResponse, ErrorState>) -> Void) -> Void
+    var listGenres: (_ completion: @escaping (Result<GenresResponse, ErrorState>) -> Void) -> Void
+    var listMoviesByGenre: (_ page: Int, _ genre: Int, _ completion: @escaping (Result<MovieResponse, ErrorState>) -> Void) -> Void
 }
 
 extension PMService {

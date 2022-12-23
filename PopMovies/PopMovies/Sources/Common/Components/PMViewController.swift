@@ -12,6 +12,8 @@ class PMViewController: UIViewController {
 
     // MARK: - View
     let loadingView = PMLoadingView()
+    let errorView = PMErrorView()
+    let emptyView = PMEmptyView()
     var defaults = UserDefaults.standard
     var isDark = false
 
@@ -46,7 +48,11 @@ class PMViewController: UIViewController {
     // MARK: - Aux
     func configureViews() {
         view.addSubview(loadingView)
+        view.addSubview(errorView)
+        view.addSubview(emptyView)
         loadingView.edgesToSuperview()
+        errorView.edgesToSuperview()
+        emptyView.edgesToSuperview()
         view.backgroundColor = Theme.currentTheme.color.backgroundColor.rawValue
     }
 }

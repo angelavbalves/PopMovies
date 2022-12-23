@@ -30,10 +30,10 @@ class GenresListCoordinator: CoordinatorProtocol {
     }
 
     // MARK: - Route
-    func routeToList(for id: Int, _ name: String) {
+    func routeToList(for id: Int, _ genreName: String) {
         let coordinator = MoviesByGenreCoordinator(
             id: id,
-            name: name,
+            genreName: genreName,
             parentNavigation: rootViewController
         )
 

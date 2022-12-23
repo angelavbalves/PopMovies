@@ -20,9 +20,6 @@ class PopMoviesView: PMView {
     }
     private var isLoadingMoreMovies = false
     private let fetchMoreMovies: () -> Void
-    private var favoriteButtonSelectedAction: (_ movie: MovieItem) -> Void
-    private var favoriteButtonUnselectedAction: (_ id: Int) -> Void
-    private var verifyIfMovieIsInCoreData: (_ id: Int) -> Bool
     private let didTapOnMovie: (_ movie: MovieItem) -> Void
 
     // MARK: - View
@@ -37,16 +34,10 @@ class PopMoviesView: PMView {
     // MARK: - Init
     init(
         fetchMoreMovies: @escaping () -> Void,
-        didTapOnMovie: @escaping (_ movie: MovieItem) -> Void,
-        favoriteButtonSelectedAction: @escaping (_ movie: MovieItem) -> Void,
-        favoriteButtonUnselectedAction: @escaping (_ id: Int) -> Void,
-        verifyIfMovieIsInCoreData: @escaping (_ id: Int) -> Bool
+        didTapOnMovie: @escaping (_ movie: MovieItem) -> Void
     ) {
         self.fetchMoreMovies = fetchMoreMovies
         self.didTapOnMovie = didTapOnMovie
-        self.favoriteButtonSelectedAction = favoriteButtonSelectedAction
-        self.favoriteButtonUnselectedAction = favoriteButtonUnselectedAction
-        self.verifyIfMovieIsInCoreData = verifyIfMovieIsInCoreData
         super.init()
     }
 
@@ -97,8 +88,7 @@ class PopMoviesView: PMView {
 // MARK: - Collection View Delegate
 extension PopMoviesView: UICollectionViewDelegate {
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        var movie = filteredMovies[indexPath.row]
-        movie.isFavorite = verifyIfMovieIsInCoreData(movie.id)
+        let movie = filteredMovies[indexPath.row]
         didTapOnMovie(movie)
     }
 }
@@ -111,13 +101,8 @@ extension PopMoviesView: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PopMoviesCell.identifer, for: indexPath) as! PopMoviesCell
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowOpacity = 0.5
-        cell.layer.cornerRadius = 8.0
 
-        var movie = filteredMovies[indexPath.row]
-        let favorite = verifyIfMovieIsInCoreData(movie.id)
-        movie.isFavorite = favorite
+        let movie = filteredMovies[indexPath.row]
         cell.setup(for: movie)
         return cell
     }

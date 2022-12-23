@@ -15,11 +15,16 @@ class MovieDetailsViewController: PMViewController {
 
     // MARK: - View
     private lazy var detailsView = MovieDetailsView(
-        movie: viewModel.checkIfMovieIsInCoreData(),
-        fetchSimilarMovies: getSimilarMovies,
-        favoriteButtonSelectedAction: buttonSelected(_:),
-        favoriteButtonUnselectedAction: buttonUnselected(_:),
-        didTapOnMovie: didTapOnMovieAction(_:)
+        movie: viewModel.movie,
+        fetchSimilarMovies: { [weak self] in
+            self?.getSimilarMovies()
+        },
+        didTapFavoriteButton: { [weak self] in
+            self?.didTapFavoriteButton(for: $0)
+        },
+        didTapOnMovie: { [weak self] in
+            self?.didTapOnMovieAction($0)
+        }
     )
 
     // MARK: - Init
@@ -56,8 +61,8 @@ class MovieDetailsViewController: PMViewController {
             switch state {
                 case .success(let similarMovies):
                     self?.detailsView.receive(similarMovies)
-                case .error:
-                    print("Error to get similar movies")
+                case .error(let error):
+                    self?.errorView.show(errorState: error)
             }
         }
     }
@@ -66,11 +71,7 @@ class MovieDetailsViewController: PMViewController {
         viewModel.showDetailsOfSimilarMovie(of: movie)
     }
 
-    func buttonSelected(_ movie: MovieItem) {
-        viewModel.saveMovieInCoreData(movie)
-    }
-
-    func buttonUnselected(_ id: Int) {
-        viewModel.removeMovieOfCoreData(for: id)
+    func didTapFavoriteButton(for movie: MovieItem) {
+        viewModel.didTapFavoriteButton(for: movie)
     }
 }

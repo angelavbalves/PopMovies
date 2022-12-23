@@ -1,5 +1,5 @@
 //
-//  PMButton.swift
+//  FavoriteButton.swift
 //  PopMovies
 //
 //  Created by Angela Alves on 09/11/22.
@@ -9,7 +9,7 @@ import Foundation
 import TinyConstraints
 import UIKit
 
-class PMButton: UIButton {
+class FavoriteButton: UIButton {
 
     private let propertyAnimator = UIViewPropertyAnimator(duration: 0.2, curve: .easeOut)
 

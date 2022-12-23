@@ -19,17 +19,19 @@ class PopMoviesViewController: PMViewController {
 
     // MARK: - View
     private lazy var rootView = PopMoviesView(
-        fetchMoreMovies: getPopMovies,
-        didTapOnMovie: didTapOnMovieAction(_:),
-        favoriteButtonSelectedAction: buttonSelected(_:),
-        favoriteButtonUnselectedAction: buttonUnselected(_:),
-        verifyIfMovieIsInCoreData: verifyMovie(_:)
+        fetchMoreMovies: { [weak self] in
+            self?.getPopMovies()
+        },
+        didTapOnMovie: { [weak self] in
+            self?.didTapOnMovieAction($0)
+        }
     )
 
     private lazy var searchBar = UISearchController() .. {
         $0.searchBar.placeholder = "Search Movies By Title"
         $0.searchResultsUpdater = self
         $0.searchBar.delegate = self
+        $0.resignFirstResponder()
     }
 
     // MARK: - Init
@@ -91,17 +93,23 @@ class PopMoviesViewController: PMViewController {
         }
     }
 
-
     // MARK: - Aux
     func getPopMovies() {
         loadingView.show()
         viewModel.getMovies { [weak self] state in
             switch state {
                 case .success(let movies):
-                    self?.rootView.receive(movies)
                     self?.loadingView.hide()
-                case .error:
-                    print("Error to get movies")
+                    if movies.isEmpty {
+                        guard let icon = UIImage(named: "list") else { return }
+                        self?.emptyView.show(
+                            icon: icon,
+                            message: "We didn't find\nmovies for you!"
+                        )
+                    }
+                    self?.rootView.receive(movies)
+                case .error(let error):
+                    self?.errorView.show(errorState: error)
             }
         }
     }
@@ -109,31 +117,29 @@ class PopMoviesViewController: PMViewController {
     func didTapOnMovieAction(_ movie: MovieItem) {
         viewModel.routeToDetails(of: movie)
     }
-
-    func buttonSelected(_ movie: MovieItem) {
-        viewModel.saveMovieInCoreData(movie)
-    }
-
-    func buttonUnselected(_ id: Int) {
-        viewModel.removeMovieOfCoreData(for: id)
-    }
-
-    func verifyMovie(_ id: Int) -> Bool {
-        viewModel.verifyMovieInCoreData(for: id)
-    }
 }
 
 extension PopMoviesViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text, !text.isEmpty else { return }
+        guard let text = searchController.searchBar.text, !text.isEmpty else {
+            emptyView.hide()
+            return
+        }
         loadingView.show()
         viewModel.filterMovies(text) { [weak self] state in
             switch state {
                 case .success(let movies):
                     self?.rootView.showSearchResults(movies)
                     self?.loadingView.hide()
-                case .error:
-                    print("Error to filter movies by title")
+                    if movies.isEmpty {
+                        guard let icon = UIImage(named: "search") else { return }
+                        self?.emptyView.show(
+                            icon: icon,
+                            message: "There aren't movies\nwith this title!"
+                        )
+                    }
+                case .error(let error):
+                    self?.errorView.show(errorState: error)
             }
         }
     }
@@ -143,5 +149,6 @@ extension PopMoviesViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         resignFirstResponder()
         rootView.resetFilteredMovies()
+        emptyView.hide()
     }
 }

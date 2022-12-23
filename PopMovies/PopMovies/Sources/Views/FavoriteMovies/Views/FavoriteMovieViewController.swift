@@ -14,9 +14,16 @@ class FavoriteMoviesViewController: PMViewController {
     let viewModel: FavoriteMoviesViewModel
 
     // MARK: - View
-    private lazy var tableView = FavoriteMoviesView(
-        removeFavoriteMovie: removeFavoriteMovie(for:),
-        didTapOnMovie: didTapOnFavoriteMovieAction(_:)
+    private lazy var rootView = FavoriteMoviesView(
+        removeFavoriteMovie: { [weak self] in
+            self?.removeFavoriteMovie(with: $0)
+        },
+        didTapOnMovie: { [weak self] in
+            self?.didTapOnFavoriteMovieAction($0)
+        },
+        showEmptyView: { [weak self] in
+            self?.showEmptyView()
+        }
     )
 
     // MARK: - Init
@@ -27,7 +34,7 @@ class FavoriteMoviesViewController: PMViewController {
 
     // MARK: - Life Cycle
     override func loadView() {
-        view = tableView
+        view = rootView
     }
 
     override func viewDidLoad() {
@@ -37,20 +44,33 @@ class FavoriteMoviesViewController: PMViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        let favoriteMovies = getFavoriteMovies()
-        tableView.popularFavoriteMoviesList(with: favoriteMovies)
+        fetchFavoriteMoviesAndUpdateView()
     }
 
     // MARK: - Aux
-    func getFavoriteMovies() -> [MovieItem] {
-        viewModel.fetchFavoritesMovies()
+    func fetchFavoriteMoviesAndUpdateView() {
+        let favoriteMovies = viewModel.fetchFavoritesMovies()
+        if favoriteMovies.isEmpty {
+            showEmptyView()
+        } else {
+            emptyView.hide()
+        }
+        rootView.receive(favoriteMovies)
     }
 
-    func removeFavoriteMovie(for id: Int) {
+    func removeFavoriteMovie(with id: Int) {
         viewModel.removeFavoriteMovie(for: id)
     }
 
     func didTapOnFavoriteMovieAction(_ movie: MovieItem) {
         viewModel.routeToDetails(of: movie)
+    }
+
+    func showEmptyView() {
+        guard let icon = UIImage(named: "notFavorite") else { return }
+        emptyView.show(
+            icon: icon,
+            message: "You haven't\nfavorite movies yet"
+        )
     }
 }

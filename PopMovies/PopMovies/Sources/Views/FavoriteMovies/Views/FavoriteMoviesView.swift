@@ -15,6 +15,7 @@ class FavoriteMoviesView: PMView {
     private var movies: [MovieItem] = []
     private let removeFavoriteMovie: (_ id: Int) -> Void
     private let didTapOnMovie: (_ movie: MovieItem) -> Void
+    private let showEmptyView: () -> Void
 
     // MARK: - View
     private lazy var tableView = UITableView() .. {
@@ -27,10 +28,12 @@ class FavoriteMoviesView: PMView {
     // MARK: - Init
     init(
         removeFavoriteMovie: @escaping (_ id: Int) -> Void,
-        didTapOnMovie: @escaping (_ movie: MovieItem) -> Void
+        didTapOnMovie: @escaping (_ movie: MovieItem) -> Void,
+        showEmptyView: @escaping () -> Void
     ) {
         self.removeFavoriteMovie = removeFavoriteMovie
         self.didTapOnMovie = didTapOnMovie
+        self.showEmptyView = showEmptyView
         super.init()
     }
 
@@ -44,7 +47,7 @@ class FavoriteMoviesView: PMView {
     }
 
     // MARK: - Aux
-    func popularFavoriteMoviesList(with favoriteMovies: [MovieItem]) {
+    func receive(_ favoriteMovies: [MovieItem]) {
         movies = favoriteMovies
         tableView.reloadData()
     }
@@ -81,6 +84,9 @@ extension FavoriteMoviesView: UITableViewDataSource {
             removeFavoriteMovie(movies[indexPath.row].id)
             movies.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            if movies.isEmpty {
+                showEmptyView()
+            }
         }
     }
 }

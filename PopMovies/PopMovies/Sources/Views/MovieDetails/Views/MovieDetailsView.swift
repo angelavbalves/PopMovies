@@ -22,8 +22,7 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
         }
     }
 
-    private let favoriteButtonSelectedAction: (_ movie: MovieItem) -> Void
-    private let favoriteButtonUnselectedAction: (_ id: Int) -> Void
+    private let didTapFavoriteButton: (_ movie: MovieItem) -> Void
     private let didTapOnMovie: (_ movie: MovieItem) -> Void
     private var similarMovies: [MovieItem] = [] {
         didSet { collectionViewHeight.constant = collectionContentSize }
@@ -40,12 +39,10 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
     init(
         movie: MovieItem,
         fetchSimilarMovies: @escaping () -> Void,
-        favoriteButtonSelectedAction: @escaping (_ movie: MovieItem) -> Void,
-        favoriteButtonUnselectedAction: @escaping (_ id: Int) -> Void,
+        didTapFavoriteButton: @escaping (_ movie: MovieItem) -> Void,
         didTapOnMovie: @escaping (_ movie: MovieItem) -> Void
     ) {
-        self.favoriteButtonUnselectedAction = favoriteButtonUnselectedAction
-        self.favoriteButtonSelectedAction = favoriteButtonSelectedAction
+        self.didTapFavoriteButton = didTapFavoriteButton
         self.fetchSimilarMovies = fetchSimilarMovies
         self.didTapOnMovie = didTapOnMovie
         self.movie = movie
@@ -76,10 +73,8 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
 
     private let poster = UIImageView() .. {
         $0.contentMode = .scaleAspectFit
-        $0.layer.shadowColor = UIColor.black.cgColor
+        $0.layer.shadowColor = Theme.currentTheme.color.shadowColor.rawValue.cgColor
         $0.layer.shadowOpacity = 0.4
-        $0.clipsToBounds = true
-        $0.layer.cornerRadius = 8.0
     }
 
     private let titleLabel = UILabel() .. {
@@ -89,7 +84,7 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
         $0.contentMode = .scaleAspectFit
     }
 
-    private lazy var favoriteButton = PMButton() .. {
+    lazy var favoriteButton = FavoriteButton() .. {
         $0.addTarget(self, action: #selector(buttonSelected(_:)), for: .touchUpInside)
     }
 
@@ -172,7 +167,10 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
     func setImageButton(_ isSelected: Bool) {
         let image = UIImage(systemName: "heart")
         let imageFill = UIImage(systemName: "heart.fill")
-        isSelected ? favoriteButton.setImage(imageFill, for: .normal) : favoriteButton.setImage(image, for: .normal)
+
+        isSelected
+            ? favoriteButton.setImage(imageFill, for: .normal)
+            : favoriteButton.setImage(image, for: .normal)
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -198,14 +196,13 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
         isLoadingMoreMovies = false
     }
 
-    @objc func buttonSelected(_ button: PMButton) {
+    @objc func buttonSelected(_ button: FavoriteButton) {
         setImageButton(button.isSelected)
-        if isFavorite {
+        didTapFavoriteButton(movie)
+        if button.isSelected {
             isFavorite = false
-            favoriteButtonUnselectedAction(movie.id)
         } else {
             isFavorite = true
-            favoriteButtonSelectedAction(movie)
         }
     }
 }
@@ -226,10 +223,6 @@ extension MovieDetailsView: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SimilarMoviesCell.identifier, for: indexPath) as! SimilarMoviesCell
-
-        cell.layer.shadowColor = UIColor.black.cgColor
-        cell.layer.shadowOpacity = 0.5
-        cell.layer.cornerRadius = 8.0
 
         let movie = similarMovies[indexPath.row]
         cell.setup(for: movie)

@@ -13,7 +13,12 @@ class MovieDetailsViewModel {
     // MARK: - Properties
     private let service: PMService
     private weak var coordinator: MovieDetailsCoordinator?
-    private var movie: MovieItem
+    private(set) var movie: MovieItem {
+        didSet {
+            fetchFavoriteStatus()
+        }
+    }
+
     private var currentPage = 1
     private var favoriteService: FavoriteMoviesService
 
@@ -41,16 +46,15 @@ class MovieDetailsViewModel {
                             self?.currentPage += 1
                         }
                         completion(.success(movies))
-                    case .failure:
-                        completion(.error)
+                    case .failure(let error):
+                        completion(.error(error))
                 }
             }
         }
     }
 
-    func checkIfMovieIsInCoreData() -> MovieItem {
+    private func fetchFavoriteStatus() {
         movie.isFavorite = favoriteService.verifyIfMovieIsInCoreData(movie.id)
-        return movie
     }
 
     func saveMovieInCoreData(_ movie: MovieItem) {
@@ -67,5 +71,12 @@ class MovieDetailsViewModel {
 
     func showDetailsOfSimilarMovie(of movie: MovieItem) {
         coordinator?.showDetailsOfSimilarMovie(of: movie)
+    }
+
+    func didTapFavoriteButton(for movie: MovieItem) {
+        let isFavorite = favoriteService.verifyIfMovieIsInCoreData(movie.id)
+        isFavorite
+            ? favoriteService.removeMovie(movie.id)
+            : favoriteService.saveMovie(movie)
     }
 }

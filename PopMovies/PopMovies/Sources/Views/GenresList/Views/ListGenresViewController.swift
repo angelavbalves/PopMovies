@@ -15,7 +15,9 @@ class GenresListViewController: PMViewController {
 
     // MARK: - View
     private lazy var listView = GenresListView(
-        didTapOnGenre: didTapOnGenreAction(_:_:)
+        didTapOnGenre: { [weak self] in
+            self?.didTapOnGenreAction($0, $1)
+        }
     )
 
     // MARK: - Init
@@ -40,8 +42,8 @@ class GenresListViewController: PMViewController {
             switch state {
                 case .success(let genres):
                     self?.listView.receive(genres)
-                case .error:
-                    print("Error to get genres")
+                case .error(let error):
+                    self?.errorView.show(errorState: error)
             }
         }
     }
