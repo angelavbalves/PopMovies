@@ -28,36 +28,15 @@ class PopMoviesCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private let stackView = UIStackView() .. {
-        $0.axis = .vertical
-        $0.spacing = 8
-    }
-
     private let imageView = UIImageView() .. {
         $0.contentMode = .scaleAspectFit
         $0.layer.shadowColor = UIColor.black.cgColor
         $0.layer.shadowOpacity = 0.4
-    }
-
-    private let titleStackView = UIStackView() .. {
-        $0.axis = .horizontal
-    }
-
-    private let titleLabel = UILabel() .. {
-        $0.font = UIFont.systemFont(ofSize: 16)
-        $0.numberOfLines = 0
-    }
-
-    private let button = UIButton() .. {
-        $0.setContentHuggingPriority(.required, for: .horizontal)
-        $0.setCompressionResistance(.required, for: .horizontal)
-        let image = UIImage(systemName: "heart")!
-        $0.setImage(image, for: .normal)
-        $0.tintColor = .black
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 8.0
     }
 
     func setup(for movie: MovieItem) {
-        titleLabel.text = movie.title
         self.movie = movie
         let url = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath ?? "")")
         imageView.kf.indicatorType = .activity
@@ -65,15 +44,11 @@ class PopMoviesCell: UICollectionViewCell {
     }
 
     func configureSubViews() {
-        addSubview(stackView)
-        stackView.addArrangedSubview(imageView)
-        stackView.addArrangedSubview(titleStackView)
-        titleStackView.addArrangedSubview(titleLabel)
-        titleStackView.addArrangedSubview(button)
+        addSubview(imageView)
     }
 
     func configureConstraints() {
-        stackView.edgesToSuperview(insets: .top(8) + .left(8) + .right(8) + .bottom(2), usingSafeArea: true)
-        imageView.height(frame.height * 0.80)
+        imageView.edgesToSuperview()
+        imageView.height(frame.height)
     }
 }
