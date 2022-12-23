@@ -29,6 +29,7 @@ class MovieDetailsCoordinator: CoordinatorProtocol {
         let viewModel = MovieDetailsViewModel(movie: movie, coordinator: self)
         let controller = MovieDetailsViewController(viewModel: viewModel)
         rootViewController = PMNavigationController(rootViewController: controller)
+        controller.setCloseButton()
         parentNavigation?.present(rootViewController!, animated: true)
     }
 
@@ -36,6 +37,7 @@ class MovieDetailsCoordinator: CoordinatorProtocol {
     func routeToDetails(of movie: MovieItem) {
         let viewModel = MovieDetailsViewModel(movie: movie, coordinator: self)
         let controller = MovieDetailsViewController(viewModel: viewModel)
+        controller.setBackButton()
         parentNavigation?.pushViewController(controller, animated: true)
     }
 
@@ -43,5 +45,10 @@ class MovieDetailsCoordinator: CoordinatorProtocol {
         let detailsViewModel = MovieDetailsViewModel(movie: movie, coordinator: self)
         let detailsController = MovieDetailsViewController(viewModel: detailsViewModel)
         rootViewController?.pushViewController(detailsController, animated: true)
+    }
+
+    func returnPage() {
+        rootViewController?.popViewController(animated: true)
+
     }
 }

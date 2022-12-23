@@ -73,6 +73,10 @@ class MovieDetailsViewModel {
         coordinator?.showDetailsOfSimilarMovie(of: movie)
     }
 
+    func returnPage() {
+        coordinator?.returnPage()
+    }
+
     func didTapFavoriteButton(for movie: MovieItem) {
         let isFavorite = favoriteService.verifyIfMovieIsInCoreData(movie.id)
         isFavorite

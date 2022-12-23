@@ -42,18 +42,26 @@ class MovieDetailsViewController: PMViewController {
         super.viewDidLoad()
         getSimilarMovies()
         navigationController?.navigationBar.prefersLargeTitles = false
-        closeDetailsButton()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
 
     // MARK: - Setup
-    func closeDetailsButton() {
-        let image = UIImage(systemName: "xmark.circle")
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(closeButtonDidTap))
+    func setBackButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+                                            image:  UIImage(systemName: "chevron.backward"),
+                                            style: .plain, target: self,
+                                            action: #selector(returnPage)
+                                            )
     }
 
     // MARK: - Aux
-    @objc func closeButtonDidTap() {
-        navigationController?.dismiss(animated: true)
+
+    @objc func returnPage() {
+        viewModel.returnPage()
     }
 
     func getSimilarMovies() {

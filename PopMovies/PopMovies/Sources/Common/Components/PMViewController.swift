@@ -55,4 +55,12 @@ class PMViewController: UIViewController {
         emptyView.edgesToSuperview()
         view.backgroundColor = Theme.currentTheme.color.backgroundColor.rawValue
     }
+
+    func setCloseButton() {
+        navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(closeButtonDidTap))
+    }
+
+    @objc func closeButtonDidTap() {
+        navigationController?.dismiss(animated: true)
+    }
 }

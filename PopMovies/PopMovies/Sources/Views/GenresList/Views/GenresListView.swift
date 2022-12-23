@@ -35,7 +35,7 @@ class GenresListView: PMView {
     }
 
     override func configureConstraints() {
-        tableView.edgesToSuperview()
+        tableView.edgesToSuperview(usingSafeArea: true)
     }
 
     // MARK: - Aux

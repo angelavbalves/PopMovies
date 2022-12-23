@@ -27,8 +27,20 @@ class GenreCell: UITableViewCell {
     }
 
     // MARK: - View
+    private let stackView = UIStackView() .. {
+        $0.axis = .horizontal
+        $0.distribution = .equalSpacing
+    }
+
     private let label = UILabel() .. {
         $0.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        $0.contentMode = .scaleAspectFit
+    }
+
+    private let imageChevron = UIImageView() .. {
+        let chevron = UIImage(systemName: "chevron.right")
+        $0.tintColor = Theme.currentTheme.color.textColor.rawValue
+        $0.image = chevron
         $0.contentMode = .scaleAspectFit
     }
 
@@ -39,10 +51,12 @@ class GenreCell: UITableViewCell {
 
     func configureSubviews() {
         backgroundColor = Theme.currentTheme.color.backgroundColor.rawValue
-        addSubview(label)
+        addSubview(stackView)
+        stackView.addArrangedSubview(label)
+        stackView.addArrangedSubview(imageChevron)
     }
 
     func configureConstraints() {
-        label.edgesToSuperview(insets: .vertical(12) + .horizontal(12))
+        stackView.edgesToSuperview(insets: .vertical(12) + .horizontal(12))
     }
 }
