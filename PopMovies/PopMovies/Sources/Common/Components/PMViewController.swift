@@ -15,7 +15,6 @@ class PMViewController: UIViewController {
     let errorView = PMErrorView()
     let emptyView = PMEmptyView()
     var defaults = UserDefaults.standard
-    var isDark = false
 
     // MARK: - Properties
     private var pmNavigationController: PMNavigationController? {
@@ -40,7 +39,6 @@ class PMViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        defaults.set(isDark, forKey: "isDarkMode")
     }
 
     override func viewWillDisappear(_ animated: Bool) {

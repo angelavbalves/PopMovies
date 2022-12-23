@@ -15,7 +15,7 @@ class MoviesByGenreController: PMViewController {
     private let viewModel: MoviesByGenreViewModel
 
     // MARK: View
-    private lazy var rootView = PopMoviesView(
+    private lazy var rootView = MovieListView(
         fetchMoreMovies: { [weak self] in
             self?.getMoviesByGenre()
         },
