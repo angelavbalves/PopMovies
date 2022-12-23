@@ -11,6 +11,7 @@ enum ApiEndpoints: Equatable {
     case movies(page: Int)
     case similarMovies(id: Int, page: Int)
     case searchMovies(page: Int, query: String)
+    case listGenres
 }
 
 extension ApiEndpoints: Endpoint {
@@ -24,6 +25,8 @@ extension ApiEndpoints: Endpoint {
                 return "/3/movie/\(id)/similar"
             case .searchMovies:
                 return "/3/search/movie"
+            case .listGenres:
+                return "/3/genre/movie/list"
             default:
                 return "/3/movie/popular"
         }
@@ -53,6 +56,11 @@ extension ApiEndpoints: Endpoint {
                     .init(name: "query", value: query),
                     .init(name: "page", value: "\(page)"),
                     .init(name: "include_adult", value: "false")
+                ]
+            case .listGenres:
+                return [
+                    .init(name: "api_key", value: "f66bae459e0caf58012f1645bfb5e772"),
+                    .init(name: "language", value: "en-US")
                 ]
         }
     }

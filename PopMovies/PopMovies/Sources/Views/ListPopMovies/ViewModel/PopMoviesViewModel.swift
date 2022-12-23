@@ -28,7 +28,7 @@ class PopMoviesViewModel {
     }
 
     // MARK: - Aux
-    func getMovies(_ completion: @escaping (State) -> Void) {
+    func getMovies(_ completion: @escaping (PopMoviesState) -> Void) {
         service.getMovies(currentPage) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {

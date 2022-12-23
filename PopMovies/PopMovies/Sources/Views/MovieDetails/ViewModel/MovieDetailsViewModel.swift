@@ -31,7 +31,7 @@ class MovieDetailsViewModel {
     }
 
     // MARK: Aux
-    func getSimilarMovies(_ completion: @escaping (State) -> Void) {
+    func getSimilarMovies(_ completion: @escaping (PopMoviesState) -> Void) {
         service.similarMovies(movie.id, currentPage) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {

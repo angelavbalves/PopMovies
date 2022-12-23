@@ -11,6 +11,7 @@ struct PMService {
     var getMovies: (_ page: Int, _ result: @escaping (Result<MovieResponse, MovieErrorState>) -> Void) -> Void
     var similarMovies: (_ id: Int, _ page: Int, _ result: @escaping (Result<MovieResponse, MovieErrorState>) -> Void) -> Void
     var searchMovies: (_ page: Int, _ query: String, _ result: @escaping (Result<MovieResponse, MovieErrorState>) -> Void) -> Void
+    var listGenres: (_ completion: @escaping (Result<GenresResponse, MovieErrorState>) -> Void) -> Void
 }
 
 extension PMService {
@@ -37,6 +38,12 @@ extension PMService {
                         page: page,
                         query: query
                     ),
+                    result
+                )
+            },
+            listGenres: { result in
+                apiClient.makeRequest(
+                    endpoint: .listGenres,
                     result
                 )
             }
