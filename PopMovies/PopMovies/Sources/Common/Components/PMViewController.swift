@@ -17,6 +17,11 @@ class PMViewController: UIViewController {
     var defaults = UserDefaults.standard
     var isDark = false
 
+    // MARK: - Properties
+    private var pmNavigationController: PMNavigationController? {
+        navigationController as? PMNavigationController
+    }
+
     // MARK: - Init
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -61,6 +66,6 @@ class PMViewController: UIViewController {
     }
 
     @objc func closeButtonDidTap() {
-        navigationController?.dismiss(animated: true)
+        pmNavigationController?.dismiss(animated: true)
     }
 }

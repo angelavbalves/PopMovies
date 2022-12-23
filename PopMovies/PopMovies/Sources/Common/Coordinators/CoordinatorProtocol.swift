@@ -9,6 +9,6 @@ import Foundation
 import UIKit
 
 protocol CoordinatorProtocol {
-    var rootViewController: UINavigationController? { get }
+    var rootViewController: PMNavigationController? { get }
     func start()
 }

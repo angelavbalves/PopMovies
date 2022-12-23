@@ -12,7 +12,7 @@ class PopMoviesCoordinator: CoordinatorProtocol {
 
     // MARK: - Properties
     private var childCoordinator: [CoordinatorProtocol] = []
-    var rootViewController: UINavigationController?
+    var rootViewController: PMNavigationController?
 
     // MARK: - Init
     init(
@@ -32,6 +32,10 @@ class PopMoviesCoordinator: CoordinatorProtocol {
     // MARK: - Route
     func routeToDetails(of movie: MovieItem) {
         let coordinator = MovieDetailsCoordinator(movie: movie, parentNavigation: rootViewController)
+
+        coordinator.didFinish = { [weak self] in
+            self?.childCoordinator.removeAll()
+        }
 
         childCoordinator.append(coordinator)
         coordinator.start()

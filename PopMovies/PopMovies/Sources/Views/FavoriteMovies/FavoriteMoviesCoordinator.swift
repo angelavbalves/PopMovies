@@ -10,7 +10,7 @@ import UIKit
 class FavoriteMoviesCoordinator: CoordinatorProtocol {
 
     // MARK: - Properties
-    var rootViewController: UINavigationController?
+    var rootViewController: PMNavigationController?
     private var childCoordinator: [CoordinatorProtocol] = []
 
     // MARK: - Init

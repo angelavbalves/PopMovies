@@ -30,6 +30,14 @@ class PMNavigationController: UINavigationController {
         configureAppearance()
     }
 
+    // MARK: - Actions
+    var didFinish: (() -> Void)?
+
+    override func dismiss(animated flag: Bool, completion: (() -> Void)? = nil) {
+        super.dismiss(animated: flag, completion: completion)
+        didFinish?()
+    }
+
     // MARK: - Aux
     func configureAppearance() {
         let appearance = UINavigationBarAppearance()

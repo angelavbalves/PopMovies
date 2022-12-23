@@ -13,11 +13,7 @@ class MovieDetailsViewModel {
     // MARK: - Properties
     private let service: PMService
     private weak var coordinator: MovieDetailsCoordinator?
-    private(set) var movie: MovieItem {
-        didSet {
-            fetchFavoriteStatus()
-        }
-    }
+    private let movieReference: MovieItem
 
     private var currentPage = 1
     private var favoriteService: FavoriteMoviesService
@@ -29,7 +25,7 @@ class MovieDetailsViewModel {
         favoriteService: FavoriteMoviesService = .live(),
         coordinator: MovieDetailsCoordinator
     ) {
-        self.movie = movie
+        movieReference = movie
         self.service = service
         self.favoriteService = favoriteService
         self.coordinator = coordinator
@@ -37,7 +33,7 @@ class MovieDetailsViewModel {
 
     // MARK: Aux
     func getSimilarMovies(_ completion: @escaping (PopMoviesState) -> Void) {
-        service.similarMovies(movie.id, currentPage) { result in
+        service.similarMovies(movieReference.id, currentPage) { result in
             DispatchQueue.main.async { [weak self] in
                 switch result {
                     case .success(let movieSimilarResponse):
@@ -53,16 +49,17 @@ class MovieDetailsViewModel {
         }
     }
 
-    private func fetchFavoriteStatus() {
+    func didTapFavoriteButton(for movie: MovieItem) {
+        let isFavorite = favoriteService.verifyIfMovieIsInCoreData(movie.id)
+        isFavorite
+            ? favoriteService.removeMovie(movie.id)
+            : favoriteService.saveMovie(movie)
+    }
+
+    func getMovie() -> MovieItem {
+        var movie = movieReference
         movie.isFavorite = favoriteService.verifyIfMovieIsInCoreData(movie.id)
-    }
-
-    func saveMovieInCoreData(_ movie: MovieItem) {
-        favoriteService.saveMovie(movie)
-    }
-
-    func removeMovieOfCoreData(for id: Int) {
-        favoriteService.removeMovie(id)
+        return movie
     }
 
     func routeToDetails(of movie: MovieItem) {
@@ -75,12 +72,5 @@ class MovieDetailsViewModel {
 
     func returnPage() {
         coordinator?.returnPage()
-    }
-
-    func didTapFavoriteButton(for movie: MovieItem) {
-        let isFavorite = favoriteService.verifyIfMovieIsInCoreData(movie.id)
-        isFavorite
-            ? favoriteService.removeMovie(movie.id)
-            : favoriteService.saveMovie(movie)
     }
 }
