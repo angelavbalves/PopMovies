@@ -80,7 +80,7 @@ extension FavoriteMoviesView: UITableViewDataSource {
         if editingStyle == .delete {
             removeFavoriteMovie(movies[indexPath.row].id)
             movies.remove(at: indexPath.row)
-            tableView.reloadData()
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 }
