@@ -69,6 +69,8 @@ final class FavoriteMoviesDataSource: FavoriteMoviesDataSourceProtocol {
             if let movieToBeRemoved = movieToBeRemoved {
                 managedObjectContext.delete(movieToBeRemoved)
             }
+            try managedObjectContext.save()
+
         } catch {}
     }
 

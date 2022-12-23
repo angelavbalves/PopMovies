@@ -8,9 +8,9 @@
 import Foundation
 
 protocol FavoriteMoviesDataSourceProtocol {
-    func save(movie: MovieItem) throws
+    func save(movie: MovieItem)
     func verifyMovieInCoreData(for id: Int) -> Bool
-    func removeMovie(for id: Int) throws
-    func removeAllFavoriteMovies() throws
+    func removeMovie(for id: Int)
+    func removeAllFavoriteMovies() 
     func fetchAllMovies() -> [MovieItem]
 }
