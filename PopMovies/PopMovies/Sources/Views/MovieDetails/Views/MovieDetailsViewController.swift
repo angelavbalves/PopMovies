@@ -43,7 +43,7 @@ class MovieDetailsViewController: PMViewController {
     // MARK: - Setup
     func closeDetailsButton() {
         let image = UIImage(systemName: "xmark.circle")
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(closeButtonDidTap))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(closeButtonDidTap))
     }
 
     // MARK: - Aux

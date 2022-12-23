@@ -13,6 +13,13 @@ class GenresListView: PMView {
 
     // MARK: - Properties
     private var genres: [Genre] = []
+    private let didTapOnGenre: (_ id: Int, _ name: String) -> Void
+
+    // MARK: - Init
+    init(didTapOnGenre: @escaping (_ id: Int, _ name: String) -> Void) {
+        self.didTapOnGenre = didTapOnGenre
+        super.init()
+    }
 
     // MARK: - View
     private lazy var tableView = UITableView() .. {
@@ -39,7 +46,13 @@ class GenresListView: PMView {
 }
 
 // MARK: - TableView Delegate
-extension GenresListView: UITableViewDelegate {}
+extension GenresListView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let idGenre = genres[indexPath.row].id else { return }
+        guard let nameGenre = genres[indexPath.row].name else { return }
+        didTapOnGenre(idGenre, nameGenre)
+    }
+}
 
 // MARK: - TableView DataSource
 extension GenresListView: UITableViewDataSource {
