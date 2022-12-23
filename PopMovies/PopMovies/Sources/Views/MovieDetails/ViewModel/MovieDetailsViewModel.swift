@@ -11,14 +11,17 @@ import UIKit
 class MovieDetailsViewModel {
 
     let service: PMService
-    weak var coordinator: AppCordinator?
+    weak var coordinator: PopMoviesCoordinator?
     var currentPage = 1
+    var favoriteService: FavoriteMoviesService
 
     init(
         service: PMService = .live(),
-        coordinator: AppCordinator)
+        favoriteService: FavoriteMoviesService = .live(),
+        coordinator: PopMoviesCoordinator)
     {
         self.service = service
+        self.favoriteService = favoriteService
         self.coordinator = coordinator
     }
 
@@ -36,7 +39,14 @@ class MovieDetailsViewModel {
                         completion(.error)
                 }
             }
-
         }
+    }
+
+    func saveMovieInCoreData(_ movie: MovieItem) {
+        favoriteService.saveMovie(movie)
+    }
+
+    func removeMovieOfCoreData(for id: Int) {
+        favoriteService.removeMovie(id)
     }
 }

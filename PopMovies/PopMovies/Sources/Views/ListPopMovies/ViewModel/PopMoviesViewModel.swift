@@ -11,15 +11,18 @@ import UIKit
 class PopMoviesViewModel {
 
     var service: PMService
+    var favoriteService: FavoriteMoviesService
     var currentPage = 1
-    weak var coordinator: AppCordinator?
+    weak var coordinator: PopMoviesCoordinator?
 
     init(
         service: PMService = .live(),
-         coordinator: AppCordinator
+        favoriteService: FavoriteMoviesService = .live(),
+        coordinator: PopMoviesCoordinator
     ) {
-         self.coordinator = coordinator
+        self.coordinator = coordinator
         self.service = service
+        self.favoriteService = favoriteService
     }
 
     func getMovies(_ completion: @escaping (State) -> Void) {
@@ -37,5 +40,17 @@ class PopMoviesViewModel {
                 }
             }
         }
+    }
+
+    func saveMovieInCoreData(_ movie: MovieItem) {
+        favoriteService.saveMovie(movie)
+    }
+
+    func removeMovieOfCoreData(for id: Int) {
+        favoriteService.removeMovie(id)
+    }
+
+    func verifyMovieInCoreData(for id: Int) -> Bool {
+        favoriteService.verifyIfMovieIsInCoreData(id)
     }
 }
