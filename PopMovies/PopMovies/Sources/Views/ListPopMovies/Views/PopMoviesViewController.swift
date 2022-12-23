@@ -51,15 +51,14 @@ class PopMoviesViewController: PMViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Pop Movies"
-        getMovies()
-        navigationItem.searchController = searchController
-        loadInitialTheme()
+        getPopMovies()
+        navigationItem.searchController = searchBar
+        ThemeManager.addDarkModeObserver(to: self, selector: #selector(chooseTheme))
     }
-
-
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setImageButton(defaults.bool(forKey: "isDarkMode"))
         rootView.reloadCollectionView()
     }
 
@@ -74,6 +73,7 @@ class PopMoviesViewController: PMViewController {
                 target: self,
                 action: #selector(chooseTheme)
             )
+            isDark = true
         } else {
             navigationItem.leftBarButtonItem = UIBarButtonItem(
                 image: light,
@@ -81,24 +81,15 @@ class PopMoviesViewController: PMViewController {
                 target: self,
                 action: #selector(chooseTheme)
             )
+            isDark = false
         }
     }
 
-    private func loadInitialTheme() {
-        setImageButton(!isDarkModeSelected)
-    }
-
-    private func configureDarkMode() {
-        defaults.set(isDarkModeSelected, forKey: "isDarkMode")
-        view.window?.overrideUserInterfaceStyle = isDarkModeSelected ? .dark : .light
-    }
-
     @objc func chooseTheme() {
-        setImageButton(isDarkModeSelected)
-        isDarkModeSelected = !isDarkModeSelected
-    }
-
-    // MARK: - Aux
+        if isDark {
+            defaults.set(true, forKey: "isDarkMode")
+            setImageButton(false)
+            view.window?.overrideUserInterfaceStyle = .dark
     func fetchMoreMovies() {
         if isFiltering {
             filterMoviesByTitle(true, with: searchBarText)

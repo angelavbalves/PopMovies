@@ -18,8 +18,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(frame: UIScreen.main.bounds)
         self.window = window
-        let isDarkModeActive = UserDefaults.standard.bool(forKey: "isDarkMode")
-        window.overrideUserInterfaceStyle = isDarkModeActive ? .dark : .light
         self.appCordinator = AppCordinator(window: window)
         appCordinator?.start()
 
