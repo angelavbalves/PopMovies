@@ -8,10 +8,19 @@
 import Foundation
 
 class PopMoviesClient: PopMoviesClientProtocol {
-    func makeRequest<T: Decodable>(endpoint: ApiEndpoints, _ completion: @escaping (Result<T, MovieErrorState>) -> Void) {
+    func makeRequest<T: Decodable>(endpoint: ApiEndpoints, _ completion: @escaping (Result<T, ErrorState>) -> Void) {
         if let url = makeUrlRequest(endpoint: endpoint) {
             let task = URLSession.shared.dataTask(with: url) { data, response, error in
-                guard let data = data else { return }
+                guard let data = data else {
+                    completion(
+                        .failure(
+                            .generic(
+                                "Unexpected failure!\nUnable to recover data\nfrom the server."
+                            )
+                        )
+                    )
+                    return
+                }
                 if let response = response as? HTTPURLResponse {
                     switch response.statusCode {
                         case 200...299:
@@ -19,31 +28,63 @@ class PopMoviesClient: PopMoviesClientProtocol {
                                 let object: T = try data.decodeFromApi()
                                 completion(.success(object))
                             } catch {
-                                completion(.failure(.generic("\(error.localizedDescription)")))
+                                completion(
+                                    .failure(
+                                        .generic(
+                                            "That's an error to decode JSON"
+                                        )
+                                    )
+                                )
                             }
                             return
                         case 300...399:
                             print(response.debugDescription)
-                            completion(.failure(.redirectError))
+                            completion(
+                                .failure(
+                                    .redirectError(
+                                        "That's a redirect error!")
+                                )
+                            )
                             return
                         case 400...499:
                             print(response.debugDescription)
-                            completion(.failure(.clientError))
+                            completion(
+                                .failure(
+                                    .clientError(
+                                        "That's a client error!")
+                                )
+                            )
                             return
                         case 500...599:
                             print(response.debugDescription)
-                            completion(.failure(.serverError))
+                            completion(
+                                .failure(
+                                    .serverError(
+                                        "That's a server error!")
+                                )
+                            )
                             return
                         default:
                             return
                     }
                 } else {
-                    completion(.failure(.generic("\(String(describing: error?.localizedDescription))")))
+                    completion(
+                        .failure(
+                            .generic(
+                                "Unable to recover response"
+                            )
+                        )
+                    )
                 }
             }
             task.resume()
         } else {
-            completion(.failure(.generic("Failed to make url request")))
+            completion(
+                .failure(
+                    .generic(
+                        "Failed to make URL request")
+                )
+            )
         }
     }
 
@@ -63,5 +104,3 @@ class PopMoviesClient: PopMoviesClientProtocol {
         return component.url
     }
 }
-
-

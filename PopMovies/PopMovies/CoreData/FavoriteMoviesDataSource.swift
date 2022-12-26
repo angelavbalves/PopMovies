@@ -24,7 +24,7 @@ final class FavoriteMoviesDataSource: FavoriteMoviesDataSourceProtocol {
     // MARK: - Save
     /// Save the movie in the core data
     func save(movie: MovieItem) {
-        guard verifyMovieInCoreData(for: movie.id) == false else {
+        guard !verifyMovieInCoreData(for: movie.id) else {
             return
         }
 
@@ -69,6 +69,8 @@ final class FavoriteMoviesDataSource: FavoriteMoviesDataSourceProtocol {
             if let movieToBeRemoved = movieToBeRemoved {
                 managedObjectContext.delete(movieToBeRemoved)
             }
+            try managedObjectContext.save()
+
         } catch {}
     }
 
