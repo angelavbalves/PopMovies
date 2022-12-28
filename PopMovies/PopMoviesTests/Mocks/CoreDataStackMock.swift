@@ -15,7 +15,7 @@ class CoreDataStackMock: PopMoviesCoreDataProtocol {
         print("Save context called")
     }
 
-    var modelName: String = "FavoriteMovies"
+    var modelName: String = "FavoriteMovie"
 
     lazy var model: NSManagedObjectModel = {
        guard let modelURL = Bundle.main.url(forResource: modelName, withExtension: "momd") else {

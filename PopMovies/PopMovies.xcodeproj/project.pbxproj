@@ -7,12 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8E08AC572959EBB90031D9E7 /* FavoriteMovies.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8E08AC542959EBB90031D9E7 /* FavoriteMovies.xcdatamodeld */; };
-		8E08AC61295A0D330031D9E7 /* FavoriteMovieItem+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E08AC5F295A0D330031D9E7 /* FavoriteMovieItem+CoreDataClass.swift */; };
-		8E08AC62295A0D330031D9E7 /* FavoriteMovieItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E08AC60295A0D330031D9E7 /* FavoriteMovieItem+CoreDataProperties.swift */; };
 		8E1E118728F88FE900CA4179 /* CoreDataStackMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E118628F88FE900CA4179 /* CoreDataStackMock.swift */; };
 		8E1E118928F8AC8B00CA4179 /* PopMoviesCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E118828F8AC8B00CA4179 /* PopMoviesCoreDataStack.swift */; };
 		8E1E118B28F8B02D00CA4179 /* PopMoviesCoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E118A28F8B02D00CA4179 /* PopMoviesCoreDataProtocol.swift */; };
+		8E37BEE1295CB58000F4E0C4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E37BEE0295CB58000F4E0C4 /* CoreData.framework */; };
+		8E37BEE4295CB60300F4E0C4 /* FavoriteMovie.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8E37BEE2295CB60300F4E0C4 /* FavoriteMovie.xcdatamodeld */; };
 		8E3F1E0E29411832009DC68D /* PMErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3F1E0D29411832009DC68D /* PMErrorView.swift */; };
 		8E3F1E1029436DCD009DC68D /* PMEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3F1E0F29436DCD009DC68D /* PMEmptyView.swift */; };
 		8E5FEF1C291C30EB00A29A58 /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FEF1B291C30EB00A29A58 /* FavoriteButton.swift */; };
@@ -94,13 +93,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8E08AC552959EBB90031D9E7 /* PopMovies.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PopMovies.xcdatamodel; sourceTree = "<group>"; };
-		8E08AC562959EBB90031D9E7 /* FavoriteMovieItem.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoriteMovieItem.xcdatamodel; sourceTree = "<group>"; };
-		8E08AC5F295A0D330031D9E7 /* FavoriteMovieItem+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMovieItem+CoreDataClass.swift"; sourceTree = "<group>"; };
-		8E08AC60295A0D330031D9E7 /* FavoriteMovieItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteMovieItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8E1E118628F88FE900CA4179 /* CoreDataStackMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStackMock.swift; sourceTree = "<group>"; };
 		8E1E118828F8AC8B00CA4179 /* PopMoviesCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopMoviesCoreDataStack.swift; sourceTree = "<group>"; };
 		8E1E118A28F8B02D00CA4179 /* PopMoviesCoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopMoviesCoreDataProtocol.swift; sourceTree = "<group>"; };
+		8E37BEE0295CB58000F4E0C4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		8E37BEE3295CB60300F4E0C4 /* FavoriteMovie.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoriteMovie.xcdatamodel; sourceTree = "<group>"; };
 		8E3F1E0D29411832009DC68D /* PMErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMErrorView.swift; sourceTree = "<group>"; };
 		8E3F1E0F29436DCD009DC68D /* PMEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMEmptyView.swift; sourceTree = "<group>"; };
 		8E5FEF1B291C30EB00A29A58 /* FavoriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
@@ -178,6 +175,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8E6D14FF28F463ED005E8220 /* Kingfisher in Frameworks */,
+				8E37BEE1295CB58000F4E0C4 /* CoreData.framework in Frameworks */,
 				8E6D150228F46437005E8220 /* TinyConstraints in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -192,6 +190,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8E37BEDF295CB58000F4E0C4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8E37BEE0295CB58000F4E0C4 /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8E6735CB291AA23A008CE44B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,6 +212,7 @@
 				8E6D14E028F46257005E8220 /* PopMovies */,
 				8E6D152128F836A2005E8220 /* PopMoviesTests */,
 				8E6D14DF28F46257005E8220 /* Products */,
+				8E37BEDF295CB58000F4E0C4 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -248,11 +255,9 @@
 		8E6D150728F46982005E8220 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				8E08AC60295A0D330031D9E7 /* FavoriteMovieItem+CoreDataProperties.swift */,
-				8E08AC5F295A0D330031D9E7 /* FavoriteMovieItem+CoreDataClass.swift */,
+				8E37BEE2295CB60300F4E0C4 /* FavoriteMovie.xcdatamodeld */,
 				8E1E118A28F8B02D00CA4179 /* PopMoviesCoreDataProtocol.swift */,
 				8E1E118828F8AC8B00CA4179 /* PopMoviesCoreDataStack.swift */,
-				8E08AC542959EBB90031D9E7 /* FavoriteMovies.xcdatamodeld */,
 				8E6D150828F4699A005E8220 /* FavoriteMoviesDataSource.swift */,
 				8E6D150E28F4A4CC005E8220 /* FavoriteMoviesDataSourceProtocol.swift */,
 				8EF1BE1A290B1B7F00372CA6 /* FavoriteMoviesService.swift */,
@@ -725,6 +730,7 @@
 				8EF1BE132909D83200372CA6 /* CollectionReusableViews.swift in Sources */,
 				8EF1BDFD2906CECF00372CA6 /* CoordinatorProtocol.swift in Sources */,
 				8EF1BE062906D49E00372CA6 /* MovieDetailsViewModel.swift in Sources */,
+				8E37BEE4295CB60300F4E0C4 /* FavoriteMovie.xcdatamodeld in Sources */,
 				8EF1BE0A2908512600372CA6 /* PMNavigationController.swift in Sources */,
 				8E6735CA2919B122008CE44B /* PopMoviesCoordinator.swift in Sources */,
 				8E6735CD291AA251008CE44B /* FavoriteMoviesViewModel.swift in Sources */,
@@ -739,13 +745,10 @@
 				8EF1BDE12901B6FF00372CA6 /* TabBarController.swift in Sources */,
 				8EF1BDD42901966A00372CA6 /* ColorsApp.swift in Sources */,
 				8EEEEE7A292C08D6008FEB7B /* GenreCell.swift in Sources */,
-				8E08AC572959EBB90031D9E7 /* FavoriteMovies.xcdatamodeld in Sources */,
-				8E08AC62295A0D330031D9E7 /* FavoriteMovieItem+CoreDataProperties.swift in Sources */,
 				8E1E118928F8AC8B00CA4179 /* PopMoviesCoreDataStack.swift in Sources */,
 				8EF1BDEE2901D85500372CA6 /* PMView.swift in Sources */,
 				8EF1BDF62901E46A00372CA6 /* PopMoviesViewModel.swift in Sources */,
 				8E6D14E628F46257005E8220 /* PopMoviesViewController.swift in Sources */,
-				8E08AC61295A0D330031D9E7 /* FavoriteMovieItem+CoreDataClass.swift in Sources */,
 				8EF1BDC22900323300372CA6 /* PopMoviesClientProtocol.swift in Sources */,
 				8E3F1E1029436DCD009DC68D /* PMEmptyView.swift in Sources */,
 				8EEEEE76292BEC80008FEB7B /* Genre.swift in Sources */,
@@ -1085,14 +1088,13 @@
 /* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
-		8E08AC542959EBB90031D9E7 /* FavoriteMovies.xcdatamodeld */ = {
+		8E37BEE2295CB60300F4E0C4 /* FavoriteMovie.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				8E08AC552959EBB90031D9E7 /* PopMovies.xcdatamodel */,
-				8E08AC562959EBB90031D9E7 /* FavoriteMovieItem.xcdatamodel */,
+				8E37BEE3295CB60300F4E0C4 /* FavoriteMovie.xcdatamodel */,
 			);
-			currentVersion = 8E08AC552959EBB90031D9E7 /* PopMovies.xcdatamodel */;
-			path = FavoriteMovies.xcdatamodeld;
+			currentVersion = 8E37BEE3295CB60300F4E0C4 /* FavoriteMovie.xcdatamodel */;
+			path = FavoriteMovie.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

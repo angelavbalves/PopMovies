@@ -10,7 +10,7 @@ import CoreData
 
 open class PopMoviesCoreDataStack: PopMoviesCoreDataProtocol {
 
-    var modelName = "FavoriteMovies"
+    var modelName = "FavoriteMovie"
     var entityName = "FavoriteMovieItem"
 
     lazy var model: NSManagedObjectModel = {
