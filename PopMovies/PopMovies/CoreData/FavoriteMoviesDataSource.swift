@@ -40,7 +40,7 @@ final class FavoriteMoviesDataSource: FavoriteMoviesDataSourceProtocol {
 
     func verifyMovieInCoreData(for id: Int) -> Bool {
 
-        let nsRequest = NSFetchRequest<FavoriteMovieItem>(entityName: "FavoriteMovieItem")
+        let nsRequest = NSFetchRequest<FavoriteMovieItem>(entityName: coreDataStack.entityName)
         nsRequest.returnsObjectsAsFaults = false
 
         do {
@@ -56,7 +56,7 @@ final class FavoriteMoviesDataSource: FavoriteMoviesDataSourceProtocol {
 
     func removeMovie(for id: Int) {
 
-        let nsRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteMovieItem")
+        let nsRequest = NSFetchRequest<NSFetchRequestResult>(entityName: coreDataStack.entityName)
         nsRequest.returnsObjectsAsFaults = false
 
         do {
