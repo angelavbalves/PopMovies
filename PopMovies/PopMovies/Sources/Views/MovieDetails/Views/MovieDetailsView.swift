@@ -50,7 +50,7 @@ class MovieDetailsView: PMView, UIScrollViewDelegate {
         )
     }
 
-    ////     MARK: - Setup
+    // MARK: - Setup
     override func configureSubviews() {
         addSubview(collectionView)
     }
@@ -124,7 +124,17 @@ extension MovieDetailsView: UICollectionViewDelegateFlowLayout {
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, referenceSizeForHeaderInSection _: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 700)
+        calculateHeaderViewSize()
+    }
+
+    private func calculateHeaderViewSize() -> CGSize {
+        let headerView = HeaderCollectionReusableView()
+        headerView.setupView(with: movie, didTapFavoriteButton: { _ in })
+        return headerView.systemLayoutSizeFitting(
+            CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height),
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        )
     }
 
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
