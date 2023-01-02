@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import UIKit
 import TinyConstraints
+import UIKit
 
 class PMErrorView: PMView {
 
@@ -50,7 +50,7 @@ class PMErrorView: PMView {
         stackView.centerInSuperview(usingSafeArea: true)
         errorImage.height(80)
     }
-    
+
     func show(errorState: ErrorState) {
         isHidden = false
         switch errorState {

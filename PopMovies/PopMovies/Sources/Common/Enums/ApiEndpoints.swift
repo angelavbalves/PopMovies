@@ -28,7 +28,7 @@ extension ApiEndpoints: Endpoint {
                 return "/3/search/movie"
             case .listGenres:
                 return "/3/genre/movie/list"
-            case .discoverMoviesByGenres(_, _):
+            case .discoverMoviesByGenres:
                 return "/3/discover/movie"
             default:
                 return "/3/movie/popular"

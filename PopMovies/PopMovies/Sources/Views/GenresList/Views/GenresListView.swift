@@ -22,7 +22,7 @@ class GenresListView: PMView {
     }
 
     // MARK: - View
-    private lazy var tableView = UITableView(frame: .zero, style:   .grouped) .. {
+    private lazy var tableView = UITableView(frame: .zero, style: .grouped) .. {
         $0.delegate = self
         $0.dataSource = self
         $0.register(GenreCell.self, forCellReuseIdentifier: GenreCell.identifier)

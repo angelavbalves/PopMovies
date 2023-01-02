@@ -18,7 +18,7 @@ class GenresListViewModel {
     init(
         service: PMService = .live(),
         coordinator: GenresListCoordinator
-    ){
+    ) {
         self.service = service
         self.coordinator = coordinator
     }
