@@ -23,12 +23,13 @@ class PopMoviesCell: UICollectionViewCell {
         backgroundColor = Theme.currentTheme.color.cellBackgroundColor.rawValue
     }
 
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     private let imageView = UIImageView() .. {
-        $0.contentMode = .scaleAspectFit
+        $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 8.0
     }
@@ -37,8 +38,10 @@ class PopMoviesCell: UICollectionViewCell {
         self.movie = movie
         let url = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath ?? "")")
         imageView.kf.indicatorType = .activity
-        imageView.kf.setImage(with: url,
-                              placeholder: UIImage(named: "posterNotFound"))
+        imageView.kf.setImage(
+            with: url,
+            options: [.onFailureImage(UIImage(named: "posterNotFound"))]
+        )
     }
 
     func configureSubViews() {
@@ -46,7 +49,6 @@ class PopMoviesCell: UICollectionViewCell {
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.5
         layer.cornerRadius = 8.0
-        
     }
 
     func configureConstraints() {

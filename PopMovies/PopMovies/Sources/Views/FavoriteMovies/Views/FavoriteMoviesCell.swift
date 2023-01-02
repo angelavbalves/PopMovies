@@ -68,8 +68,10 @@ class FavoriteMoviesCell: UITableViewCell {
         releaseDate.text = movie.releaseDate
         let url = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath ?? "")")
         poster.kf.indicatorType = .activity
-        poster.kf.setImage(with: url,
-                           placeholder: UIImage(named: "posterNotFound"))
+        poster.kf.setImage(
+            with: url,
+            options: [.onFailureImage(UIImage(named: "posterNotFound"))]
+        )
     }
 
     func configureSubviews() {
