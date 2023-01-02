@@ -113,10 +113,10 @@ class HeaderCollectionReusableView: UICollectionReusableView {
     }
 
     func configureConstraints() {
-
         stackView.trailing(to: safeAreaLayoutGuide, offset: -16)
         stackView.leading(to: safeAreaLayoutGuide, offset: 16)
         stackView.top(to: safeAreaLayoutGuide, offset: 16)
+        stackView.bottom(to: safeAreaLayoutGuide, offset: -16)
 
         poster.height(256)
 
@@ -132,7 +132,10 @@ class HeaderCollectionReusableView: UICollectionReusableView {
         self.didTapFavoriteButton = didTapFavoriteButton
         let url = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath ?? "")")
         poster.kf.indicatorType = .activity
-        poster.kf.setImage(with: url, placeholder: UIImage(named: "posterNotFound"))
+        poster.kf.setImage(
+            with: url,
+            options: [.onFailureImage(UIImage(named: "posterNotFound"))]
+        )
         titleLabel.text = movie.title
         overviewLabel.text = movie.overview
         releaseDate.text = "Release date: \(movie.releaseDate ?? "")"
