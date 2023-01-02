@@ -110,7 +110,13 @@ extension MovieDetailsView: UICollectionViewDataSource {
 // MARK: - Collection View Delegate Flow Layout
 extension MovieDetailsView: UICollectionViewDelegateFlowLayout {
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
-        CGSize(width: 160, height: 240)
+        let width = isSmallScreen ? 120 : 160
+        let height = isSmallScreen ? 160 : 240
+        return CGSize(width: width, height: height)
+    }
+
+    func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, minimumInteritemSpacingForSectionAt _: Int) -> CGFloat {
+        8
     }
 
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, insetForSectionAt _: Int) -> UIEdgeInsets {
