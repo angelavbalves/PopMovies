@@ -12,6 +12,7 @@
 		8E1E118B28F8B02D00CA4179 /* PopMoviesCoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E1E118A28F8B02D00CA4179 /* PopMoviesCoreDataProtocol.swift */; };
 		8E37BEE1295CB58000F4E0C4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E37BEE0295CB58000F4E0C4 /* CoreData.framework */; };
 		8E37BEE4295CB60300F4E0C4 /* FavoriteMovie.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8E37BEE2295CB60300F4E0C4 /* FavoriteMovie.xcdatamodeld */; };
+		8E37BEEA2963181600F4E0C4 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E37BEE92963181600F4E0C4 /* UIView+Ext.swift */; };
 		8E3F1E0E29411832009DC68D /* PMErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3F1E0D29411832009DC68D /* PMErrorView.swift */; };
 		8E3F1E1029436DCD009DC68D /* PMEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3F1E0F29436DCD009DC68D /* PMEmptyView.swift */; };
 		8E5FEF1C291C30EB00A29A58 /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FEF1B291C30EB00A29A58 /* FavoriteButton.swift */; };
@@ -98,6 +99,7 @@
 		8E1E118A28F8B02D00CA4179 /* PopMoviesCoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopMoviesCoreDataProtocol.swift; sourceTree = "<group>"; };
 		8E37BEE0295CB58000F4E0C4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		8E37BEE3295CB60300F4E0C4 /* FavoriteMovie.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoriteMovie.xcdatamodel; sourceTree = "<group>"; };
+		8E37BEE92963181600F4E0C4 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
 		8E3F1E0D29411832009DC68D /* PMErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMErrorView.swift; sourceTree = "<group>"; };
 		8E3F1E0F29436DCD009DC68D /* PMEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMEmptyView.swift; sourceTree = "<group>"; };
 		8E5FEF1B291C30EB00A29A58 /* FavoriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
@@ -411,6 +413,7 @@
 			isa = PBXGroup;
 			children = (
 				8EF1BDC629006B3200372CA6 /* DataExt.swift */,
+				8E37BEE92963181600F4E0C4 /* UIView+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -767,6 +770,7 @@
 				8E6D14E228F46257005E8220 /* AppDelegate.swift in Sources */,
 				8EF1BDB428FEF61E00372CA6 /* ApiEndpoints.swift in Sources */,
 				8E6D14E428F46257005E8220 /* SceneDelegate.swift in Sources */,
+				8E37BEEA2963181600F4E0C4 /* UIView+Ext.swift in Sources */,
 				8EEEEE89292D0B06008FEB7B /* MoviesByGenreCoordinator.swift in Sources */,
 				8EF1BDEA2901BD3800372CA6 /* ListGenresViewController.swift in Sources */,
 				8EF1BDF32901DB3800372CA6 /* PopMoviesCell.swift in Sources */,
