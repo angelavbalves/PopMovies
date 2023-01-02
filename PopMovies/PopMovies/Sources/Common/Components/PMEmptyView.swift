@@ -6,8 +6,8 @@
 //
 
 import Foundation
-import UIKit
 import TinyConstraints
+import UIKit
 
 class PMEmptyView: PMView {
 
@@ -49,7 +49,7 @@ class PMEmptyView: PMView {
         stackView.centerInSuperview(usingSafeArea: true)
         emptyImage.height(120)
     }
-    
+
     func show(
         icon: UIImage,
         message: String

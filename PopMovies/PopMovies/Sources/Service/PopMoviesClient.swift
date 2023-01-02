@@ -10,7 +10,7 @@ import Foundation
 class PopMoviesClient: PopMoviesClientProtocol {
     func makeRequest<T: Decodable>(endpoint: ApiEndpoints, _ completion: @escaping (Result<T, ErrorState>) -> Void) {
         if let url = makeUrlRequest(endpoint: endpoint) {
-            let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            let task = URLSession.shared.dataTask(with: url) { data, response, _ in
                 guard let data = data else {
                     completion(
                         .failure(

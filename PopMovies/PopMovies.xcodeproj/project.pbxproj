@@ -13,6 +13,7 @@
 		8E37BEE1295CB58000F4E0C4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E37BEE0295CB58000F4E0C4 /* CoreData.framework */; };
 		8E37BEE4295CB60300F4E0C4 /* FavoriteMovie.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8E37BEE2295CB60300F4E0C4 /* FavoriteMovie.xcdatamodeld */; };
 		8E37BEEA2963181600F4E0C4 /* UIView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E37BEE92963181600F4E0C4 /* UIView+Ext.swift */; };
+		8E37BEEC29635BF800F4E0C4 /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E37BEEB29635BF800F4E0C4 /* String+Ext.swift */; };
 		8E3F1E0E29411832009DC68D /* PMErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3F1E0D29411832009DC68D /* PMErrorView.swift */; };
 		8E3F1E1029436DCD009DC68D /* PMEmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E3F1E0F29436DCD009DC68D /* PMEmptyView.swift */; };
 		8E5FEF1C291C30EB00A29A58 /* FavoriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E5FEF1B291C30EB00A29A58 /* FavoriteButton.swift */; };
@@ -54,7 +55,7 @@
 		8EF1BDBD28FF066B00372CA6 /* MovieResponse+Fixture.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EF1BDBC28FF066B00372CA6 /* MovieResponse+Fixture.json */; };
 		8EF1BDBF28FF180600372CA6 /* PopMoviesClientMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDBE28FF180600372CA6 /* PopMoviesClientMock.swift */; };
 		8EF1BDC22900323300372CA6 /* PopMoviesClientProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDC12900323300372CA6 /* PopMoviesClientProtocol.swift */; };
-		8EF1BDC729006B3200372CA6 /* DataExt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDC629006B3200372CA6 /* DataExt.swift */; };
+		8EF1BDC729006B3200372CA6 /* Data+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDC629006B3200372CA6 /* Data+Ext.swift */; };
 		8EF1BDCA2900712600372CA6 /* valid.json in Resources */ = {isa = PBXBuildFile; fileRef = 8EF1BDC92900712600372CA6 /* valid.json */; };
 		8EF1BDCF290071C200372CA6 /* ValidateDecodeJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDCE290071C200372CA6 /* ValidateDecodeJSON.swift */; };
 		8EF1BDD42901966A00372CA6 /* ColorsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EF1BDD32901966A00372CA6 /* ColorsApp.swift */; };
@@ -100,6 +101,7 @@
 		8E37BEE0295CB58000F4E0C4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		8E37BEE3295CB60300F4E0C4 /* FavoriteMovie.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FavoriteMovie.xcdatamodel; sourceTree = "<group>"; };
 		8E37BEE92963181600F4E0C4 /* UIView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Ext.swift"; sourceTree = "<group>"; };
+		8E37BEEB29635BF800F4E0C4 /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
 		8E3F1E0D29411832009DC68D /* PMErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMErrorView.swift; sourceTree = "<group>"; };
 		8E3F1E0F29436DCD009DC68D /* PMEmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMEmptyView.swift; sourceTree = "<group>"; };
 		8E5FEF1B291C30EB00A29A58 /* FavoriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteButton.swift; sourceTree = "<group>"; };
@@ -142,7 +144,7 @@
 		8EF1BDBC28FF066B00372CA6 /* MovieResponse+Fixture.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "MovieResponse+Fixture.json"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		8EF1BDBE28FF180600372CA6 /* PopMoviesClientMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopMoviesClientMock.swift; sourceTree = "<group>"; };
 		8EF1BDC12900323300372CA6 /* PopMoviesClientProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopMoviesClientProtocol.swift; sourceTree = "<group>"; };
-		8EF1BDC629006B3200372CA6 /* DataExt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataExt.swift; sourceTree = "<group>"; };
+		8EF1BDC629006B3200372CA6 /* Data+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Ext.swift"; sourceTree = "<group>"; };
 		8EF1BDC92900712600372CA6 /* valid.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = valid.json; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.json; };
 		8EF1BDCE290071C200372CA6 /* ValidateDecodeJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateDecodeJSON.swift; sourceTree = "<group>"; };
 		8EF1BDD32901966A00372CA6 /* ColorsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorsApp.swift; sourceTree = "<group>"; };
@@ -412,8 +414,9 @@
 		8EF1BDC529006B1100372CA6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				8EF1BDC629006B3200372CA6 /* DataExt.swift */,
+				8EF1BDC629006B3200372CA6 /* Data+Ext.swift */,
 				8E37BEE92963181600F4E0C4 /* UIView+Ext.swift */,
+				8E37BEEB29635BF800F4E0C4 /* String+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -739,12 +742,13 @@
 				8E6735CD291AA251008CE44B /* FavoriteMoviesViewModel.swift in Sources */,
 				8E75FAC22921CAEC003DB305 /* MovieDetailsCoordinator.swift in Sources */,
 				8E1E118B28F8B02D00CA4179 /* PopMoviesCoreDataProtocol.swift in Sources */,
+				8E37BEEC29635BF800F4E0C4 /* String+Ext.swift in Sources */,
 				8E6D150F28F4A4CC005E8220 /* FavoriteMoviesDataSourceProtocol.swift in Sources */,
 				8EEEEE74292BE967008FEB7B /* GenresListViewModel.swift in Sources */,
 				8E75FAC0291EE40B003DB305 /* FavoriteMoviesCoordinator.swift in Sources */,
 				8EF1BDF82902E10100372CA6 /* States.swift in Sources */,
 				8EEEEE8F292E90B8008FEB7B /* AppTheme.swift in Sources */,
-				8EF1BDC729006B3200372CA6 /* DataExt.swift in Sources */,
+				8EF1BDC729006B3200372CA6 /* Data+Ext.swift in Sources */,
 				8EF1BDE12901B6FF00372CA6 /* TabBarController.swift in Sources */,
 				8EF1BDD42901966A00372CA6 /* ColorsApp.swift in Sources */,
 				8EEEEE7A292C08D6008FEB7B /* GenreCell.swift in Sources */,

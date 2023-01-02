@@ -43,14 +43,14 @@ class FavoriteButton: UIButton {
     }
 
     func setBackgroundColor() {
-        if isHighlighted {
-            propertyAnimator.stopAnimation(true)
+        if self.isHighlighted {
+            self.propertyAnimator.stopAnimation(true)
             backgroundColor = Constants.ColorsApp.darkBlue
             return
         }
-        propertyAnimator.addAnimations {
+        self.propertyAnimator.addAnimations {
             self.backgroundColor = Constants.ColorsApp.lightBlue
         }
-        propertyAnimator.startAnimation()
+        self.propertyAnimator.startAnimation()
     }
 }

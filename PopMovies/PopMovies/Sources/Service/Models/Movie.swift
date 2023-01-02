@@ -17,7 +17,6 @@ struct MovieResponseItem: Codable, Equatable {
     let overview: String
     let posterPath: String?
     let releaseDate: String?
-    
 }
 
 struct Movies {
@@ -31,7 +30,6 @@ struct MovieItem: Equatable {
     let posterPath: String?
     let releaseDate: String?
     var isFavorite: Bool?
-
 
     init(from coreData: FavoriteMovieItem) {
         self.id = Int(coreData.id)
