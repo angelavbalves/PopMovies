@@ -50,7 +50,7 @@ class PopMoviesViewModel {
         if !isPaging {
             filteredMoviesCurrentPage = 1
         }
-        let sanitizedQuery = sanitizeString(query)
+        let sanitizedQuery = query.sanitized
         guard !sanitizedQuery.isEmpty else { return }
         service.searchMovies(filteredMoviesCurrentPage, sanitizedQuery) { result in
             DispatchQueue.main.async {

@@ -11,9 +11,9 @@ class PopMoviesViewController: PMViewController {
 
     // MARK: -  ViewModel
     private let viewModel: PopMoviesViewModel
-    private var searchBarText = ""
     private var isFiltering: Bool {
-        !(searchController.searchBar.text?.isEmpty ?? false)
+        let searchBarText = searchController.searchBar.text ?? ""
+        return searchBarText.isNotEmpty
     }
 
     private lazy var isDarkModeSelected = defaults.bool(forKey: "isDarkMode") {
@@ -55,8 +55,6 @@ class PopMoviesViewController: PMViewController {
         navigationItem.searchController = searchController
         loadInitialTheme()
     }
-
-
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -101,7 +99,8 @@ class PopMoviesViewController: PMViewController {
     // MARK: - Aux
     func fetchMoreMovies() {
         if isFiltering {
-            filterMoviesByTitle(true, with: searchBarText)
+            let searchString = searchController.searchBar.text ?? ""
+            filterMoviesByTitle(true, with: searchString)
         } else {
             getMovies()
         }
@@ -153,12 +152,11 @@ class PopMoviesViewController: PMViewController {
 
 extension PopMoviesViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text, !text.isEmpty else {
+        guard let searchText = searchController.searchBar.text, !searchText.isEmpty else {
             emptyView.hide()
             return
         }
-        searchBarText = text.lowercased()
-        filterMoviesByTitle(false, with: searchBarText)
+        filterMoviesByTitle(false, with: searchText.sanitized)
         emptyView.hide()
     }
 }
