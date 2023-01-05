@@ -118,3 +118,14 @@ extension MovieListView: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension MovieListView: UICollectionViewDataSourcePrefetching {
+    func collectionView(_: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        let lastIndexPath = indexPaths.last?.row ?? 0
+        let limit = filteredMovies.endIndex - 10
+
+        if lastIndexPath >= limit, !isLoadingMoreMovies {
+            isLoadingMoreMovies = true
+            fetchMoreMovies()
+        }
+    }
+}

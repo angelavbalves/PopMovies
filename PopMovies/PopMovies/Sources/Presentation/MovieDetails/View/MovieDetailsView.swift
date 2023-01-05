@@ -145,3 +145,14 @@ extension MovieDetailsView: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension MovieDetailsView: UICollectionViewDataSourcePrefetching {
+    func collectionView(_: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        let lastIndexPath = indexPaths.last?.row ?? 0
+        let limit = similarMovies.endIndex - 10
+
+        if lastIndexPath >= limit, !isLoadingMoreMovies {
+            isLoadingMoreMovies = true
+            fetchSimilarMovies()
+        }
+    }
+}
