@@ -75,3 +75,12 @@ class FavoriteMoviesViewController: PMViewController {
     }
 }
 
+extension FavoriteMoviesViewController: ScrollableProtocol {
+    func canScrollToTop() -> Bool {
+        rootView.tableView.contentOffset.y > 0
+    }
+
+    func scrollToTop() {
+        rootView.tableView.setContentOffset(.zero, animated: true)
+    }
+}

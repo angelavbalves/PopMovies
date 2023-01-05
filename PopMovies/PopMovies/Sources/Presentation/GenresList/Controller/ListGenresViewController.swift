@@ -53,3 +53,12 @@ class GenresListViewController: PMViewController {
     }
 }
 
+extension GenresListViewController: ScrollableProtocol {
+    func canScrollToTop() -> Bool {
+        listView.tableView.contentOffset.y > 0
+    }
+
+    func scrollToTop() {
+        listView.tableView.setContentOffset(.zero, animated: true)
+    }
+}

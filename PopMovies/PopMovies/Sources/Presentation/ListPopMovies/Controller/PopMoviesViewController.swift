@@ -170,3 +170,12 @@ extension PopMoviesViewController: UISearchBarDelegate {
     }
 }
 
+extension PopMoviesViewController: ScrollableProtocol {
+    func canScrollToTop() -> Bool {
+        rootView.collectionView.contentOffset.y > 0
+    }
+
+    func scrollToTop() {
+        rootView.collectionView.setContentOffset(.zero, animated: true)
+    }
+}

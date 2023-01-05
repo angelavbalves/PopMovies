@@ -34,4 +34,14 @@ class TabBarController: UITabBarController {
     }
 }
 
+extension TabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        if
+            let navController = viewController as? PMNavigationController,
+            let scrollable = navController.visibleViewController as? ScrollableProtocol,
+            scrollable.canScrollToTop()
+        {
+            scrollable.scrollToTop()
+        }
+    }
 }
