@@ -11,7 +11,6 @@ import UIKit
 class PMViewController: UIViewController {
 
     // MARK: - View
-    let loadingView = PMLoadingView()
     let errorView = PMErrorView()
     let emptyView = PMEmptyView()
     var defaults = UserDefaults.standard
@@ -37,10 +36,6 @@ class PMViewController: UIViewController {
         configureViews()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
@@ -50,10 +45,8 @@ class PMViewController: UIViewController {
 
     // MARK: - Aux
     func configureViews() {
-        view.addSubview(loadingView)
         view.addSubview(errorView)
         view.addSubview(emptyView)
-        loadingView.edgesToSuperview()
         errorView.edgesToSuperview()
         emptyView.edgesToSuperview()
         view.backgroundColor = Theme.currentTheme.color.backgroundColor.rawValue
