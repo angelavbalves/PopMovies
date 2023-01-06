@@ -140,9 +140,10 @@ class PopMoviesViewController: PMViewController {
                             message: "There aren't movies\nwith this title!"
                         )
                     }
-                    !isPagingFilteredMovies
-                        ? self?.rootView.getFilteredMovies(movies)
-                        : self?.rootView.showSearchResults(movies)
+                    guard !movies.isEmpty else { return }
+                    isPagingFilteredMovies
+                        ? self?.rootView.showSearchResults(movies)
+                        : self?.rootView.getFilteredMovies(movies)
                     return
                 case .error(let error):
                     self?.errorView.show(errorState: error)

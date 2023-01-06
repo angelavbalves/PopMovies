@@ -67,7 +67,7 @@ class MovieListView: PMView {
     }
 
     func getFilteredMovies(_ results: [MovieItem]) {
-        filteredMovies = results
+        moviesResearched = results
         isLoadingMoreMovies = false
     }
 
