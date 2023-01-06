@@ -12,8 +12,11 @@ import UIKit
 
 class MovieCell: UICollectionViewCell {
 
+    // MARK: - Properties
     static let identifier = "movieCell"
+    private var imageDownloadTask: DownloadTask?
 
+    // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureSubViews()
@@ -26,13 +29,14 @@ class MovieCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
+    // MARK: - Views
     private let imageView = UIImageView() .. {
         $0.contentMode = .scaleAspectFill
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 8.0
     }
 
-    private let title = UILabel() .. {
+    private let titleLabel = UILabel() .. {
         $0.lineBreakMode = .byWordWrapping
         $0.numberOfLines = 0
         $0.textAlignment = .center
@@ -42,32 +46,43 @@ class MovieCell: UICollectionViewCell {
         $0.width(100)
     }
 
-    func configureSubViews() {
+    // MARK: - Life cycle
+    private func configureSubViews() {
         addSubview(imageView)
-        addSubview(title)
+        addSubview(titleLabel)
         layer.shadowColor = UIColor.black.cgColor
         layer.shadowOpacity = 0.5
         layer.cornerRadius = 8.0
     }
 
-    func configureConstraints() {
+    private func configureConstraints() {
         imageView.edgesToSuperview()
-        title.centerInSuperview()
+        titleLabel.centerInSuperview()
     }
 
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.isHidden = true
+        titleLabel.text = ""
+        imageDownloadTask?.cancel()
+        imageDownloadTask = nil
+    }
+
+
+    // MARK: - Setup
     func setup(for movie: MovieItem) {
         let url = URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath ?? "")")
         imageView.kf.indicatorType = .activity
-        imageView.kf.setImage(
+        imageDownloadTask = imageView.kf.setImage(
             with: url
         ) { [weak self] result in
             switch result {
                 case .success:
-                    self?.title.isHidden = true
+                    self?.titleLabel.isHidden = true
                     return
                 case .failure:
-                    self?.title.isHidden = false
-                    self?.title.text = movie.title
+                    self?.titleLabel.isHidden = false
+                    self?.titleLabel.text = movie.title
                     return
             }
         }
