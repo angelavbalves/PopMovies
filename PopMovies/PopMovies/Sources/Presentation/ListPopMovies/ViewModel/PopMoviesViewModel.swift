@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PopMoviesViewModel {
+final class PopMoviesViewModel {
 
     // MARK: - Properties
     private let service: PMService
@@ -28,7 +28,7 @@ class PopMoviesViewModel {
         self.favoriteService = favoriteService
     }
 
-    // MARK: - Aux
+    // MARK: - Network
     func getMovies(_ completion: @escaping (PopMoviesState) -> Void) {
         service.getMovies(popMoviesCurrentPage) { result in
             DispatchQueue.main.async { [weak self] in
@@ -61,10 +61,11 @@ class PopMoviesViewModel {
                         completion(.error(error))
                 }
             }
+            self.filteredMoviesCurrentPage += 1
         }
-        filteredMoviesCurrentPage += 1
     }
 
+    // - MARK: - Routing
     func routeToDetails(of movie: MovieItem) {
         coordinator?.routeToDetails(of: movie)
     }

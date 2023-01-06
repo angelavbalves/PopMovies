@@ -12,7 +12,7 @@ class PopMoviesViewController: PMViewController {
     // MARK: -  ViewModel
     private let viewModel: PopMoviesViewModel
     private var isFiltering: Bool {
-        guard let searchBarText = searchController.searchBar.text else { return false }
+        let searchBarText = searchController.searchBar.text ?? ""
         return searchBarText.isNotEmpty
     }
 
@@ -63,7 +63,7 @@ class PopMoviesViewController: PMViewController {
     }
 
     // MARK: - Setup dark mode button
-    func setImageButton(_ isSelected: Bool) {
+    private func setImageButton(_ isSelected: Bool) {
         let light = UIImage(systemName: "sun.max")
         let dark = UIImage(systemName: "moon")
         if isSelected {
@@ -92,13 +92,14 @@ class PopMoviesViewController: PMViewController {
         view.window?.overrideUserInterfaceStyle = isDarkModeSelected ? .dark : .light
     }
 
-    @objc func chooseTheme() {
+    @objc
+    private func chooseTheme() {
         setImageButton(isDarkModeSelected)
         isDarkModeSelected = !isDarkModeSelected
     }
 
     // MARK: - Aux
-    func fetchMoreMovies() {
+    private func fetchMoreMovies() {
         if isFiltering {
             let searchString = searchController.searchBar.text ?? ""
             filterMoviesByTitle(true, with: searchString)
@@ -107,7 +108,7 @@ class PopMoviesViewController: PMViewController {
         }
     }
 
-    func getMovies() {
+    private func getMovies() {
         viewModel.getMovies { [weak self] state in
             switch state {
                 case .success(let movies):
@@ -118,6 +119,7 @@ class PopMoviesViewController: PMViewController {
                             message: "We didn't find\nmovies for you!"
                         )
                     }
+                    guard !movies.isEmpty else { return }
                     self?.rootView.receive(movies)
                 case .error(let error):
                     self?.errorView.show(errorState: error)
@@ -125,11 +127,11 @@ class PopMoviesViewController: PMViewController {
         }
     }
 
-    func didTapOnMovieAction(_ movie: MovieItem) {
+    private func didTapOnMovieAction(_ movie: MovieItem) {
         viewModel.routeToDetails(of: movie)
     }
 
-    func filterMoviesByTitle(_ isPagingFilteredMovies: Bool, with searchBarText: String) {
+    private func filterMoviesByTitle(_ isPagingFilteredMovies: Bool, with searchBarText: String) {
         viewModel.filterMovies(isPagingFilteredMovies, searchBarText) { [weak self] state in
             switch state {
                 case .success(let movies):
@@ -156,6 +158,7 @@ extension PopMoviesViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text, !searchText.isEmpty else {
             emptyView.hide()
+            rootView.resetFilteredMovies()
             return
         }
         filterMoviesByTitle(false, with: searchText.sanitized)
