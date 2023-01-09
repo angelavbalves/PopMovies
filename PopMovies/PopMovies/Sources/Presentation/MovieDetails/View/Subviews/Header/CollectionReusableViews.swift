@@ -1,5 +1,5 @@
 //
-//  CollectionReusableViews.swift
+//  MovieDetailsHeaderView.swift
 //  PopMovies
 //
 //  Created by Angela Alves on 26/10/22.
@@ -9,7 +9,7 @@ import Foundation
 import TinyConstraints
 import UIKit
 
-class HeaderCollectionReusableView: UICollectionReusableView {
+class MovieDetailsHeaderView: UICollectionReusableView {
     static let identifier = "HeaderCollectionReusableView"
     private var movie: MovieItem?
     private var didTapFavoriteButton: ((_ movie: MovieItem) -> Void)?
@@ -131,7 +131,7 @@ class HeaderCollectionReusableView: UICollectionReusableView {
         )
         titleLabel.text = movie.title
         overviewLabel.text = movie.overview
-        releaseDate.text = "Release date: \(movie.releaseDate ?? "")"
+        releaseDate.text = "Release date: \(movie.releaseDate ?? "unavailable")"
         isFavorite = movie.isFavorite ?? false
     }
 

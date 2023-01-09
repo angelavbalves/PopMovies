@@ -42,8 +42,6 @@ class MovieCell: UICollectionViewCell {
         $0.textAlignment = .center
         $0.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         $0.textColor = Theme.currentTheme.color.textColor.rawValue
-        $0.height(300)
-        $0.width(100)
     }
 
     // MARK: - Life cycle
@@ -57,7 +55,7 @@ class MovieCell: UICollectionViewCell {
 
     private func configureConstraints() {
         imageView.edgesToSuperview()
-        titleLabel.centerInSuperview()
+        titleLabel.edgesToSuperview(insets: .uniform(6))
     }
 
     override func prepareForReuse() {

@@ -46,9 +46,13 @@ class MovieDetailsView: PMView {
             forCellWithReuseIdentifier: MovieCell.identifier
         )
         $0.register(
-            HeaderCollectionReusableView.self,
+            SimilarMoviesEmptyCell.self,
+            forCellWithReuseIdentifier: SimilarMoviesEmptyCell.identifier
+        )
+        $0.register(
+            MovieDetailsHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: HeaderCollectionReusableView.identifier
+            withReuseIdentifier: MovieDetailsHeaderView.identifier
         )
         $0.prefetchDataSource = self
     }
@@ -73,6 +77,7 @@ class MovieDetailsView: PMView {
 // MARK: - Collection View Delegate
 extension MovieDetailsView: UICollectionViewDelegate {
     func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard !similarMovies.isEmpty else { return }
         let movie = similarMovies[indexPath.row]
         didTapOnMovie(movie)
     }
@@ -80,23 +85,33 @@ extension MovieDetailsView: UICollectionViewDelegate {
 
 // MARK: - Collection View DataSource
 extension MovieDetailsView: UICollectionViewDataSource {
+
     func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
-        similarMovies.count
+        similarMovies.isEmpty ? 1 : similarMovies.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.identifier, for: indexPath) as! MovieCell
 
-        let movie = similarMovies[indexPath.row]
-        cell.setup(for: movie)
+        if similarMovies.isEmpty {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: SimilarMoviesEmptyCell.identifier, for: indexPath)
 
-        return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MovieCell.identifier, for: indexPath) as! MovieCell
+
+            let movie = similarMovies[indexPath.row]
+            cell.setup(for: movie)
+
+            return cell
+        }
     }
 }
 
 // MARK: - Collection View Delegate Flow Layout
 extension MovieDetailsView: UICollectionViewDelegateFlowLayout {
     func collectionView(_: UICollectionView, layout _: UICollectionViewLayout, sizeForItemAt _: IndexPath) -> CGSize {
+        guard !similarMovies.isEmpty else {
+            return .init(width: collectionView.frame.width - 70, height: 100)
+        }
         let width = isSmallScreen ? 120 : 160
         let height = isSmallScreen ? 160 : 240
         return CGSize(width: width, height: height)
@@ -115,7 +130,7 @@ extension MovieDetailsView: UICollectionViewDelegateFlowLayout {
     }
 
     private func calculateHeaderViewSize() -> CGSize {
-        let headerView = HeaderCollectionReusableView()
+        let headerView = MovieDetailsHeaderView()
         headerView.setupView(with: movie, didTapFavoriteButton: { _ in })
         return headerView.systemLayoutSizeFitting(
             CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height),
@@ -128,9 +143,9 @@ extension MovieDetailsView: UICollectionViewDelegateFlowLayout {
         if kind == UICollectionView.elementKindSectionHeader {
             let headerView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
-                withReuseIdentifier: HeaderCollectionReusableView.identifier,
+                withReuseIdentifier: MovieDetailsHeaderView.identifier,
                 for: indexPath
-            ) as! HeaderCollectionReusableView
+            ) as! MovieDetailsHeaderView
 
             headerView.setupView(
                 with: movie,
