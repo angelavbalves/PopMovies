@@ -46,9 +46,13 @@ class MovieDetailsView: PMView {
             forCellWithReuseIdentifier: MovieCell.identifier
         )
         $0.register(
-            HeaderCollectionReusableView.self,
+            SimilarMoviesEmptyCell.self,
+            forCellWithReuseIdentifier: SimilarMoviesEmptyCell.identifier
+        )
+        $0.register(
+            MovieDetailsHeaderView.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: HeaderCollectionReusableView.identifier
+            withReuseIdentifier: MovieDetailsHeaderView.identifier
         )
         $0.prefetchDataSource = self
     }
@@ -126,7 +130,7 @@ extension MovieDetailsView: UICollectionViewDelegateFlowLayout {
     }
 
     private func calculateHeaderViewSize() -> CGSize {
-        let headerView = HeaderCollectionReusableView()
+        let headerView = MovieDetailsHeaderView()
         headerView.setupView(with: movie, didTapFavoriteButton: { _ in })
         return headerView.systemLayoutSizeFitting(
             CGSize(width: collectionView.frame.width, height: UIView.layoutFittingExpandedSize.height),
@@ -139,9 +143,9 @@ extension MovieDetailsView: UICollectionViewDelegateFlowLayout {
         if kind == UICollectionView.elementKindSectionHeader {
             let headerView = collectionView.dequeueReusableSupplementaryView(
                 ofKind: kind,
-                withReuseIdentifier: HeaderCollectionReusableView.identifier,
+                withReuseIdentifier: MovieDetailsHeaderView.identifier,
                 for: indexPath
-            ) as! HeaderCollectionReusableView
+            ) as! MovieDetailsHeaderView
 
             headerView.setupView(
                 with: movie,
